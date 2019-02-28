@@ -28,7 +28,6 @@ namespace MMTP_LMS.Controllers
 
             var org = _context.Person.Include(p => p.Course);
 
-            var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
 
             return View();
         }

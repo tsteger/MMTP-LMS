@@ -5,3 +5,30 @@
 
 <h1>Admin startsida</h1>
 
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Name)
+            </th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.Courses)
+        {
+            <tr>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                
+                
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
