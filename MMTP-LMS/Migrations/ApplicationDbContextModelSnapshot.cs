@@ -4,20 +4,18 @@ using MMTP_LMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MMTP_LMS.Data.Migrations
+namespace MMTP_LMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190227143407_PeopleController")]
-    partial class PeopleController
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -58,6 +56,8 @@ namespace MMTP_LMS.Data.Migrations
 
                     b.Property<int>("PersonId");
 
+                    b.Property<string>("PersonId1");
+
                     b.Property<DateTime>("TimeStamp");
 
                     b.Property<string>("Url");
@@ -70,7 +70,7 @@ namespace MMTP_LMS.Data.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonId1");
 
                     b.ToTable("Document");
                 });
@@ -136,27 +136,6 @@ namespace MMTP_LMS.Data.Migrations
                     b.ToTable("Module");
                 });
 
-            modelBuilder.Entity("MMTP_LMS.Models.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CourseId");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Person");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -211,6 +190,9 @@ namespace MMTP_LMS.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -250,6 +232,8 @@ namespace MMTP_LMS.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -322,6 +306,21 @@ namespace MMTP_LMS.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MMTP_LMS.Models.Person", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int?>("CourseId");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasDiscriminator().HasValue("Person");
+                });
+
             modelBuilder.Entity("MMTP_LMS.Models.Document", b =>
                 {
                     b.HasOne("MMTP_LMS.Models.Course")
@@ -338,8 +337,7 @@ namespace MMTP_LMS.Data.Migrations
 
                     b.HasOne("MMTP_LMS.Models.Person")
                         .WithMany("Documents")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PersonId1");
                 });
 
             modelBuilder.Entity("MMTP_LMS.Models.LmsActivity", b =>
@@ -359,14 +357,6 @@ namespace MMTP_LMS.Data.Migrations
                 {
                     b.HasOne("MMTP_LMS.Models.Course", "Course")
                         .WithMany("Modules")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MMTP_LMS.Models.Person", b =>
-                {
-                    b.HasOne("MMTP_LMS.Models.Course", "Course")
-                        .WithMany("People")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -414,6 +404,13 @@ namespace MMTP_LMS.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MMTP_LMS.Models.Person", b =>
+                {
+                    b.HasOne("MMTP_LMS.Models.Course", "Course")
+                        .WithMany("People")
+                        .HasForeignKey("CourseId");
                 });
 #pragma warning restore 612, 618
         }
