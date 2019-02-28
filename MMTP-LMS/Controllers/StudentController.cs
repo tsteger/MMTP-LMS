@@ -24,11 +24,9 @@ namespace MMTP_LMS.Controllers
             //return View(await applicationDbContext.ToListAsync());
             var student_email = _context.Person.Select(s => s.Email);
             var student_course_id = _context.Person.Select(s => s.Course.Id);
+                                  
 
-
-            var org = _context.Person.Include(p => p.Course);
-
-            var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
+            // var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
 
             return View();
         }
