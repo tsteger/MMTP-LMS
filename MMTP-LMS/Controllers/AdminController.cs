@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MMTP_LMS.Data;
+using MMTP_LMS.ViewModels;
 
 namespace MMTP_LMS.Controllers
 {
@@ -16,18 +16,18 @@ namespace MMTP_LMS.Controllers
         {
             _context = context;
         }
-                
-        public IActionResult AdminListView()
+        public IActionResult Index()
         {
+            var student_email = _context.Person.Select(s => s.Email);
+            //var student_course_id = _context.Person.Select(s => s.Course.Id);
             var courses = _context.Course.Select(c => c.Name);
-            var modules = _context.Module.Select(m => m.Name);
-            var lmsActivities = _context.LmsActivity.Select(m => m.Name);
-            var documents = _context.Document.Select(d => d.Name);
-            var people = _context.Person.Select(p => p.FirstName);
 
+            var adminViewModel = new AdminViewModel()
+            {
+                Courses = _context.Course.Where(c => c.Id == 1).ToList()
+            };
 
-            return View();
+            return View(adminViewModel);
         }
-
     }
 }
