@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using MMTP_LMS.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MMTP_LMS.Models;
 
 namespace MMTP_LMS
 {
@@ -38,7 +39,7 @@ namespace MMTP_LMS
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<Person>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
