@@ -65,8 +65,12 @@ namespace MMTP_LMS
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
+            });
 
-            app.UseMvc(routes =>
+                app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
