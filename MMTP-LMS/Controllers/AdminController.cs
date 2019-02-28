@@ -24,7 +24,7 @@ namespace MMTP_LMS.Controllers
 
             var adminViewModel = new AdminViewModel()
             {
-                Courses = _context.Course.Where(c => c.Id == 1).ToList()
+                Courses = _context.Course.Where(c => c.Name != null).ToList()
             };
 
             return View(adminViewModel);
