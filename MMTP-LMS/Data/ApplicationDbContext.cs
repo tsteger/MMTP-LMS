@@ -15,5 +15,6 @@ namespace MMTP_LMS.Data
         }
         public DbSet<MMTP_LMS.Models.Person> Person { get; set; }
         public DbSet<MMTP_LMS.Models.Document> Document { get; set; }
+        public DbSet<MMTP_LMS.Models.LmsActivity> LmsActivity { get; set; }
     }
 }
