@@ -41,8 +41,9 @@ namespace MMTP_LMS.Controllers
 
             var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate.Day<=DateTime.Now.Day && m.EndTime.Day >= DateTime.Now.Day);
 
-
             
+
+
 
             ViewBag.Course = _context.Course.Where(i=>i.Id == user_course_id).Select(n=> n.Name).FirstOrDefault();
 
