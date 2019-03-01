@@ -25,12 +25,20 @@ namespace MMTP_LMS.Controllers
         }
         public IActionResult Student()
         {
-            ClaimsPrincipal currentUser = this.User;
-            var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;  // null chek
-            var userName = _userManager.GetUserName(currentUser);
-            var testEmail = _context.Person.Select(e => e.Email).ToArray();
-            
+            // --- Code för senare kanske
+            //ClaimsPrincipal currentUser = this.User;         
+            //var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;  // null chek
+            //var userName = _userManager.GetUserName(currentUser);
+            //_userManager.GetUsersInRoleAsync
 
+
+            var userName = User.Identity.Name;        
+            if (userName == null)
+            {
+                return RedirectToAction("Index","Home");
+            }
+            var testEmail = _context.Person.Select(e => e.Email).ToArray();  
+            
             var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)
                 .FirstOrDefault();
@@ -39,28 +47,13 @@ namespace MMTP_LMS.Controllers
                 .Select(m => m.Id)
                 .FirstOrDefault();
 
-            
-
              var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate<=DateTime.Now && m.EndTime <= DateTime.Now);
            
-           //var studentViewModel = new StudentViewModel
-           //{
-           //    Name = today_activities.Select(n=>n.Name).
-           //}.ToArray();
+         
 
-           //var ret = Mapper.Map<ViewModels.StudentViewModel>(today_activitys);
-           //  var today_activity = _context.LmsActivity.Where(d => d.StartDate >= DateTime.Now && d.EndTime >= DateTime.Now && d.ModuleId == today_module_id);
-
-
-
-
-           //var student_email = _context.UserLogins.Select(c => c.UserId).ToArray();
-           //var student_course_id = _context.Person.Select(s => s.Course.Id).ToArray();
-           //  var student_course_module = _context.Person.Select(s=>s.Email).Where
-
-           var org = _context.Person.Include(p => p.Course);
-
-          //  var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
+           
+            // Later code
+           //  var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
 
             return View(today_activities);
         }

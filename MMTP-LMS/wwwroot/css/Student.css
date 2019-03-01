@@ -1,8 +1,23 @@
-﻿
+﻿#todays_header {
+    padding: 0.4em 1em 0.4em 0.4em;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    margin: 20px;
+}
 #date_header {
     background-color: antiquewhite;
+    border-radius: 5px;
 }
 
 #activity_header {
     font-weight: bold;
+}
+#activity_description{
+    
+}
+#activity_group {
+    margin:5px;
+    padding:3px;
+    border: 1px solid black;
+    border-radius:5px;
 }

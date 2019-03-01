@@ -4,23 +4,26 @@
     ViewData["Title"] = "Student" + "";
 }
 
-<h1>Dagens Aktiviteter </h1>
+<h1 id="todays_header">Dagens Aktiviteter </h1>
 <div class="container-fluid">
     <section class="row title-row"></section>
     <section id="activity">
 
         @foreach (var item in Model)
         {
-            <div class="col" id="date_header">
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </div>
-            <div class="w-100"></div>
-            <div class="col" id="activity_header">
-                @Html.DisplayFor(modelItem => item.Name)
-            </div>
-            <div class="w-100"></div>
-            <div class="col">
-                @Html.DisplayFor(modelItem => item.Description)
+            <div id="activity_group">
+                <div class="col" id="date_header">
+                    @Html.DisplayFor(modelItem => item.StartDate) --
+                    @Html.DisplayFor(modelItem => item.LmsActivityTypeId)
+                </div>
+                <div class="w-100"></div>
+                <div class="col" id="activity_header">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </div>
+                <div class="w-100"></div>
+                <div class="col" id="activity_description">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </div>
             </div>
 
         }
