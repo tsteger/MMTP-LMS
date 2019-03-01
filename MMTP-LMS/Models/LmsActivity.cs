@@ -11,8 +11,9 @@ namespace MMTP_LMS.Models
         public int Id { get; set; }
         [Display(Name = "Activity Name")]
         public string Name { get; set; }
-        [Display(Name = "Start Time")]
-        [DataType(DataType.Time)]
+        public string Description { get; set; }
+        [Display(Name = "Start Date")]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
         [Display(Name = "End Time")]
         [DataType(DataType.Time)]
