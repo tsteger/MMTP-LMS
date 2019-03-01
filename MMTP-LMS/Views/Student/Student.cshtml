@@ -4,17 +4,18 @@
     ViewData["Title"] = "Student" + "";
 }
 
-<h1>Dagens Activiteter </h1>
+<h1>Dagens Aktiviteter </h1>
 <div class="container-fluid">
     <section class="row title-row"></section>
     <section id="activity">
 
         @foreach (var item in Model)
         {
-            <div class="col">
+            <div class="col" id="date_header">
                 @Html.DisplayFor(modelItem => item.StartDate)
             </div>
-            <div class="col">
+            <div class="w-100"></div>
+            <div class="col" id="activity_header">
                 @Html.DisplayFor(modelItem => item.Name)
             </div>
             <div class="w-100"></div>
