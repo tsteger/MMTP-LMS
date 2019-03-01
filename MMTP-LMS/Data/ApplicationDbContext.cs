@@ -13,8 +13,8 @@ namespace MMTP_LMS.Data
             : base(options)
         {
         }
-       
 
+        
 
         public DbSet<MMTP_LMS.Models.Person> Person { get; set; }
         public DbSet<MMTP_LMS.Models.Document> Document { get; set; }

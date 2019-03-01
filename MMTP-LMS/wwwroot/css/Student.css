@@ -1,18 +1,18 @@
 ﻿#todays_header {
     padding: 0.4em 1em 0.4em 0.4em;
-    background-color: antiquewhite;
+    background-color: #f7e8d1;
     border-radius: 5px;
     margin: 20px;
 }
 #date_header {
-    background-color: antiquewhite;
+    background-color:#f7e8d1;
     border-radius: 5px;
 }
 
 #activity_header {
     font-weight: bold;
 }
-#activity_description{
+#activity_description {
     
 }
 #activity_group {
@@ -20,4 +20,15 @@
     padding:3px;
     border: 1px solid black;
     border-radius:5px;
+    background-color:#f4f0ec;
 }
+#course_name {
+    font-size: 50%;
+    
+}
+.thestyle {
+    font-family: 'Laila', sans-serif;
+}
+/*font-family: 'Laila', serif;
+font-family: 'Ubuntu', sans-serif;
+font-family: 'Josefin Sans', sans-serif;*/
