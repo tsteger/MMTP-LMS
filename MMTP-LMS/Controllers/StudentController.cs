@@ -24,20 +24,12 @@ namespace MMTP_LMS.Controllers
             _userManager = userManager;
         }
         public IActionResult Student()
-        {
-            // --- Code för senare kanske
-            //ClaimsPrincipal currentUser = this.User;         
-            //var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;  // null chek
-            //var userName = _userManager.GetUserName(currentUser);
-            //_userManager.GetUsersInRoleAsync
-
-
+        {           
             var userName = User.Identity.Name;        
             if (userName == null)
             {
                 return RedirectToAction("Index","Home");
             }
-            var testEmail = _context.Person.Select(e => e.Email).ToArray();  
             
             var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)
@@ -47,15 +39,26 @@ namespace MMTP_LMS.Controllers
                 .Select(m => m.Id)
                 .FirstOrDefault();
 
-             var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate<=DateTime.Now && m.EndTime <= DateTime.Now);
-           
-         
+            var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate.Day<=DateTime.Now.Day && m.EndTime.Day >= DateTime.Now.Day);
 
-           
-            // Later code
-           //  var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
 
-            return View(today_activities);
+            
+
+            ViewBag.Course = _context.Course.Where(i=>i.Id == user_course_id).Select(n=> n.Name).FirstOrDefault();
+
+            var ret = today_activities.Select(x => new StudentViewModel()
+            {
+                Name        = x.Name,
+                Description = x.Description,
+                StartDate   = x.StartDate,
+                EndTime     = x.EndTime,            
+                Documents   = x.Documents,
+                LmsActivityType = x.LmsActivityType,              
+                AntalDagar = x.StartDate.Day - x.EndTime.Day,
+               
+
+            });
+            return View(ret);
         }
     }
 }
