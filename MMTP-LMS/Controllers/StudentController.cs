@@ -50,29 +50,15 @@ namespace MMTP_LMS.Controllers
             //  var today_activity = _context.LmsActivity.Where(d => d.StartDate >= DateTime.Now && d.EndTime >= DateTime.Now && d.ModuleId == today_module_id);
 
 
-            //var studentSet = _context
-            //    .Person;
-
-            //var students = studentSet
-            //    .Where(p => p.Email.ToLower().Trim() == userName.ToLower().Trim());
-
-            //var student_course_id = students
-            //    .Select(p => p.CourseId)
-            //    .First();
-
-
-
-            //  var student_course_n = _context.Person.Select(o => o.Email.ToLower().Trim() == userName.ToLower().Trim());
-
 
 
             //var student_email = _context.UserLogins.Select(c => c.UserId).ToArray();
             //var student_course_id = _context.Person.Select(s => s.Course.Id).ToArray();
             //  var student_course_module = _context.Person.Select(s=>s.Email).Where
 
-            //var org = _context.Person.Include(p => p.Course);
+            var org = _context.Person.Include(p => p.Course);
 
-            //  var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
+          //  var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
 
             return View(today_activitys);
         }
