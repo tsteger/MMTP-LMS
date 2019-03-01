@@ -84,6 +84,45 @@
         }
     </tbody>
 </table>
+<h2>Activities</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivities[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivities[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivities[0].EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivities[0].Documents)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.LmsActivities)
+        {
+            <tr>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.Documents)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 <h2>Documents</h2>
 <table class="table">
     <thead>

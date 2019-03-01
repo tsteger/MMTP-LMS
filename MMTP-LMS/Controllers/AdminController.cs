@@ -19,14 +19,16 @@ namespace MMTP_LMS.Controllers
         public IActionResult Index()
         {
             var student_email = _context.Person.Select(s => s.Email);
-            //var student_course_id = _context.Person.Select(s => s.Course.Id);
+            var student_course_id = _context.Person.Select(s => s.Course.Id);
             var courses = _context.Course.Select(c => c.Name);
 
             var adminViewModel = new AdminViewModel()
             {
                 Courses = _context.Course.Where(c => c.Id != 0).ToList(),
                 Modules = _context.Module.Where(m => m.Id != 0).ToList(),
-                Documents = _context.Document.Where(d => d.Id != 0).ToList()
+                Documents = _context.Document.Where(d => d.Id != 0).ToList(),
+                // Users = _context.User.Where(u => u.Id != null).ToList()
+                LmsActivities = _context.LmsActivity.Where(l => l.Id != 0).ToList()
             };
 
             return View(adminViewModel);
