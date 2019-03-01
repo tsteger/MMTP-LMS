@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace MMTP_LMS.ViewModels
 {
-    public class AddOrEditCourseViewModel : AdminViewModel
+    public class AddOrEditCourseViewModel
     {
+        
 
     }
 }
