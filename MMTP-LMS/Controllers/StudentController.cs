@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MMTP_LMS.Data;
 using MMTP_LMS.Models;
+using MMTP_LMS.ViewModels;
 
 namespace MMTP_LMS.Controllers
 {
@@ -32,10 +33,21 @@ namespace MMTP_LMS.Controllers
 
             var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)
-                .First();
+                .FirstOrDefault();
 
+            var today_module_id = _context.Module.Where(d => d.StartDate <= DateTime.Now && d.CourseId== user_course_id)
+                .Select(p => p.Id)
+                .ToArray();
 
+            var today_activitys = _context.LmsActivity.Where(m=>m.ModuleId==1).ToArray();
 
+            //var ret = new StudentViewModel
+            //{
+               
+            //};
+
+            //var ret = Mapper.Map<ViewModels.StudentViewModel>(today_activitys);
+            //  var today_activity = _context.LmsActivity.Where(d => d.StartDate >= DateTime.Now && d.EndTime >= DateTime.Now && d.ModuleId == today_module_id);
 
 
             //var studentSet = _context
@@ -62,7 +74,7 @@ namespace MMTP_LMS.Controllers
 
             //  var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
 
-            return View();
+            return View(today_activitys);
         }
     }
 }

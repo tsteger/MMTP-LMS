@@ -8,13 +8,23 @@ namespace MMTP_LMS.ViewModels
 {
     public class StudentViewModel
     {
-           
-        public string Name { get; set; }     
-        public DateTime StartDate { get; set; }    
-        public DateTime EndTime { get; set; }        
+     
+        public string Name { get; set; }
+       
+       
+        public DateTime StartDate { get; set; }
+      
+        public DateTime EndTime { get; set; }
+      
         public LmsActivityType LmsActivityType { get; set; }
-    
-        public Module Module { get; set; }      
+        public int LmsActivityTypeId { get; set; }
+
+        public int ModuleId { get; set; }
+        
+        public Module Module { get; set; }
+
+       
         public ICollection<Document> Documents { get; set; }
+
     }
 }
