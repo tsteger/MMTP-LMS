@@ -162,4 +162,43 @@
         }
     </tbody>
 </table>
+<h2>Students</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Students[0].UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Students[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Students[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Students[0].Course)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td class="table-active">
+                    @Html.DisplayFor(modelItem => item.Course.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
