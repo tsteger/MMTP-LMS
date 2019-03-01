@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MMTP_LMS.Data;
 using MMTP_LMS.Models;
+using MMTP_LMS.ViewModels;
 
 namespace MMTP_LMS.Controllers
 {
@@ -28,20 +29,26 @@ namespace MMTP_LMS.Controllers
             var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;  // null chek
             var userName = _userManager.GetUserName(currentUser);
             var testEmail = _context.Person.Select(e => e.Email).ToArray();
+            
 
-            var studentSet = _context
-                .Person;
-
-            var students = studentSet
-                .Where(p => p.Email.ToLower().Trim() == userName.ToLower().Trim());
-
-            var student_course_id = students
+            var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)
-                .First();
+                .FirstOrDefault();
 
+            var today_module_id = _context.Module.Where(d => d.StartDate <= DateTime.Now && d.CourseId== user_course_id)
+                .Select(p => p.Id)
+                .ToArray();
 
+            var today_activitys = _context.LmsActivity.Where(m=>m.ModuleId==1).ToArray();
 
-            var student_course_n = _context.Person.Select(o => o.Email.ToLower().Trim() == userName.ToLower().Trim());
+            //var ret = new StudentViewModel
+            //{
+               
+            //};
+
+            //var ret = Mapper.Map<ViewModels.StudentViewModel>(today_activitys);
+            //  var today_activity = _context.LmsActivity.Where(d => d.StartDate >= DateTime.Now && d.EndTime >= DateTime.Now && d.ModuleId == today_module_id);
+
 
 
 
@@ -53,7 +60,7 @@ namespace MMTP_LMS.Controllers
 
           //  var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
 
-            return View();
+            return View(today_activitys);
         }
     }
 }

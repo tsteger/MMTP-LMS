@@ -68,7 +68,8 @@ namespace MMTP_LMS
             app.UseAuthentication();
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
+                cfg.CreateMap<Models.LmsActivity, ViewModels.StudentViewModel>();
+                //cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
             });
 
                 app.UseMvc(routes =>
