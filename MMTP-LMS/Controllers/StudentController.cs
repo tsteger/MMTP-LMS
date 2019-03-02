@@ -22,13 +22,14 @@ namespace MMTP_LMS.Controllers
         {
             _context = context;
             _userManager = userManager;
-           
+            
         }
 
         
 
         public IActionResult Student(double id = 0)
         {
+            if (id == 0) Nav_date = 0d;
             Nav_date += id;
             var userName = User.Identity.Name;        
             if (userName == null)
