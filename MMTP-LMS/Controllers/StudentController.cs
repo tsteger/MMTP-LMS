@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace MMTP_LMS.Controllers
             _context = context;
             _userManager = userManager;
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Student()
         {           
             var userName = User.Identity.Name;        
