@@ -3,6 +3,8 @@
     background-color: #f7e8d1;
     border-radius: 5px;
     margin: 20px;
+    font-size: 3.5vw;
+    
 }
 #date_header {
     background-color:#f7e8d1;
@@ -26,9 +28,20 @@
     font-size: 50%;
     
 }
+.no_new_line {
+    white-space: nowrap;
+}
+.nav_button {
+    margin: 5px;
+   
+}
+.nav_button_img {
+   
+}
 .thestyle {
     font-family: 'Laila', sans-serif;
 }
+
 /*font-family: 'Laila', serif;
 font-family: 'Ubuntu', sans-serif;
 font-family: 'Josefin Sans', sans-serif;*/

@@ -4,7 +4,21 @@
     ViewData["Title"] = "Student" + "";
 }
 
-<h1 id="todays_header" class="thestyle">Dagens Aktiviteter <span id="course_name">@ViewBag.Course</span>  </h1>
+<h1 id="todays_header" class="thestyle">
+    <span>@ViewBag.TodayHeader</span>
+
+
+    <span class="no_new_line">
+        <a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" asp-route-id="1">
+            <img class="nav_button_img" src="~/src/forward-icon.png" />
+        </a>
+        <a class="btn btn-outline-secondary float-right nav_button btn-sm" asp-action="Student" asp-route-id="-1">
+            <img class="nav_button_img" src="~/src/back-icon.png" />
+        </a>
+    </span>
+    <p><span id="course_name" class="no_new_line">@ViewBag.Course</span></p>
+</h1>
+
 <div class="container-fluid">
     <section class="row title-row"></section>
     <section id="activity">
