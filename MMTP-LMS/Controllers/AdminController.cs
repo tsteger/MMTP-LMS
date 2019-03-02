@@ -36,7 +36,7 @@ namespace MMTP_LMS.Controllers
 
             return View(adminViewModel);
         }
-        public IActionResult Create()
+        public IActionResult CreateCourse()
         {
             return View();
         }
