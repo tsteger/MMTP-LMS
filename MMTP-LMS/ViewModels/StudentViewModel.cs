@@ -1,4 +1,5 @@
-﻿using MMTP_LMS.Models;
+﻿using Microsoft.AspNetCore.Http;
+using MMTP_LMS.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,5 +22,7 @@ namespace MMTP_LMS.ViewModels
 
         public ICollection<Document> Documents { get; set; }
         static public double nav_date { get; set; }
+
+        public IFormFile FileToUpload { get; set; }
     }
 }

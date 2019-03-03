@@ -54,9 +54,7 @@ namespace MMTP_LMS.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("PersonId");
-
-                    b.Property<string>("PersonId1");
+                    b.Property<string>("PersonId");
 
                     b.Property<DateTime>("TimeStamp");
 
@@ -70,7 +68,7 @@ namespace MMTP_LMS.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.HasIndex("PersonId1");
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Document");
                 });
@@ -339,7 +337,7 @@ namespace MMTP_LMS.Migrations
 
                     b.HasOne("MMTP_LMS.Models.Person")
                         .WithMany("Documents")
-                        .HasForeignKey("PersonId1");
+                        .HasForeignKey("PersonId");
                 });
 
             modelBuilder.Entity("MMTP_LMS.Models.LmsActivity", b =>
