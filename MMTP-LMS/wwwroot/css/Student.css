@@ -1,12 +1,19 @@
-﻿#todays_header {
-    padding: 0.4em 1em 0.4em 0.4em;
-    background-color: #f7e8d1;
+﻿body {
+    font-size: 14px;
+   
+}
+#todays_header {
+    padding: 0.4em 1em 0.8em 0.4em;
+    background-color: #ff0000;
     border-radius: 5px;
     margin: 20px;
+    font-size: 3.5vw;
+    color:white;
 }
 #date_header {
-    background-color:#f7e8d1;
+    background-color: #ff0000;
     border-radius: 5px;
+    color: white;
 }
 
 #activity_header {
@@ -18,7 +25,7 @@
 #activity_group {
     margin:5px;
     padding:3px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     border-radius:5px;
     background-color:#f4f0ec;
 }
@@ -26,8 +33,34 @@
     font-size: 50%;
     
 }
+.no_new_line {
+    white-space: nowrap;
+}
+.nav_button {
+    margin: 5px;
+   
+}
+.nav_button_img {
+   
+}
 .thestyle {
     font-family: 'Laila', sans-serif;
+}
+#user {
+    /*margin: 5px;*/
+    /*padding: 3px;*/
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    padding: 0.4em;
+    background-color: #f4f0ec;
+}
+.user_box {
+    margin: 1em;
+    
+    
+}
+#submit_header {
+    font-weight: bold;
 }
 /*font-family: 'Laila', serif;
 font-family: 'Ubuntu', sans-serif;

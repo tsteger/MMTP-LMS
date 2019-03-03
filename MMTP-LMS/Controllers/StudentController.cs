@@ -18,15 +18,20 @@ namespace MMTP_LMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
-
+        public static double Nav_date { get; private set; }
         public StudentController(ApplicationDbContext context, UserManager<Person> userManager)
         {
             _context = context;
             _userManager = userManager;
+            
         }
-        [Authorize(Roles = "Admin")]
-        public IActionResult Student()
-        {           
+
+        
+
+        public IActionResult Student(double id = 0)
+        {
+            if (id == 0) Nav_date = 0d;
+            Nav_date += id;
             var userName = User.Identity.Name;        
             if (userName == null)
             {
@@ -41,11 +46,14 @@ namespace MMTP_LMS.Controllers
                 .Select(m => m.Id)
                 .FirstOrDefault();
 
-            var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate.Day<=DateTime.Now.Day && m.EndTime.Day >= DateTime.Now.Day);
-
-            
+            var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate.Day<=DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
 
 
+
+            if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
+            else if(Nav_date ==-1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
+            else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
+            else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Aktiviteter";
 
             ViewBag.Course = _context.Course.Where(i=>i.Id == user_course_id).Select(n=> n.Name).FirstOrDefault();
 
