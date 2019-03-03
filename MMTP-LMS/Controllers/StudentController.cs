@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +20,14 @@ namespace MMTP_LMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
+        private readonly IHostingEnvironment _hostingEnvironment;
+
         public static double Nav_date { get; private set; }
-        public StudentController(ApplicationDbContext context, UserManager<Person> userManager)
+        public StudentController(ApplicationDbContext context, UserManager<Person> userManager, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _userManager = userManager;
-            
+            _hostingEnvironment = hostingEnvironment;
         }
 
         
@@ -71,5 +75,35 @@ namespace MMTP_LMS.Controllers
             });
             return View(ret);
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(IFormFile file, string txt)
+        {
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string contentRootPath = _hostingEnvironment.ContentRootPath;
+            var path = Path.Combine(
+                        webRootPath, "Documents",
+                        file.FileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            var doc = new Document
+            {
+                Name = file.FileName,
+                Description = User.Identity.Name + " "+txt,
+                TimeStamp = DateTime.Now,
+                Url = path,
+               // PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
+
+            };
+            _context.Document.Add(doc);
+            _context.SaveChanges();
+            
+            return RedirectToAction("Student", "Student");
+        }       
+        
     }
 }

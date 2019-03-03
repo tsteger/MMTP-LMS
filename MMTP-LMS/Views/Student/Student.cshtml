@@ -68,16 +68,18 @@
     <section id="user">
         <div>
             <div  class="thestyle">
-                <form>
+                <form asp-controller="Student" asp-action="UploadFile" method="post"
+                      enctype="multipart/form-data">
                     <div class="form-group user_box">
-                        <label id="submit_header" for="user_form">Lämna in din upgift</label>
-                        <textarea class="form-control" id="user_form" rows="3"></textarea>
+                        <label id="submit_header" for="user_form">Description av document</label>
+                        <textarea name="txt" class="form-control" id="user_form" rows="2"></textarea>
                         <label for="user_form">Lämna in filer</label>
-                        <input type="file" class="form-control-file" id="user_form">
+                        <input type="file" name="file" class="form-control-file" id="user_form">
                         <br />
+                        <button type="submit">Upload File</button>
                         @*<div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
-                        </div>*@
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>*@
                     </div>
                 </form>
             </div>

@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="DEVTools\" />
+    <Folder Include="wwwroot\Documents\" />
   </ItemGroup>
 
 </Project>
