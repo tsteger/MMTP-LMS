@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Student" + "";
+    var param = ViewContext.RouteData.Values["id"];
 }
 
 <h1 id="todays_header" class="thestyle">
@@ -51,9 +52,15 @@
                 <div class="col">
                     @foreach (var doc in item.Documents)
                     {
-
-                        <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
-                        <span> : </span>
+                       @if(ViewBag.TodayHeader == "Dagens Aktiviteter")
+                        {
+                            <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
+                        }
+                        else
+                        {
+                            <span>@Html.DisplayFor(modelItem => doc.Name)</span>
+                        }
+                            <span> | @param </span>
                     }
                 </div>
             </div>
