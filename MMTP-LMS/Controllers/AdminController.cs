@@ -17,7 +17,7 @@ namespace MMTP_LMS.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var student_email = _context.Person.Select(s => s.Email);

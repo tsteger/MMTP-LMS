@@ -14,5 +14,6 @@ namespace MMTP_LMS.ViewModels
         public List<LmsActivity> LmsActivities { get; set; }
         public List<Document> Documents { get; set; }
         public List<Person> Admins { get; set; }
+        
     }
 }
