@@ -18,6 +18,7 @@
 
 #activity_header {
     font-weight: bold;
+    margin-top:1em;
 }
 #activity_description {
     
@@ -65,5 +66,8 @@
 .uploaded_files{
     padding-top:1em;
     font-style:italic;
+}
+#brand_img{
+    width: 100px;
 }
 /*font-family: 'Nunito Sans', sans-serif;*/
