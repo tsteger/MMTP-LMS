@@ -79,7 +79,11 @@ namespace MMTP_LMS.Controllers
         public async Task<IActionResult> UploadFile(IFormFile file, string txt)
         {
             if (file == null || file.Length == 0)
-                return Content("file not selected");
+            {              
+                return Content("file not selected");              
+            }
+            
+               
             string webRootPath = _hostingEnvironment.WebRootPath;
             string contentRootPath = _hostingEnvironment.ContentRootPath;
             var path = Path.Combine(

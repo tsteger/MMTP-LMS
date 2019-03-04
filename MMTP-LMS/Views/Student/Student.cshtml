@@ -2,8 +2,10 @@
 
 @{
     ViewData["Title"] = "Student" + "";
-    var param = ViewContext.RouteData.Values["id"];
+    
+
 }
+
 
 <h1 id="todays_header" class="thestyle">
     <span>@ViewBag.TodayHeader</span>
@@ -52,15 +54,10 @@
                 <div class="col">
                     @foreach (var doc in item.Documents)
                     {
-                       @if(ViewBag.TodayHeader == "Dagens Aktiviteter")
-                        {
-                            <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
-                        }
-                        else
-                        {
-                            <span>@Html.DisplayFor(modelItem => doc.Name)</span>
-                        }
-                            <span> | @param </span>
+
+                        <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
+
+                        <span> | </span>
                     }
                 </div>
             </div>
@@ -74,19 +71,19 @@
     </section>
     <section id="user">
         <div>
-            <div  class="thestyle">
+            <div class="thestyle">
                 <form asp-controller="Student" asp-action="UploadFile" method="post"
                       enctype="multipart/form-data">
                     <div class="form-group user_box">
                         <label id="submit_header" for="user_form">Description av document</label>
                         <textarea name="txt" class="form-control" id="user_form" rows="2"></textarea>
                         <label for="user_form">Lämna in filer</label>
-                        <input type="file" name="file" class="form-control-file" id="user_form">
+                        <input type="file" name="file" class="form-control-file" id="user_form" required="required">
                         <br />
                         <button type="submit">Upload File</button>
                         @*<div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>*@
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>*@
                     </div>
                 </form>
             </div>
@@ -94,21 +91,7 @@
     </section>
     <section>
         <div><hr /></div>
-        <div>
-            Info:
-            Documents som lärare laddat up syns nu under Description förutsatt att det finns i DB.
-            Här är ett exampel in DB:
-            Name = JQuery
-            URL = ../Documents/Example.txt
-            PersonId = 1
-            CourseId = 3
-            LmsActivityId = 4
-            ModuleId = 7
-            PersonId = Null
-            (Id typer måste stämma överens med dom du har i db, i mitt example och min db så syns nu documents och är klickbara så man kan titta på dom)
-
-        </div>
-
+        
     </section>
 </div>
 
