@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MMTP_LMS.Data;
 using MMTP_LMS.ViewModels;
@@ -16,6 +17,7 @@ namespace MMTP_LMS.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var student_email = _context.Person.Select(s => s.Email);
