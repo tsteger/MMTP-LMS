@@ -31,7 +31,7 @@ namespace MMTP_LMS.Controllers
             //var userName = _userManager.GetUserName(currentUser);
             //_userManager.GetUsersInRoleAsync
 
-
+           
             var userName = User.Identity.Name;        
             if (userName == null)
             {
@@ -48,12 +48,11 @@ namespace MMTP_LMS.Controllers
                 .FirstOrDefault();
 
              var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate<=DateTime.Now && m.EndTime <= DateTime.Now);
-           
-         
+
 
            
             // Later code
-           //  var ret = Mapper.Map<ViewModels.StudentViewModel>(org);
+             var ret = Mapper.Map<ViewModels.StudentViewModel>(today_activities.ToArray());
 
             return View(today_activities);
         }

@@ -69,7 +69,7 @@ namespace MMTP_LMS
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Models.LmsActivity, ViewModels.StudentViewModel>();
-                //cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
+                cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
             });
 
                 app.UseMvc(routes =>
