@@ -91,7 +91,19 @@
     </section>
     <section>
         <div><hr /></div>
-        
+        <div class="col">
+            @foreach (var item in Model)
+            {
+                @foreach (var userdoc in item.UserDocuments)
+                {
+
+                    <a href="@Html.DisplayFor(modelItem => userdoc.Url)">@Html.DisplayFor(modelItem => userdoc.Name)</a>
+
+                    <span> | </span>
+                }
+            }
+
+        </div>
     </section>
 </div>
 

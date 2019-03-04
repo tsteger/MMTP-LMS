@@ -41,7 +41,9 @@ namespace MMTP_LMS.Controllers
             {
                 return RedirectToAction("Index","Home");
             }
-            
+            var user_doc = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
+               .Select(p => p.Documents)
+               .FirstOrDefault();
             var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)
                 .FirstOrDefault();
@@ -63,14 +65,14 @@ namespace MMTP_LMS.Controllers
 
             var ret = today_activities.Select(x => new StudentViewModel()
             {
-                Name        = x.Name,
+                Name = x.Name,
                 Description = x.Description,
-                StartDate   = x.StartDate,
-                EndTime     = x.EndTime,            
-                Documents   = x.Documents,
-                LmsActivityType = x.LmsActivityType,              
+                StartDate = x.StartDate,
+                EndTime = x.EndTime,
+                Documents = x.Documents,
+                LmsActivityType = x.LmsActivityType,
                 AntalDagar = x.StartDate.Day - x.EndTime.Day,
-               
+                UserDocuments = user_doc
 
             });
             return View(ret);
@@ -83,7 +85,7 @@ namespace MMTP_LMS.Controllers
                 return Content("file not selected");              
             }
             
-               
+             
             string webRootPath = _hostingEnvironment.WebRootPath;
             string contentRootPath = _hostingEnvironment.ContentRootPath;
             var path = Path.Combine(

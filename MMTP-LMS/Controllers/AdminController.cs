@@ -9,6 +9,7 @@ using MMTP_LMS.ViewModels;
 
 namespace MMTP_LMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,7 +18,7 @@ namespace MMTP_LMS.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "Admin")]
+        
         public IActionResult Index()
         {
             var student_email = _context.Person.Select(s => s.Email);

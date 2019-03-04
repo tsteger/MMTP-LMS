@@ -19,6 +19,7 @@ namespace MMTP_LMS.Models
         [Display(Name = "Document Link")]
         public string Url { get; set; }
         [Display(Name = "Owner")]
-        public int PersonId { get; set; }
+        public string PersonId { get; set; }
+        public string UserName { get; set; }
     }
 }

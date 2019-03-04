@@ -21,6 +21,7 @@ namespace MMTP_LMS.ViewModels
         public int AntalDagar { get; set; }           
 
         public ICollection<Document> Documents { get; set; }
+        public ICollection<Document> UserDocuments { get; set; }
         static public double nav_date { get; set; }
 
         public IFormFile FileToUpload { get; set; }

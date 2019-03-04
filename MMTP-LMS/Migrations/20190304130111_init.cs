@@ -155,8 +155,8 @@ namespace MMTP_LMS.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -200,8 +200,8 @@ namespace MMTP_LMS.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -222,6 +222,7 @@ namespace MMTP_LMS.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
                     LmsActivityTypeId = table.Column<int>(nullable: false),
@@ -254,11 +255,11 @@ namespace MMTP_LMS.Migrations
                     Description = table.Column<string>(nullable: true),
                     TimeStamp = table.Column<DateTime>(nullable: false),
                     Url = table.Column<string>(nullable: true),
-                    PersonId = table.Column<int>(nullable: false),
+                    PersonId = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
                     CourseId = table.Column<int>(nullable: true),
                     LmsActivityId = table.Column<int>(nullable: true),
-                    ModuleId = table.Column<int>(nullable: true),
-                    PersonId1 = table.Column<string>(nullable: true)
+                    ModuleId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -282,8 +283,8 @@ namespace MMTP_LMS.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Document_AspNetUsers_PersonId1",
-                        column: x => x.PersonId1,
+                        name: "FK_Document_AspNetUsers_PersonId",
+                        column: x => x.PersonId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -349,9 +350,9 @@ namespace MMTP_LMS.Migrations
                 column: "ModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Document_PersonId1",
+                name: "IX_Document_PersonId",
                 table: "Document",
-                column: "PersonId1");
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LmsActivity_LmsActivityTypeId",
