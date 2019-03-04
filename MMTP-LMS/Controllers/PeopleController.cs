@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MMTP_LMS.Data;
 using MMTP_LMS.Models;
 
@@ -13,10 +16,12 @@ namespace MMTP_LMS.Controllers
     public class PeopleController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Person> userManager;
 
-        public PeopleController(ApplicationDbContext context)
+        public PeopleController(ApplicationDbContext context, UserManager<Person> userManager)
         {
             _context = context;
+            this.userManager = userManager;
         }
 
         // GET: People
@@ -61,8 +66,11 @@ namespace MMTP_LMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
+                var store = new UserStore<Person>(_context);
+                await userManager.UpdateAsync(person);
+                await store.Context.SaveChangesAsync();
+                //_context.Add(person);
+                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Set<Course>(), "Id", "Id", person.CourseId);
@@ -82,7 +90,7 @@ namespace MMTP_LMS.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Set<Course>(), "Id", "Id", person.CourseId);
+            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "Name", person.CourseId);
             return View(person);
         }
 
@@ -102,23 +110,20 @@ namespace MMTP_LMS.Controllers
             {
                 try
                 {
-                    _context.Update(person);
-                    await _context.SaveChangesAsync();
+                    var user = await userManager.FindByIdAsync(person.Id);
+                    user.FirstName = person.FirstName;
+                    user.LastName = person.LastName;
+                    user.CourseId = person.CourseId;
+                    await userManager.UpdateAsync(user);
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException e)
                 {
-                    if (!PersonExists(person.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    new Exception(e.Message);
                 }
-                return RedirectToAction(nameof(Index));
+
             }
-            ViewData["CourseId"] = new SelectList(_context.Set<Course>(), "Id", "Id", person.CourseId);
+            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "Name", person.CourseId);
             return View(person);
         }
 

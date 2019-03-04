@@ -47,6 +47,7 @@ namespace MMTP_LMS
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,7 +75,7 @@ namespace MMTP_LMS
                 cfg.CreateMap<Models.LmsActivity, ViewModels.StudentViewModel>();
                // cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
             });
-           CreateUserRoles(servises).Wait();
+            CreateUserRoles(servises).Wait();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
