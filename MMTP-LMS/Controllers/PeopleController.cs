@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using MMTP_LMS.Models;
 
 namespace MMTP_LMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PeopleController : Controller
     {
         private readonly ApplicationDbContext _context;
