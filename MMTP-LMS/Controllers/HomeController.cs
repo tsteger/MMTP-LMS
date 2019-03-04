@@ -12,6 +12,10 @@ namespace MMTP_LMS.Controllers
     {
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Student", "Student");
+            }
             return View();
         }
 

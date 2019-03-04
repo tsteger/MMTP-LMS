@@ -1,20 +1,42 @@
-﻿@model IEnumerable<MMTP_LMS.Models.LmsActivity>
+﻿@model IEnumerable<MMTP_LMS.ViewModels.StudentViewModel>
 
 @{
     ViewData["Title"] = "Student" + "";
 }
 
-<h1 id="todays_header">Dagens Aktiviteter </h1>
+<h1 id="todays_header" class="thestyle">
+    <span>@ViewBag.TodayHeader</span>
+
+
+    <span class="no_new_line">
+        <a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" asp-route-id="1">
+            <img class="nav_button_img" src="~/src/forward-icon.png" />
+        </a>
+        <a class="btn btn-outline-secondary float-right nav_button btn-sm" asp-action="Student" asp-route-id="-1">
+            <img class="nav_button_img" src="~/src/back-icon.png" />
+        </a>
+    </span>
+    <br /><span id="course_name" class="no_new_line">@ViewBag.Course</span>
+</h1>
+
 <div class="container-fluid">
     <section class="row title-row"></section>
     <section id="activity">
 
+
         @foreach (var item in Model)
         {
-            <div id="activity_group">
+            <div id="activity_group" class="thestyle">
                 <div class="col" id="date_header">
-                    @Html.DisplayFor(modelItem => item.StartDate) --
-                    @Html.DisplayFor(modelItem => item.LmsActivityTypeId)
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                    @if (item.AntalDagar != 0)
+                    {
+                        <span> Pågår i </span>
+                        @Html.DisplayFor(modelItem => item.AntalDagar)
+                        <span> Dagar </span>
+                    }
+                    <span> Typ av upgift: </span>
+                    @Html.DisplayFor(modelItem => item.LmsActivityType.Name)
                 </div>
                 <div class="w-100"></div>
                 <div class="col" id="activity_header">
@@ -24,10 +46,61 @@
                 <div class="col" id="activity_description">
                     @Html.DisplayFor(modelItem => item.Description)
                 </div>
+                <div class="w-100"></div>
+                <div><hr /></div>
+                <div class="col">
+                    @foreach (var doc in item.Documents)
+                    {
+
+                        <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
+                        <span> : </span>
+                    }
+                </div>
             </div>
-
         }
+        <div><hr /></div>
 
+
+
+
+
+    </section>
+    <section id="user">
+        <div>
+            <div  class="thestyle">
+                <form asp-controller="Student" asp-action="UploadFile" method="post"
+                      enctype="multipart/form-data">
+                    <div class="form-group user_box">
+                        <label id="submit_header" for="user_form">Description av document</label>
+                        <textarea name="txt" class="form-control" id="user_form" rows="2"></textarea>
+                        <label for="user_form">Lämna in filer</label>
+                        <input type="file" name="file" class="form-control-file" id="user_form">
+                        <br />
+                        <button type="submit">Upload File</button>
+                        @*<div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>*@
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div><hr /></div>
+        <div>
+            Info:
+            Documents som lärare laddat up syns nu under Description förutsatt att det finns i DB.
+            Här är ett exampel in DB:
+            Name = JQuery
+            URL = ../Documents/Example.txt
+            PersonId = 1
+            CourseId = 3
+            LmsActivityId = 4
+            ModuleId = 7
+            PersonId = Null
+            (Id typer måste stämma överens med dom du har i db, i mitt example och min db så syns nu documents och är klickbara så man kan titta på dom)
+
+        </div>
 
     </section>
 </div>

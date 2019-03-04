@@ -29,6 +29,7 @@ namespace MMTP_LMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -39,15 +40,17 @@ namespace MMTP_LMS
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<Person>()
+            services.AddIdentity<Person, IdentityRole>()
+               
                 .AddDefaultUI(UIFramework.Bootstrap4)
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider servises)
         {
             if (env.IsDevelopment())
             {
@@ -69,15 +72,35 @@ namespace MMTP_LMS
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Models.LmsActivity, ViewModels.StudentViewModel>();
-                cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
+               // cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
             });
-
-                app.UseMvc(routes =>
+            CreateUserRoles(servises).Wait();
+            app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<Person>>();
+
+            IdentityResult roleResult;
+            //Adding Admin Role
+            var roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));              
+            }           
+            //Assign Admin role to the main User here we have given our newly registered 
+            //login id for Admin management
+            Person user = await UserManager.FindByEmailAsync("Tommy@Steger.se");
+            var User = new Person();
+            await UserManager.AddToRoleAsync(user, "Admin");
         }
     }
 }

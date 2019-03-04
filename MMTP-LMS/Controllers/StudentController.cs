@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,27 +20,27 @@ namespace MMTP_LMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public StudentController(ApplicationDbContext context, UserManager<Person> userManager)
+        public static double Nav_date { get; private set; }
+        public StudentController(ApplicationDbContext context, UserManager<Person> userManager, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _hostingEnvironment = hostingEnvironment;
         }
-        public IActionResult Student()
-        {
-            // --- Code för senare kanske
-            //ClaimsPrincipal currentUser = this.User;         
-            //var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;  // null chek
-            //var userName = _userManager.GetUserName(currentUser);
-            //_userManager.GetUsersInRoleAsync
 
-           
+        
+
+        public IActionResult Student(double id = 0)
+        {
+            if (id == 0) Nav_date = 0d;
+            Nav_date += id;
             var userName = User.Identity.Name;        
             if (userName == null)
             {
                 return RedirectToAction("Index","Home");
             }
-            var testEmail = _context.Person.Select(e => e.Email).ToArray();  
             
             var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)
@@ -47,14 +50,60 @@ namespace MMTP_LMS.Controllers
                 .Select(m => m.Id)
                 .FirstOrDefault();
 
-             var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate<=DateTime.Now && m.EndTime <= DateTime.Now);
+            var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate.Day<=DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
 
 
-           
-            // Later code
-             var ret = Mapper.Map<ViewModels.StudentViewModel>(today_activities.ToArray());
 
-            return View(today_activities);
+            if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
+            else if(Nav_date ==-1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
+            else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
+            else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Aktiviteter";
+
+            ViewBag.Course = _context.Course.Where(i=>i.Id == user_course_id).Select(n=> n.Name).FirstOrDefault();
+
+            var ret = today_activities.Select(x => new StudentViewModel()
+            {
+                Name        = x.Name,
+                Description = x.Description,
+                StartDate   = x.StartDate,
+                EndTime     = x.EndTime,            
+                Documents   = x.Documents,
+                LmsActivityType = x.LmsActivityType,              
+                AntalDagar = x.StartDate.Day - x.EndTime.Day,
+               
+
+            });
+            return View(ret);
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(IFormFile file, string txt)
+        {
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string contentRootPath = _hostingEnvironment.ContentRootPath;
+            var path = Path.Combine(
+                        webRootPath, "Documents",
+                        file.FileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            var doc = new Document
+            {
+                Name = file.FileName,
+                Description = User.Identity.Name + " "+txt,
+                TimeStamp = DateTime.Now,
+                Url = path,
+               // PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
+
+            };
+            _context.Document.Add(doc);
+            _context.SaveChanges();
+            
+            return RedirectToAction("Student", "Student");
+        }       
+        
     }
 }
