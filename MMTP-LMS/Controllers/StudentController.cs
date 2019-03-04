@@ -41,9 +41,10 @@ namespace MMTP_LMS.Controllers
             {
                 return RedirectToAction("Index","Home");
             }
-            var user_doc = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
-               .Select(p => p.Documents)
-               .FirstOrDefault();
+            var user_doc = _context.Document.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
+               .Select(p => p.Name)
+               .ToArray();
+
             var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)
                 .FirstOrDefault();
@@ -99,8 +100,9 @@ namespace MMTP_LMS.Controllers
             var doc = new Document
             {
                 Name = file.FileName,
-                Description = User.Identity.Name + " "+txt,
+                Description =  txt,
                 TimeStamp = DateTime.Now,
+                UserName= User.Identity.Name,
                 Url = path,
                // PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
 

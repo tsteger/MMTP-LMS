@@ -81,9 +81,20 @@
                         <input type="file" name="file" class="form-control-file" id="user_form" required="required">
                         <br />
                         <button type="submit">Upload File</button>
-                        @*<div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                            </div>*@
+                        <br />
+                        <div class="col alert-light uploaded_files">
+                            <span><u>Uploaded Files:</u></span><br />
+                            @foreach (var item in Model)
+                            {
+                                @foreach (var doc in item.UserDocuments)
+                                {
+                                    <Span>@doc</Span><br />
+                                }
+                                return;
+                            }
+
+                        </div>
+       
                     </div>
                 </form>
             </div>
@@ -91,19 +102,7 @@
     </section>
     <section>
         <div><hr /></div>
-        <div class="col">
-            @foreach (var item in Model)
-            {
-                @foreach (var userdoc in item.UserDocuments)
-                {
-
-                    <a href="@Html.DisplayFor(modelItem => userdoc.Url)">@Html.DisplayFor(modelItem => userdoc.Name)</a>
-
-                    <span> | </span>
-                }
-            }
-
-        </div>
+        
     </section>
 </div>
 
