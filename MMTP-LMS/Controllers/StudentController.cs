@@ -36,33 +36,31 @@ namespace MMTP_LMS.Controllers
         {
             if (id == 0) Nav_date = 0d;
             Nav_date += id;
-            var userName = User.Identity.Name;        
+            var userName = User.Identity.Name;
             if (userName == null)
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             var user_doc = _context.Document.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                .Select(p => p.Name)
                .ToArray();
 
-            var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
-                .Select(p => p.CourseId)
-                .FirstOrDefault();
+            int? user_course_id = NewMethod(userName);
 
-            var today_module_id = _context.Module.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now && d.CourseId== user_course_id)
+            var today_module_id = _context.Module.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now && d.CourseId == user_course_id)
                 .Select(m => m.Id)
                 .FirstOrDefault();
 
-            var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate.Day<=DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
+            var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
 
 
 
             if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
-            else if(Nav_date ==-1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
+            else if (Nav_date == -1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
             else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
             else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Aktiviteter";
 
-            ViewBag.Course = _context.Course.Where(i=>i.Id == user_course_id).Select(n=> n.Name).FirstOrDefault();
+            ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
 
             var ret = today_activities.Select(x => new StudentViewModel()
             {
@@ -78,6 +76,14 @@ namespace MMTP_LMS.Controllers
             });
             return View(ret);
         }
+
+        private int? NewMethod(string userName)
+        {
+            return _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
+                .Select(p => p.CourseId)
+                .FirstOrDefault();
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file, string txt)
         {
