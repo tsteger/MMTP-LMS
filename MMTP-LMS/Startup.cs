@@ -100,7 +100,7 @@ namespace MMTP_LMS
             //Assign Admin role to the main User here we have given our newly registered 
             //login id for Admin management
             
-            Person user = await UserManager.FindByEmailAsync("per.orest@srhlit.se");
+            Person user = await UserManager.FindByEmailAsync("Mmtp@Lexicon.se");
             if (user == null)
                 return;
             var User = new Person();
