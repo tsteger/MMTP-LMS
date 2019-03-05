@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace MMTP_LMS.ViewModels
 {
-    public class StudentViewModel
-    {            
+    public class TeacherViewModel
+    {
         public string Name { get; set; }
         public string Description { get; set; }
         [DataType(DataType.Date)]
@@ -18,7 +18,7 @@ namespace MMTP_LMS.ViewModels
         public DateTime EndTime { get; set; }
         public LmsActivityType LmsActivityType { get; set; }
 
-        public int AntalDagar { get; set; }           
+        public int AntalDagar { get; set; }
 
         public ICollection<Document> Documents { get; set; }
         public string[] UserDocuments { get; set; }
