@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MMTP_LMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190304130800_init")]
-    partial class init
+    [Migration("20190305091145_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

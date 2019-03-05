@@ -78,6 +78,12 @@ namespace MMTP_LMS.Controllers
             });
             return View(ret);
         }
+
+        public IActionResult CourseModules()
+        {
+            return View();
+
+        }
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file, string txt)
         {
