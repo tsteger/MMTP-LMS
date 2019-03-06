@@ -15,8 +15,8 @@ namespace MMTP_LMS.Models
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
-        [Display(Name = "End Time")]
-        [DataType(DataType.Time)]
+        [Display(Name = "End Date")]
+        [DataType(DataType.Date)]
         public DateTime EndTime { get; set; }
         [Display(Name = "Activity Type")]
         public LmsActivityType LmsActivityType { get; set; }
