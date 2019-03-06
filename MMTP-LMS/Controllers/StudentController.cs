@@ -110,6 +110,8 @@ namespace MMTP_LMS.Controllers
                 TimeStamp = DateTime.Now,
                 UserName= User.Identity.Name,
                 Url = path,
+               
+               
                // PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
 
             };
