@@ -24,6 +24,12 @@ namespace MMTP_LMS.ViewModels
         public string[] UserDocuments { get; set; }
         static public double Nav_date { get; set; }
 
+        public List<Person> Students { get; set; }
+        public List<Course> Courses { get; set; }
+        public List<Module> Modules { get; set; }
+        public List<LmsActivity> LmsActivities { get; set; }
+        public List<Person> Admins { get; set; }
+
         public IFormFile FileToUpload { get; set; }
     }
 }
