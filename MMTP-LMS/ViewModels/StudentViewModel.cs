@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MMTP_LMS.Models;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,13 @@ namespace MMTP_LMS.ViewModels
 
         public ICollection<Document> Documents { get; set; }
         public string[] UserDocuments { get; set; }
-        static public double Nav_date { get; set; }
+        
+       // static public double Nav_date { get; set; }
 
         public IFormFile FileToUpload { get; set; }
+
+       // static public int SelectedCourseId { get; set; }
+        public List<SelectListItem> CourseList { get; set; }
+       
     }
 }

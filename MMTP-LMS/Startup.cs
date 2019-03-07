@@ -88,23 +88,46 @@ namespace MMTP_LMS
             
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<Person>>();
-
+            string[] roleNames = { "Admin", "Manager", "Member" };
             IdentityResult roleResult;
-            //Adding Admin Role
-            var roleCheck = await RoleManager.RoleExistsAsync("Admin");
-            if (!roleCheck)
+
+            foreach (var roleName in roleNames)
             {
-                //create the roles and seed them to the database
-                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));              
-            }           
-            //Assign Admin role to the main User here we have given our newly registered 
-            //login id for Admin management
-            
-            Person user = await UserManager.FindByEmailAsync("Mmtp@Lexicon.se");
-            if (user == null)
-                return;
-            var User = new Person();
-            await UserManager.AddToRoleAsync(user, "Admin");
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                // ensure that the role does not exist
+                if (!roleExist)
+                {
+                    //create the roles and seed them to the database: 
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            // find the user with the admin email 
+            var _user = await UserManager.FindByEmailAsync("admin@email.com");
+
+            // check if the user exists
+            if (_user == null)
+            {
+                //Here you could create the super admin who will maintain the web app
+                var poweruser = new Person
+                {
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                   // CourseId = 1, // Temp for course 1 
+                    UserName = "admin@admin.com",
+                    Email = "admin@email.com",
+                };
+                string adminPassword = "Lexicon!0";
+
+                var createPowerUser = await UserManager.CreateAsync(poweruser, adminPassword);
+                if (createPowerUser.Succeeded)
+                {
+                    //here we tie the new user to the role
+                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+
+                }
+            }
+           
         }
     }
 }
