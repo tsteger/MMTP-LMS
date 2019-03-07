@@ -36,33 +36,29 @@ namespace MMTP_LMS.Controllers
         {
             if (id == 0) Nav_date = 0d;
             Nav_date += id;
-            var userName = User.Identity.Name;        
+            var userName = User.Identity.Name;
             if (userName == null)
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             var user_doc = _context.Document.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                .Select(p => p.Name)
                .ToArray();
 
-            var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
-                .Select(p => p.CourseId)
-                .FirstOrDefault();
+            int? user_course_id = GetCourseId(userName);
 
-            var today_module_id = _context.Module.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now && d.CourseId== user_course_id)
-                .Select(m => m.Id)
-                .FirstOrDefault();
+            int today_module_id = GetModuleId(user_course_id);
 
-            var today_activities = _context.LmsActivity.Where(m=>m.ModuleId== today_module_id && m.StartDate.Day<=DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
+            var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
 
 
 
             if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
-            else if(Nav_date ==-1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
+            else if (Nav_date == -1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
             else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
             else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Aktiviteter";
 
-            ViewBag.Course = _context.Course.Where(i=>i.Id == user_course_id).Select(n=> n.Name).FirstOrDefault();
+            ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
 
             var ret = today_activities.Select(x => new StudentViewModel()
             {
@@ -78,12 +74,44 @@ namespace MMTP_LMS.Controllers
             });
             return View(ret);
         }
-
-        public IActionResult CourseModules()
+        public IActionResult Course()
         {
-            return View();
+            var mod = _context.Module.Where(m => m.CourseId == GetCourseId(User.Identity.Name));
+            int? user_course_id = GetCourseId(User.Identity.Name);
+            ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
+            var ret = mod.Select(x => new StudentModuleViewModel()
+            {
+                Name = x.Name,
+                Description = x.Description,
+                StartDate = x.StartDate,
+                Id = x.Id,
+                Documents = x.Documents,
+                LmsActivities = x.LmsActivities
+                
+                
+            });
+
+            return View(ret);
 
         }
+
+
+
+
+        private int GetModuleId(int? user_course_id)
+        {
+            return _context.Module.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now && d.CourseId == user_course_id)
+                .Select(m => m.Id)
+                .FirstOrDefault();
+        }
+
+        private int? GetCourseId(string userName)
+        {
+            return _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
+                            .Select(p => p.CourseId)
+                            .FirstOrDefault();
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file, string txt)
         {
