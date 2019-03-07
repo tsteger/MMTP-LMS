@@ -44,14 +44,16 @@ namespace MMTP_LMS.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            int? user_course_id = GetCourseId(userName, course_select);
+
             var clist = _context.Course.Select(a =>
                                 new SelectListItem
                                 {
                                     Value = a.Id.ToString(),
-                                    Text = a.Name
+                                    Text = a.Name,
+                                    Selected = a.Id== user_course_id
                                 }).ToList();
 
-            int? user_course_id = GetCourseId(userName, course_select);
             
             var user_doc = _context.Document.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                .Select(p => p.Name)

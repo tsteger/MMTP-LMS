@@ -115,7 +115,7 @@ namespace MMTP_LMS
                     LastName = "Admin",
                    // CourseId = 1, // Temp for course 1 
                     UserName = "admin@admin.com",
-                    Email = "admin@email.com",
+                    Email = "admin@admin.com",
                 };
                 string adminPassword = "Lexicon!0";
 
