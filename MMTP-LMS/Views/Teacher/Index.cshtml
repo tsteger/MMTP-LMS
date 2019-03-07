@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MMTP_LMS.ViewModels.TeacherViewModel>
-
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Teachers Overview</h1>
-<p><a asp-action="CreateCourse">Create New Course</a></p>
+
 <p><a asp-area="Identity" asp-page="/Account/Register">Register New User</a></p>     
 
+<partial name="CreateCoursePartial" model="Model.First()" /> 
 
         <table class="table">
             <thead>
