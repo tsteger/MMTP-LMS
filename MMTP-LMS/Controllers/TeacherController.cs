@@ -43,15 +43,23 @@ namespace MMTP_LMS.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCourse([Bind("Id,Name,Description,StartDate,EndDate")] Course course)
+        public async Task<IActionResult> CreateCourse([Bind("Id,CourseName,CourseDescription,CourseStartDate,CourseEndDate")] TeacherViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var course = new Course()
+                {
+                    Name = viewModel.CourseName,
+                    StartDate = viewModel.CourseStartDate,
+                    EndDate = viewModel.CourseEndDate,
+                    Description = viewModel.CourseDescription
+
+                };
                 _context.Course.Add(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(course);
+            return View(viewModel);
         }
         // GET: Course/EditCourse/5
         public async Task<IActionResult> EditCourse(int? id)
