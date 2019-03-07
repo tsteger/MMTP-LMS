@@ -22,7 +22,7 @@ namespace MMTP_LMS.ViewModels
 
         public ICollection<Document> Documents { get; set; }
         public string[] UserDocuments { get; set; }
-        static public double nav_date { get; set; }
+        static public double Nav_date { get; set; }
 
         public IFormFile FileToUpload { get; set; }
     }

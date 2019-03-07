@@ -70,4 +70,19 @@
 #brand_img{
     width: 100px;
 }
+#todays_header_reg {
+    padding: 0.4em 1em 0.8em 0.4em;
+    background-color: #00ff21;
+    border-radius: 5px;
+    margin: 20px;
+    font-size: 3.5vw;
+    color: white;
+}
+.reg_group {
+    margin: 5px;
+    padding: 1em;
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    background-color: #f4f0ec;
+}
 /*font-family: 'Nunito Sans', sans-serif;*/

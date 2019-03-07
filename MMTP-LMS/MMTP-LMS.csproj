@@ -7,6 +7,10 @@
     <RootNamespace>MMTP_LMS</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="DEVTools\DevTools.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />

@@ -55,7 +55,7 @@ namespace MMTP_LMS.Controllers
         // GET: People/Create
         public IActionResult Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Set<Course>(), "Id", "Id");
+            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "Name");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace MMTP_LMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,CourseId")] Person person)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,CourseId,Password")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace MMTP_LMS.Controllers
                 //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Set<Course>(), "Id", "Id", person.CourseId);
+            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "Name", person.CourseId);
             return View(person);
         }
 
