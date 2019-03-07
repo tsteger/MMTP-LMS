@@ -103,7 +103,7 @@ namespace MMTP_LMS
             }
 
             // find the user with the admin email 
-            var _user = await UserManager.FindByEmailAsync("admin@email.com");
+            var _user = await UserManager.FindByEmailAsync("admin@admin.com");
 
             // check if the user exists
             if (_user == null)
