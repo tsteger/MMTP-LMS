@@ -23,7 +23,7 @@ namespace MMTP_LMS.Controllers
             _context = context;
             _userManager = userManager;
         }
-        public IActionResult Index()
+        public IActionResult Teacher()
         {
             //var courses = _context.Course;
 
@@ -62,7 +62,7 @@ namespace MMTP_LMS.Controllers
                 };
                 _context.Course.Add(course);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Teacher));
             }
             return View(viewModel);
         }
@@ -112,7 +112,7 @@ namespace MMTP_LMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Teacher));
             }
             return View(course);
         }
