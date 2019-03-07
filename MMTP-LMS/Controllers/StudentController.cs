@@ -48,7 +48,8 @@ namespace MMTP_LMS.Controllers
                                 new SelectListItem
                                 {
                                     Value = a.Id.ToString(),
-                                    Text = a.Name
+                                    Text = a.Name,
+                                    Selected = 
                                 }).ToList();
 
             int? user_course_id = GetCourseId(userName, course_select);
