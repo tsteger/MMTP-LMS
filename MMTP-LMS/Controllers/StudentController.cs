@@ -37,10 +37,11 @@ namespace MMTP_LMS.Controllers
 
         public IActionResult Student(double id = 0, int course_select = 0)
         {
+            NoActivity();
             if (id == 0) Nav_date = 0d;
             Nav_date += id;
             var userName = User.Identity.Name;
-            
+
             if (userName == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -48,22 +49,26 @@ namespace MMTP_LMS.Controllers
             user_course_id = GetCourseId(userName, course_select);
             today_module_id = GetModuleId(user_course_id);
             var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
+            if (today_activities.Count() < 1) today_activities = _context.LmsActivity.Where(m => m.StartDate.Year <= DateTime.Now.AddYears(-1).Year);
+
+
+
             selected_activity_id = today_activities.Select(i => i.Id).FirstOrDefault();
             var clist = _context.Course.Select(a =>
                                 new SelectListItem
                                 {
                                     Value = a.Id.ToString(),
                                     Text = a.Name,
-                                    Selected = a.Id== user_course_id
+                                    Selected = a.Id == user_course_id
                                 }).ToList();
-          
-            today_activities.Select(i => i.Id);
+
+
             if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
             else if (Nav_date == -1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
             else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
             else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Aktiviteter";
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
-            
+
             var ret = today_activities.Select(x => new StudentViewModel()
             {
                 Name = x.Name,
@@ -75,8 +80,30 @@ namespace MMTP_LMS.Controllers
                 AntalDagar = x.StartDate.Day - x.EndTime.Day,
                 CourseList = clist,
             });
+
             return View(ret);
         }
+
+        private void NoActivity()
+        {
+            var act = new LmsActivity
+            {
+                Name = "No Activity",
+                Description = "No Activity Today",
+                StartDate = DateTime.Now.AddYears(-1),
+                EndTime = DateTime.Now.AddYears(-1),
+                ModuleId = 1,
+                LmsActivityTypeId = 1
+
+            };
+            var chk = _context.LmsActivity.Where(n => n.Name == "No Activity").FirstOrDefault();
+            if (chk == null)
+            {
+                _context.LmsActivity.Add(act);
+                _context.SaveChanges();
+            }
+        }
+
         public IActionResult Course()
         {
             

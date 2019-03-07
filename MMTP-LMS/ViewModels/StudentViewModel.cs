@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace MMTP_LMS.ViewModels
 {
     public class StudentViewModel
-    {            
-        public string Name { get; set; }
-        public string Description { get; set; }
+    {
+        public string Name { get; set; } 
+        public string Description { get; set; } 
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
         [DataType(DataType.Date)]

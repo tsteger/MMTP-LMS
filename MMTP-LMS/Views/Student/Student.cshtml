@@ -51,15 +51,23 @@
         {
             <div id="activity_group" class="thestyle">
                 <div class="col" id="date_header">
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                    @if (item.AntalDagar != 0)
+                    @if (Model.FirstOrDefault().Name != "No Activity")
                     {
-                        <span> Pågår i </span>
-                        @Html.DisplayFor(modelItem => item.AntalDagar)
-                        <span> Dagar </span>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                        @if (item.AntalDagar != 0)
+                        {
+                            <span> Pågår i </span>
+                            @Html.DisplayFor(modelItem => item.AntalDagar)
+                            <span> Dagar </span>
+                        }
+                        <span> Typ av upgift: </span>
+                        @Html.DisplayFor(modelItem => item.LmsActivityType.Name)
                     }
-                    <span> Typ av upgift: </span>
-                    @Html.DisplayFor(modelItem => item.LmsActivityType.Name)
+                    else
+                    {
+                        <span> No Activity </span>
+                    }
+
                 </div>
                 <div class="w-100"></div>
                 <div class="col" id="activity_header">
