@@ -48,6 +48,8 @@ namespace MMTP_LMS.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool>("IsAdmin");
+
                     b.Property<int?>("LmsActivityId");
 
                     b.Property<int?>("ModuleId");

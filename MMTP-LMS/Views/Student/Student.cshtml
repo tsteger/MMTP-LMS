@@ -72,7 +72,7 @@
                 <div class="w-100"></div>
                 <div><hr /></div>
                 <div class="col">
-                    @foreach (var doc in item.Documents)
+                    @foreach (var doc in item.Documents.Where(a=>a.IsAdmin))
                     {
 
                         <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
@@ -106,9 +106,9 @@
                             <span><u>Uploaded Files:</u></span><br />
                             @foreach (var item in Model)
                             {
-                                @foreach (var doc in item.UserDocuments)
+                                @foreach (var doc in item.Documents.Where(u=>u.UserName == User.Identity.Name))
                                 {
-                                    <Span>@doc</Span><br />
+                                    <Span>@doc.Name</Span><br />
                                 }
                                 return;
                             }
