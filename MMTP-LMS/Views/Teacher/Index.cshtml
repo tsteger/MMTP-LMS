@@ -4,10 +4,12 @@
 }
 
 <h1>Teachers Overview</h1>
+<div class="col-2">
+    <div class="col-sm-12">
+        <a asp-area="Identity" asp-page="/Account/Register">Register New User</a>
+    </div>
+</div>
 
-<p><a asp-area="Identity" asp-page="/Account/Register">Register New User</a></p>
-
-<h4>TeacherViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,9 +42,9 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 
 <partial name="ListCourses" model="Model.Courses" />
 
