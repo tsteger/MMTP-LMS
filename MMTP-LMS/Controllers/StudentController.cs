@@ -56,20 +56,15 @@ namespace MMTP_LMS.Controllers
             var user_doc = _context.Document.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                .Select(p => p.Name)
                .ToArray();
-
             
-
             int today_module_id = GetModuleId(user_course_id);
 
             var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
-
-
 
             if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
             else if (Nav_date == -1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
             else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
             else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Aktiviteter";
-
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
 
             var ret = today_activities.Select(x => new StudentViewModel()
