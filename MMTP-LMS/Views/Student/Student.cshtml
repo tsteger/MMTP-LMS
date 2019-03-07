@@ -3,12 +3,12 @@
 
 @{
     ViewData["Title"] = "Student" + "";
-    
+
 
 }
 
 
-<h1 id="todays_header" class="thestyle">
+<div id="todays_header" class="thestyle">
     <span>@ViewBag.TodayHeader</span>
 
 
@@ -20,8 +20,27 @@
             <img class="nav_button_img" src="~/src/back-icon.png" />
         </a>
     </span>
-    <br /><span id="course_name" class="no_new_line">@ViewBag.Course</span>
-</h1>
+    <br />
+    @if (User.IsInRole("Admin") && Model.Count() > 0  )
+    {
+            <form method="get">
+
+                <span class="styled-select">
+                    <select asp-items="@Model.FirstOrDefault().CourseList" name="course_select"></select>
+                </span>
+                <span class="btn-course"> <button class="btn-course" type="submit">Select Course</button></span>
+            </form>
+    }
+    else
+    {
+        <span id="course_name" class="no_new_line">@ViewBag.Course</span>
+    }
+
+
+
+</div>
+
+   
 
 <div class="container-fluid">
     <section class="row title-row"></section>
@@ -95,7 +114,7 @@
                             }
 
                         </div>
-       
+
                     </div>
                 </form>
             </div>
@@ -103,18 +122,9 @@
     </section>
     <section>
         <div><hr /></div>
-        @if (User.IsInRole("Admin"))
-        {
-            @foreach (var item in Model)
-            {
-
-                <form method="get">
-                    <select asp-items="@item.CourseList" name="course_select" ></select>
-                    <br /><button type="submit">Register</button>
-                </form>
-                return;
-            }
-        }
+        <div>
+           
+        </div>
     </section>
 </div>
 
