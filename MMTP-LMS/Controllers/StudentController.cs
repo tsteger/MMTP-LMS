@@ -57,12 +57,9 @@ namespace MMTP_LMS.Controllers
                .Select(p => p.Name)
                .ToArray();
 
-            
+            int? user_course_id = GetCourseId(userName);
 
-
-            var today_module_id = _context.Module.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now && d.CourseId == user_course_id)
-                .Select(m => m.Id)
-                .FirstOrDefault();
+            int today_module_id = GetModuleId(user_course_id);
 
             var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
 
@@ -91,8 +88,38 @@ namespace MMTP_LMS.Controllers
             });
             return View(ret);
         }
+        public IActionResult Course()
+        {
+            var mod = _context.Module.Where(m => m.CourseId == GetCourseId(User.Identity.Name));
+            int? user_course_id = GetCourseId(User.Identity.Name);
+            ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
+            var ret = mod.Select(x => new StudentModuleViewModel()
+            {
+                Name = x.Name,
+                Description = x.Description,
+                StartDate = x.StartDate,
+                Id = x.Id,
+                Documents = x.Documents,
+                LmsActivities = x.LmsActivities
+                
+                
+            });
 
-        private int? GetCourseId(string userName,int course_select)
+            return View(ret);
+
+        }
+
+
+
+
+        private int GetModuleId(int? user_course_id)
+        {
+            return _context.Module.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now && d.CourseId == user_course_id)
+                .Select(m => m.Id)
+                .FirstOrDefault();
+        }
+
+        private int? GetCourseId(string userName)
         {
             int? user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)

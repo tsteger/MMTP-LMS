@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MMTP_LMS.ViewModels.StudentModuleViewModel>
+@{
+
+    ViewData["Title"] = "Course modules";
+}
+
+<h1>@ViewBag.Course</h1>
+<div class="container-fluid">
+    <section class="row title-row"></section>
+    <section id="activity">
+
+        @foreach (var item in Model)
+        {
+            <div id="activity_group" class="thestyle">
+                <div class="col" id="date_header">
+                    Module @Html.DisplayFor(modelItem => item.Id) - @Html.DisplayFor(modelItem => item.Name)
+                </div>
+                <div class="w-100"></div>
+                <div class="col" id="activity_description">
+                    Starts: @Html.DisplayFor(modelItem => item.StartDate) Ends: @Html.DisplayFor(modelItem => item.EndDate.Date)
+                </div>
+                <div class="w-100"></div>
+                <div class="col" id="activity_header">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    Related documentation:
+                    @foreach (var doc in item.Documents)
+                    {
+                        <ul>
+                            <li><a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a></li>
+                        </ul>
+                    }
+                </div>
+            </div>
+
+            <div class="w-100"><div><hr /></div></div>
+
+            <div class="col">
+                #@Html.DisplayFor(modelItem => item.Id);
+                'modelItem => item.Id'
+                <a class="btn btn-success" data-toggle="collapse" href="#modelItem => item.Id'" role="button" aria-expanded="false" aria-controls="Kalle">
+                    Activities
+                </a>
+
+                <div class="collapse" id="">
+                    <div class="card card-body">
+                        <l>
+                            @foreach (var activity in item.LmsActivities)
+                            {
+                                <li><b>Activity type:</b>  @Html.DisplayFor(modelItem => activity.LmsActivityTypeId) <b>Time span:</b>  @Html.DisplayFor(modelItem => activity.StartDate) -@Html.DisplayFor(modelItem => activity.EndTime) <b> Description: </b> @Html.DisplayFor(modelItem => activity.Description)</li>
+                            }
+                        </l>
+                    </div>
+                </div>
+            </div>
+
+            <div><hr /></div>
+
+
+        }
+        <section>
+            <div><hr /></div>
+        </section>
+
