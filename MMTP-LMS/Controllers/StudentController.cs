@@ -57,7 +57,7 @@ namespace MMTP_LMS.Controllers
                .Select(p => p.Name)
                .ToArray();
 
-            int? user_course_id = GetCourseId(userName);
+            
 
             int today_module_id = GetModuleId(user_course_id);
 
@@ -90,8 +90,9 @@ namespace MMTP_LMS.Controllers
         }
         public IActionResult Course()
         {
-            var mod = _context.Module.Where(m => m.CourseId == GetCourseId(User.Identity.Name));
-            int? user_course_id = GetCourseId(User.Identity.Name);
+            
+            int? user_course_id = GetCourseId(User.Identity.Name,0);
+            var mod = _context.Module.Where(m => m.CourseId == user_course_id);
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
             var ret = mod.Select(x => new StudentModuleViewModel()
             {
@@ -119,7 +120,7 @@ namespace MMTP_LMS.Controllers
                 .FirstOrDefault();
         }
 
-        private int? GetCourseId(string userName)
+        private int? GetCourseId(string userName, int course_select)
         {
             int? user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
                 .Select(p => p.CourseId)
