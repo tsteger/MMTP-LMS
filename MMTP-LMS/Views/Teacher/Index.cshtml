@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MMTP_LMS.ViewModels.TeacherViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Teachers Overview</h1>
+<p><a asp-action="CreateCourse">Create New Course</a></p>
+<p><a asp-area="Identity" asp-page="/Account/Register">Register New User</a></p>     
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseStartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseEndDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseDescription)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseStartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseEndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseDescription)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>

@@ -10,26 +10,21 @@ namespace MMTP_LMS.ViewModels
 {
     public class TeacherViewModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        [Display(Name = "Course Name")]
+        public string CourseName { get; set; }
+        [Display(Name = "Description")]
+        public string CourseDescription { get; set; }
+        [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
+        public DateTime CourseStartDate { get; set; }
+        [Display(Name = "End Date")]
         [DataType(DataType.Date)]
-        public DateTime EndTime { get; set; }
-        public LmsActivityType LmsActivityType { get; set; }
-
-        public int AntalDagar { get; set; }
+        public DateTime CourseEndDate { get; set; }
 
         public ICollection<Document> Documents { get; set; }
-        public string[] UserDocuments { get; set; }
-        static public double Nav_date { get; set; }
 
-        public List<Person> Students { get; set; }
-        public List<Course> Courses { get; set; }
-        public List<Module> Modules { get; set; }
-        public List<LmsActivity> LmsActivities { get; set; }
-        public List<Person> Admins { get; set; }
+        public ICollection<Module> Modules { get; set; }
 
-        public IFormFile FileToUpload { get; set; }
+        public ICollection<Person> People { get; set; }
     }
 }
