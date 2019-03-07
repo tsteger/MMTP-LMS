@@ -35,8 +35,6 @@ namespace MMTP_LMS.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-
-
         public IActionResult Student(double id = 0, int course_select = 0)
         {
             if (id == 0) Nav_date = 0d;
@@ -58,15 +56,7 @@ namespace MMTP_LMS.Controllers
                                     Text = a.Name,
                                     Selected = a.Id== user_course_id
                                 }).ToList();
-
-            
-            //var user_doc = _context.Document.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
-            //   .Select(p => p.Name)
-            //   .ToArray();
-            
-            
-
-            
+          
             today_activities.Select(i => i.Id);
             if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
             else if (Nav_date == -1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
@@ -83,11 +73,7 @@ namespace MMTP_LMS.Controllers
                 Documents = x.Documents,
                 LmsActivityType = x.LmsActivityType,
                 AntalDagar = x.StartDate.Day - x.EndTime.Day,
-              //  UserDocuments = user_doc,
                 CourseList = clist,
-
-
-
             });
             return View(ret);
         }
@@ -112,9 +98,6 @@ namespace MMTP_LMS.Controllers
             return View(ret);
 
         }
-
-
-
 
         private int GetModuleId(int? user_course_id)
         {
@@ -145,10 +128,7 @@ namespace MMTP_LMS.Controllers
             {
                 return Content("file not selected");
             }
-
-
             string webRootPath = _hostingEnvironment.WebRootPath;
-            string contentRootPath = _hostingEnvironment.ContentRootPath;
             var path = Path.Combine(
                         webRootPath, "Documents",
                         file.FileName);
@@ -167,10 +147,7 @@ namespace MMTP_LMS.Controllers
                 CourseId = user_course_id,
                 ModuleId = today_module_id,
                 LmsActivityId = selected_activity_id,
-
-
-            PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
-
+                PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
             };
            
             _context.Document.Add(doc);

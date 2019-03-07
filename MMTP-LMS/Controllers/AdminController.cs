@@ -92,8 +92,7 @@ namespace MMTP_LMS.Controllers
                 EndTime = x.EndTime,
                 Documents = x.Documents,
                 LmsActivityType = x.LmsActivityType,
-                AntalDagar = x.StartDate.Day - x.EndTime.Day,
-                UserDocuments = user_doc
+                AntalDagar = x.StartDate.Day - x.EndTime.Day,              
 
             });
             return View(ret);
