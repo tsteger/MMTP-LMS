@@ -25,16 +25,21 @@ namespace MMTP_LMS.Controllers
         }
         public IActionResult Index()
         {
-            var courses = _context.Course;
+            //var courses = _context.Course;
 
-            var getCourses = courses.Select(x => new TeacherViewModel()
+            //var getCourses = courses.Select(x => new TeacherViewModel()
+            //{
+            //    CourseName = x.Name,
+            //    CourseDescription = x.Description,
+            //    CourseStartDate = x.StartDate,
+            //    CourseEndDate = x.EndDate,
+            //});
+            var model = new TestModel()
             {
-                CourseName = x.Name,
-                CourseDescription = x.Description,
-                CourseStartDate = x.StartDate,
-                CourseEndDate = x.EndDate,
-            });
-            return View(getCourses);
+                Courses = _context.Course.ToList()
+            };
+
+            return View(model);
         }
 
         public IActionResult CreateCourse()

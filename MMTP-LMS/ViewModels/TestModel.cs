@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using MMTP_LMS.Models;
+﻿using MMTP_LMS.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MMTP_LMS.ViewModels
 {
-    public class TeacherViewModel
+    public class TestModel
     {
         [Display(Name = "Course Name")]
         public string CourseName { get; set; }
@@ -21,12 +20,7 @@ namespace MMTP_LMS.ViewModels
         [DataType(DataType.Date)]
         public DateTime CourseEndDate { get; set; }
 
-       // public ICollection<Document> Documents { get; set; }
 
-        //public ICollection<Module> Modules { get; set; }
-
-       // public ICollection<Person> People { get; set; }
-
-        //public ICollection<Course> Courses { get; set; }
+        public ICollection<Course> Courses { get; set; }
     }
 }

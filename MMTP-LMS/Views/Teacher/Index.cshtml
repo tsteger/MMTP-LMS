@@ -1,50 +1,48 @@
-﻿@model IEnumerable<MMTP_LMS.ViewModels.TeacherViewModel>
+﻿@model MMTP_LMS.ViewModels.TestModel
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Teachers Overview</h1>
 
-<p><a asp-area="Identity" asp-page="/Account/Register">Register New User</a></p>     
+<p><a asp-area="Identity" asp-page="/Account/Register">Register New User</a></p>
 
-<partial name="CreateCoursePartial" model="Model.First()" /> 
+<h4>TeacherViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateCourse" asp-controller="Teacher" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CourseName" class="control-label"></label>
+                <input asp-for="CourseName" class="form-control" />
+                <span asp-validation-for="CourseName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseDescription" class="control-label"></label>
+                <input asp-for="CourseDescription" class="form-control" />
+                <span asp-validation-for="CourseDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseStartDate" class="control-label"></label>
+                <input asp-for="CourseStartDate" class="form-control" />
+                <span asp-validation-for="CourseStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseEndDate" class="control-label"></label>
+                <input asp-for="CourseEndDate" class="form-control" />
+                <span asp-validation-for="CourseEndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CourseName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CourseStartDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CourseEndDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CourseDescription)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseStartDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseEndDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseDescription)
-                        </td>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+<partial name="ListCourses" model="Model.Courses" />
+
