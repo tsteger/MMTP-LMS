@@ -40,9 +40,11 @@
                     <span asp-validation-for="Input.LastName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Input.CourseId"></label>
-                    <select asp-for="Input.CourseId" asp-items="Model.Options"></select>
-                    <span asp-validation-for="Input.CourseId" class="text-danger"></span>
+                    <label asp-for="Input.CourseId"></label><br />
+                    <span class="styled-select-user">
+                        <select asp-for="Input.CourseId" asp-items="Model.Options"></select>
+                    </span>
+                        <span asp-validation-for="Input.CourseId" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
