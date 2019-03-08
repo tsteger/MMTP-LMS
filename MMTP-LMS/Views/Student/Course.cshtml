@@ -43,16 +43,16 @@
             <div class="w-100"><div><hr /></div></div>
 
             <div class="col">
-                <a class="btn btn-success" data-toggle="collapse" href="#module-@item.Id" role="button" aria-expanded="false" aria-controls="module-@item.Id">Show Activities</a>
+                <a class="btn btn-success activity_btn" data-toggle="collapse" href="#module-@item.Id" role="button" aria-expanded="false" aria-controls="module-@item.Id">Show Activities</a>
                 <div class="collapse" id="module-@item.Id">
                     <div class="card card-body">
-                        <l>
+                        <ul>
                             @foreach (var activity in item.LmsActivities)
                             {
                                 <li><b><i class="fas fa-bolt"> </i><a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student"  asp-route-id="@activity.StartDate.ToShortDateString()"><img class="nav_button_img" src="~/src/back-icon.png" /></a> Activity type:</b> @Html.DisplayFor(modelItem => activity.LmsActivityTypeId) <b><i class="far fa-calendar-alt"></i> Time span:</b> @Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime) <b><i class="fas fa-pencil-alt"></i> Description: </b> @Html.DisplayFor(modelItem => activity.Description)</li>
                                  @*<a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" name="d" asp-route-id="@activity.StartDate.ToShortDateString()"></a>*@
                             }
-                        </l>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -64,4 +64,4 @@
         <div><hr /></div>
     </section>
 
-   
+  </div> 

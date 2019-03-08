@@ -1,4 +1,11 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
+    $('.activity_btn').click(function () {
 
-// Write your JavaScript code.
+        if (this.innerText === "Show Activities") {
+            this.innerText = "Hide Activities";
+        }
+        else {
+            this.innerText = "Show Activities"
+        }
+    });
+});

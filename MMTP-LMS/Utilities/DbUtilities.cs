@@ -9,12 +9,12 @@ namespace MMTP_LMS.Utilities
 {
     public class DbUtilities
     {
-        private readonly ApplicationDbContext _context;
-        public DbUtilities(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-        public void AddDatabaseData()
+        //private readonly ApplicationDbContext _context;
+        //public DbUtilities(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
+        public void AddDatabaseData(ApplicationDbContext _context)
         {
             
             if (_context.Course.Where(n => n.Id == 1).FirstOrDefault() == null)

@@ -29,7 +29,7 @@ namespace MMTP_LMS.Controllers
         
 
         private static DateTime NavDate { get; set; } = DateTime.Now;
-        public static double Nav_date { get; private set; }
+        public static int Nav_date { get; private set; }
         public static int SelectedCourseId { get; private set; } = 1;
         public StudentController(ApplicationDbContext context, UserManager<Person> userManager, IHostingEnvironment hostingEnvironment)
         {
@@ -41,25 +41,21 @@ namespace MMTP_LMS.Controllers
 
         public IActionResult Student(string Id, int course_select = 0)
         {
-            var dbUtilities = new DbUtilities(_context); 
-            dbUtilities.AddDatabaseData();
-            // NoActivity();
-            //if (id == 0) Nav_date = 0d;
-            //Nav_date += id;
+            var dbUtilities = new DbUtilities(); 
+            dbUtilities.AddDatabaseData(_context);           
             var userName = User.Identity.Name;
-            //var test = DateTime.Parse(Id);
-            
+          
             if(DateTime.TryParse(Id,out DateTime dateTime))
             {
                 if(NavDate < dateTime.Date)
                 {
                     Nav_date += 1;
-                    NavDate = NavDate.AddDays(1d);
+                    NavDate = NavDate.AddDays(1);
                 }                   
                 else if (NavDate > dateTime.Date)
                 {
                     Nav_date -= 1;
-                    NavDate = NavDate.AddDays(-1d);
+                    NavDate = NavDate.AddDays(-1);
                 }
                 else
                     NavDate = dateTime.Date;
@@ -69,7 +65,7 @@ namespace MMTP_LMS.Controllers
             {
                 NavDate = DateTime.Now.Date;
                 ViewBag.datum = 0;
-                Nav_date = 0d;
+                Nav_date = 0;
             }
             
             if (userName == null)
@@ -81,8 +77,6 @@ namespace MMTP_LMS.Controllers
             //  var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
             var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Date <= NavDate && m.EndTime.Date >= NavDate);
             if (today_activities.Count() < 1) today_activities = _context.LmsActivity.Where(m => m.StartDate.Year <= DateTime.Now.AddYears(-1).Year);
-
-
 
             selected_activity_id = today_activities.Select(i => i.Id).FirstOrDefault();
             var clist = _context.Course.Select(a =>
@@ -110,38 +104,17 @@ namespace MMTP_LMS.Controllers
                 LmsActivityType = x.LmsActivityType,
                 AntalDagar = x.StartDate.Day - x.EndTime.Day,
                 CourseList = clist,
-               
-                
+                               
             });
 
             return View(ret);
-        }
-
-        private void NoActivity()
-        {
-            var act = new LmsActivity
-            {
-                Name = "No Activity",
-                Description = "No Activity Today",
-                StartDate = DateTime.Now.AddYears(-1),
-                EndTime = DateTime.Now.AddYears(-1),
-                ModuleId = 1,
-                LmsActivityTypeId = 1
-
-            };
-            var chk = _context.LmsActivity.Where(n => n.Name == "No Activity").FirstOrDefault();
-            if (chk == null)
-            {
-                _context.LmsActivity.Add(act);
-                _context.SaveChanges();
-            }
-        }
+        }       
 
         public IActionResult Course()
         {
             NavDate = DateTime.Now.Date;
             ViewBag.datum = 0;
-            Nav_date = 0d;
+            Nav_date = 0;
             int? user_course_id = GetCourseId(User.Identity.Name);
             var mod = _context.Module.Where(m => m.CourseId == user_course_id);
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
@@ -152,8 +125,7 @@ namespace MMTP_LMS.Controllers
                 StartDate = x.StartDate,
                 Id = x.Id,
                 Documents = x.Documents,
-                LmsActivities = x.LmsActivities
-                
+                LmsActivities = x.LmsActivities,               
                 
             });
 
@@ -186,32 +158,21 @@ namespace MMTP_LMS.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file, string txt)
         {
-            if (file == null || file.Length == 0)
-            {
-                return Content("file not selected");
-            }
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            var path = Path.Combine(
-                        webRootPath, "Documents",
-                        file.FileName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+            var fileUtil = new Utilities.File();
+            await fileUtil.UploadFileAsync(file,txt, _hostingEnvironment);         
             var doc = new Document
             {
                 Name = file.FileName,
                 Description = txt,
                 TimeStamp = DateTime.Now,
                 UserName = User.Identity.Name,
-                Url = path,
+                Url = "\\Documents\\"+file.FileName,
                 CourseId = user_course_id,
                 ModuleId = today_module_id,
                 LmsActivityId = selected_activity_id,
                 PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
             };
-           
+
             _context.Document.Add(doc);
             _context.SaveChanges();
 
