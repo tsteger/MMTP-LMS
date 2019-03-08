@@ -21,5 +21,9 @@ namespace MMTP_LMS.Models
         [Display(Name = "Owner")]
         public string PersonId { get; set; }
         public string UserName { get; set; }
+        public int? CourseId { get; set; }
+        public int? ModuleId { get; set; }
+        public int? LmsActivityId { get; set; }
+        public bool IsAdmin { get; set; } = false;
     }
 }

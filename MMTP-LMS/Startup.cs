@@ -75,7 +75,7 @@ namespace MMTP_LMS
                 cfg.CreateMap<Models.LmsActivity, ViewModels.StudentViewModel>();
                // cfg.CreateMap<ViewModels.StudentViewModel, Models.LmsActivity>();
             });
-            CreateUserRoles(servises).Wait();
+           CreateUserRoles(servises).Wait();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace MMTP_LMS.ViewModels
 {
     public class StudentViewModel
-    {            
-        public string Name { get; set; }
-        public string Description { get; set; }
+    {
+        public string Name { get; set; } 
+        public string Description { get; set; } 
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
         [DataType(DataType.Date)]
@@ -22,13 +22,9 @@ namespace MMTP_LMS.ViewModels
         public int AntalDagar { get; set; }           
 
         public ICollection<Document> Documents { get; set; }
-        public string[] UserDocuments { get; set; }
-        
-       // static public double Nav_date { get; set; }
 
         public IFormFile FileToUpload { get; set; }
 
-       // static public int SelectedCourseId { get; set; }
         public List<SelectListItem> CourseList { get; set; }
        
     }

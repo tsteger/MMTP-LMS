@@ -29,7 +29,7 @@
                     <div class="col">
                         Related documentation:
                         
-                        @foreach (var doc in item.Documents)
+                        @foreach (var doc in item.Documents.Where(a => a.IsAdmin))
                         {
                             <ul>
                                 
