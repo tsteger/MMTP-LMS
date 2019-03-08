@@ -37,7 +37,7 @@ namespace MMTP_LMS.Controllers
 
         public IActionResult Student(double id = 0, int course_select = 0)
         {
-            NoActivity();
+           // NoActivity();
             if (id == 0) Nav_date = 0d;
             Nav_date += id;
             var userName = User.Identity.Name;
