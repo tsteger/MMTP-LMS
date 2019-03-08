@@ -34,7 +34,7 @@ namespace MMTP_LMS.Controllers
             //    CourseStartDate = x.StartDate,
             //    CourseEndDate = x.EndDate,
             //});
-            var model = new TestModel()
+            var model = new CourseViewModel()
             {
                 Courses = _context.Course.ToList()
             };
@@ -48,7 +48,7 @@ namespace MMTP_LMS.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCourse([Bind("Id,CourseName,CourseDescription,CourseStartDate,CourseEndDate")] TeacherViewModel viewModel)
+        public async Task<IActionResult> CreateCourse([Bind("Id,CourseName,CourseDescription,CourseStartDate,CourseEndDate")] CourseViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -112,13 +112,44 @@ namespace MMTP_LMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Teacher));
+                return RedirectToAction(nameof(DeleteCourse));
             }
             return View(course);
         }
+        // GET: Course/Delete/
+        public async Task<IActionResult> DeleteCourse(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Course
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+
+        // POST: Course/Delete/5
+        [HttpPost, ActionName("DeleteCourse")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteCourseConfirmed(int id)
+        {
+            var course = await _context.Course.FindAsync(id);
+            _context.Course.Remove(course);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Teacher));
+        }
+
         private bool CourseExists(int id)
         {
             return _context.Course.Any(e => e.Id == id);
         }
+        
+
     }
 }

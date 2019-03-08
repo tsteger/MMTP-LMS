@@ -3,22 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MMTP_LMS.Data;
+using MMTP_LMS.Models;
 
 namespace MMTP_LMS.Controllers
 {
     public class CoursesController : Controller
     {
-        // GET: Courses
-        public ActionResult Index()
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<Person> userManager;
+
+        public CoursesController(ApplicationDbContext context, UserManager<Person> userManager)
         {
-            return View();
+            _context = context;
+            this.userManager = userManager;
+        }
+        // GET: Courses
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Course.Include(c => c.Id);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Courses/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> CourseDetails(int id)
         {
-            return View();
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Course
+                .Include(c => c.Id)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
         }
 
         // GET: Courses/Create
@@ -67,27 +93,38 @@ namespace MMTP_LMS.Controllers
             }
         }
 
-        // GET: Courses/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Course/Delete/
+        public async Task<IActionResult> DeleteCourse(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Course
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
         }
 
-        // POST: Courses/Delete/5
-        [HttpPost]
+        // POST: Course/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteCourseConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            var course = await _context.Course.FindAsync(id);
+            _context.Course.Remove(course);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+        private bool CourseExists(int id)
+        {
+            return _context.Course.Any(e => e.Id == id);
         }
     }
 }
