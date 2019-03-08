@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MMTP_LMS.Data;
 using MMTP_LMS.Models;
+using MMTP_LMS.Utilities;
 using MMTP_LMS.ViewModels;
 
 namespace MMTP_LMS.Controllers
@@ -25,6 +26,8 @@ namespace MMTP_LMS.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         private readonly IHostingEnvironment _hostingEnvironment;
+        
+
         private static DateTime NavDate { get; set; } = DateTime.Now;
         public static double Nav_date { get; private set; }
         public static int SelectedCourseId { get; private set; } = 1;
@@ -33,11 +36,14 @@ namespace MMTP_LMS.Controllers
             _context = context;
             _userManager = userManager;
             _hostingEnvironment = hostingEnvironment;
+           
         }
 
         public IActionResult Student(string Id, int course_select = 0)
         {
-           // NoActivity();
+            var dbUtilities = new DbUtilities(_context); 
+            dbUtilities.AddDatabaseData();
+            // NoActivity();
             //if (id == 0) Nav_date = 0d;
             //Nav_date += id;
             var userName = User.Identity.Name;
