@@ -25,7 +25,7 @@ namespace MMTP_LMS.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         private readonly IHostingEnvironment _hostingEnvironment;
-
+        private static DateTime NavDate { get; set; } = DateTime.Now;
         public static double Nav_date { get; private set; }
         public static int SelectedCourseId { get; private set; } = 1;
         public StudentController(ApplicationDbContext context, UserManager<Person> userManager, IHostingEnvironment hostingEnvironment)
@@ -35,20 +35,45 @@ namespace MMTP_LMS.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult Student(double id = 0, int course_select = 0)
+        public IActionResult Student(string Id, int course_select = 0)
         {
            // NoActivity();
-            if (id == 0) Nav_date = 0d;
-            Nav_date += id;
+            //if (id == 0) Nav_date = 0d;
+            //Nav_date += id;
             var userName = User.Identity.Name;
-
+            //var test = DateTime.Parse(Id);
+            
+            if(DateTime.TryParse(Id,out DateTime dateTime))
+            {
+                if(NavDate < dateTime.Date)
+                {
+                    Nav_date += 1;
+                    NavDate = NavDate.AddDays(1d);
+                }                   
+                else if (NavDate > dateTime.Date)
+                {
+                    Nav_date -= 1;
+                    NavDate = NavDate.AddDays(-1d);
+                }
+                else
+                    NavDate = dateTime.Date;
+                ViewBag.datum = Nav_date;
+            }
+            else
+            {
+                NavDate = DateTime.Now.Date;
+                ViewBag.datum = 0;
+                Nav_date = 0d;
+            }
+            
             if (userName == null)
             {
                 return RedirectToAction("Index", "Home");
             }
             user_course_id = GetCourseId(userName, course_select);
             today_module_id = GetModuleId(user_course_id);
-            var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
+            //  var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
+            var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Date <= NavDate && m.EndTime.Date >= NavDate);
             if (today_activities.Count() < 1) today_activities = _context.LmsActivity.Where(m => m.StartDate.Year <= DateTime.Now.AddYears(-1).Year);
 
 
@@ -79,6 +104,8 @@ namespace MMTP_LMS.Controllers
                 LmsActivityType = x.LmsActivityType,
                 AntalDagar = x.StartDate.Day - x.EndTime.Day,
                 CourseList = clist,
+               
+                
             });
 
             return View(ret);
@@ -106,7 +133,9 @@ namespace MMTP_LMS.Controllers
 
         public IActionResult Course()
         {
-            
+            NavDate = DateTime.Now.Date;
+            ViewBag.datum = 0;
+            Nav_date = 0d;
             int? user_course_id = GetCourseId(User.Identity.Name);
             var mod = _context.Module.Where(m => m.CourseId == user_course_id);
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
