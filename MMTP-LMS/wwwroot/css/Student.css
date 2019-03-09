@@ -112,4 +112,8 @@
     width: 100%;
     color: black;
 }
+.activity_list {
+    padding:3px 0px 3px 0px;
+    color:#46463f;
+}
 /*font-family: 'Nunito Sans', sans-serif;*/

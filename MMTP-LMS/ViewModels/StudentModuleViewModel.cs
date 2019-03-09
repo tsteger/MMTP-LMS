@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MMTP_LMS.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,6 @@ namespace MMTP_LMS.ViewModels
 
         public int CourseId { get; set; }
         public Course Course { get; set; }
-
+        public List<SelectListItem> CourseList { get; set; }
     }
 }
