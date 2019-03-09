@@ -7,58 +7,61 @@
 <h1 id="todays_header" class="thestyle">
     
     @ViewBag.Course</h1>
-    <div class="container-fluid">
-        <section class="row title-row"></section>
-        <section id="activity">
+<div class="container-fluid">
+    <section class="row title-row"></section>
+    <section id="activity">
 
-            @foreach (var item in Model)
-            {
-                <div id="activity_group" class="thestyle">
-                    <div class="col" id="date_header">
-                        Module @Html.DisplayFor(modelItem => item.Id) - @Html.DisplayFor(modelItem => item.Name)
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col" id="activity_description">
-                        <i class="far fa-calendar-alt"></i> Starts: @Html.DisplayFor(modelItem => item.StartDate) Ends: @Html.DisplayFor(modelItem => item.EndDate.Date)
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col" id="activity_header">
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col">
-                        Related documentation:
-                        
-                        @foreach (var doc in item.Documents.Where(a => a.IsAdmin))
-                        {
-                            <ul>
-                                
-                                <li><i class="far fa-file-alt"> </i><a href="@Html.DisplayFor(modelItem => doc.Url)"> @Html.DisplayFor(modelItem => doc.Name)</a></li>
-                            </ul>
-                        }
-                    </div>
+        @foreach (var item in Model)
+        {
+            <div id="activity_group" class="thestyle">
+                <div class="col" id="date_header">
+                    Module @Html.DisplayFor(modelItem => item.Id) - @Html.DisplayFor(modelItem => item.Name)
+
                 </div>
-
-                <div class="w-100"><div><hr /></div></div>
-
+                <div class="w-100"></div>
+                <div class="col" id="activity_description">
+                    <i class="far fa-calendar-alt"></i> Starts: @Html.DisplayFor(modelItem => item.StartDate) Ends: @Html.DisplayFor(modelItem => item.EndDate.Date)
+                </div>
+                <div class="w-100"></div>
+                <div class="col" id="activity_header">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </div>
+                <div class="w-100"></div>
                 <div class="col">
-                    <a class="btn btn-success" data-toggle="collapse" href="#module-@item.Id" role="button" aria-expanded="false" aria-controls="module-@item.Id">Show Activities</a>
-                                        <div class="collapse" id="module-@item.Id">
-                        <div class="card card-body">
-                            <l>
-                                @foreach (var activity in item.LmsActivities)
-                                {
-                                    <li><b><i class="fas fa-bolt"> </i> Activity type:</b> @Html.DisplayFor(modelItem => activity.LmsActivityTypeId) <b><i class="far fa-calendar-alt"></i> Time span:</b> @Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime) <b><i class="fas fa-pencil-alt"></i> Description: </b> @Html.DisplayFor(modelItem => activity.Description)</li>
-                                }
-                            </l>
-                        </div>
+                    Related documentation:
+
+                    @foreach (var doc in item.Documents.Where(a => a.IsAdmin))
+                    {
+                        <ul>
+
+                            <li><i class="far fa-file-alt"> </i><a href="@Html.DisplayFor(modelItem => doc.Url)"> @Html.DisplayFor(modelItem => doc.Name)</a></li>
+                        </ul>
+                    }
+                </div>
+            </div>
+
+            <div class="w-100"><div><hr /></div></div>
+
+            <div class="col">
+                <a class="btn btn-success activity_btn" data-toggle="collapse" href="#module-@item.Id" role="button" aria-expanded="false" aria-controls="module-@item.Id">Show Activities</a>
+                <div class="collapse" id="module-@item.Id">
+                    <div class="card card-body">
+                        <ul>
+                            @foreach (var activity in item.LmsActivities)
+                            {
+                                <li><b><i class="fas fa-bolt"> </i><a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student"  asp-route-id="@activity.StartDate.ToShortDateString()"><img class="nav_button_img" src="~/src/back-icon.png" /></a> Activity type:</b> @Html.DisplayFor(modelItem => activity.LmsActivityTypeId) <b><i class="far fa-calendar-alt"></i> Time span:</b> @Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime) <b><i class="fas fa-pencil-alt"></i> Description: </b> @Html.DisplayFor(modelItem => activity.Description)</li>
+                                 @*<a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" name="d" asp-route-id="@activity.StartDate.ToShortDateString()"></a>*@
+                            }
+                        </ul>
                     </div>
                 </div>
+            </div>
 
-                <div><hr /></div>
-            }
-            </section>
-            <section>
-                <div><hr /></div>
-            </section>
+            <div><hr /></div>
+        }
+    </section>
+    <section>
+        <div><hr /></div>
+    </section>
 
+  </div> 

@@ -20,7 +20,7 @@ namespace MMTP_LMS.Models
         public DateTime EndTime { get; set; }
         [Display(Name = "Activity Type")]
         public LmsActivityType LmsActivityType { get; set; }
-        public int LmsActivityTypeId { get; set; }
+        public int? LmsActivityTypeId { get; set; }
         
         public int ModuleId { get; set; }
         [Display(Name = "Module Name")]
