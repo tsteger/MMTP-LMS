@@ -116,4 +116,9 @@
     padding:3px 0px 3px 0px;
     color:#46463f;
 }
+.activity_list_date {
+    white-space: nowrap;
+    color: #808080;
+    font-size: 80%;
+}
 /*font-family: 'Nunito Sans', sans-serif;*/

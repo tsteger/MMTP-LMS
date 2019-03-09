@@ -49,14 +49,14 @@ namespace MMTP_LMS.Controllers
             if (DateTime.TryParse(Id, out DateTime dateTime))
             {
                 if (NavDate < dateTime.Date)
-                {
-                    Nav_date += 1;
-                    NavDate = NavDate.AddDays(1);
+                {                 
+                    Nav_date += dateTime.Date.Day - NavDate.Day;
+                    NavDate = dateTime.Date;
                 }
                 else if (NavDate > dateTime.Date)
                 {
-                    Nav_date -= 1;
-                    NavDate = NavDate.AddDays(-1);
+                    Nav_date += dateTime.Date.Day - NavDate.Day;
+                    NavDate = dateTime.Date;
                 }
                 else
                     NavDate = dateTime.Date;

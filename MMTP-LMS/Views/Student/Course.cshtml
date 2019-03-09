@@ -6,7 +6,7 @@
 
 <div id="todays_header" class="thestyle">
 
-   <span>Modul Lista</span>
+    <span>Modul Lista</span>
     @if (User.IsInRole("Admin") && Model.Count() > 0)
     {
         <form method="get">
@@ -62,7 +62,7 @@
                 <div class="collapse" id="module-@item.Id">
                     <div class="card card-body">
                         <ul>
-                            @foreach (var activity in item.LmsActivities)
+                            @foreach (var activity in item.LmsActivities.Where(n=>n.Name != "No Activity"))
                             {
                                 @*<li><b><i class="fas fa-bolt"> </i><a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" asp-route-id="@activity.StartDate.ToShortDateString()">go</a> Activity type:</b> @Html.DisplayFor(modelItem => activity.Name) <b><i class="far fa-calendar-alt"></i> Time span:</b> @Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime) <b><i class="fas fa-pencil-alt"></i> Description: </b> @Html.DisplayFor(modelItem => activity.Description)</li>*@
                                 @*<a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" name="d" asp-route-id="@activity.StartDate.ToShortDateString()"></a>*@
@@ -72,7 +72,7 @@
                                     <b>
                                         <span>@Html.DisplayFor(modelItem => activity.Name)</span>
                                     </b>
-                                    <span>@Html.DisplayFor(modelItem => activity.StartDate) -@Html.DisplayFor(modelItem => activity.EndTime)</span>
+                                    <span class="activity_list_date">@Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime)</span>
 
                                 </li>
                             }
