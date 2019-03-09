@@ -112,7 +112,7 @@ namespace MMTP_LMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(DeleteCourse));
+                return RedirectToAction(nameof(Teacher));
             }
             return View(course);
         }

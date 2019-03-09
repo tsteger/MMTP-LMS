@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace MMTP_LMS.ViewModels
 {
-    public class ModuleVeiwModel
+    public class ModuleViewModel
     {
         [Display(Name = "Course Name")]
-        public string CourseName { get; set; }
+        public string ModuleName { get; set; }
         [Display(Name = "Description")]
-        public string CourseDescription { get; set; }
+        public string ModuleDescription { get; set; }
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
-        public DateTime CourseStartDate { get; set; } = DateTime.Now;
+        public DateTime ModuleStartDate { get; set; } = DateTime.Now;
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
-        public DateTime CourseEndDate { get; set; } = DateTime.Now.AddYears(1);
-
+        public DateTime ModuleEndDate { get; set; } = DateTime.Now.AddYears(1);
+        public int CourseId { get; set; }
 
         public ICollection<Module> Modules { get; set; }
     }

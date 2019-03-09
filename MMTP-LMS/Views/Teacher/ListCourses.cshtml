@@ -37,11 +37,11 @@
             <td>
                 <a asp-action="EditCourse" asp-route-id="@item.Id">Edit Course</a>
             </td>
+            @*<td>
+            <a asp-action="DeleteCourse" asp-route-id="@item.Id">Delete Course</a>
+        </td>*@
             <td>
-                <a asp-action="DeleteCourse" asp-route-id="@item.Id">Delete Course</a>
-            </td>
-            <td>
-                <a asp-action="EditCourse" asp-route-id="@item.Id">Add Modules</a>
+                <a asp-controller="Module" asp-action="CreateModule" asp-route-id="@item.Id">Add Modules</a>
             </td>
         </tr>
         }
