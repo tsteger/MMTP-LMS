@@ -16,7 +16,8 @@ using MMTP_LMS.Models;
 
 namespace MMTP_LMS.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    // [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     public class RegisterModel : PageModel
     {
         public List<SelectListItem> Options { get; set; }
