@@ -38,6 +38,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Course">Course</a>
                         </li>
+                        
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
@@ -47,7 +48,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Teacher" asp-action="Teacher">Teacher</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Users</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="CreateUser">Users</a>
                             </li>
                         }
 
