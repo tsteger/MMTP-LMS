@@ -91,7 +91,7 @@
     font-size: 1.75vw;
     height: 29px;
     /*padding: 1px;*/ /* If you add too much padding here, the options won't show in IE */
-    width: 150px;
+    /*width: 150px;*/
     color: white;
 }
 
