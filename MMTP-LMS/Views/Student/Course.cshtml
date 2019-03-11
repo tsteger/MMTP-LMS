@@ -4,9 +4,24 @@
     ViewData["Title"] = @ViewBag.Course;
 }
 
-<h1 id="todays_header" class="thestyle">
-    
-    @ViewBag.Course</h1>
+<div id="todays_header" class="thestyle">
+
+    <span>Modul Lista</span>
+    @if (User.IsInRole("Admin") && Model.Count() > 0)
+    {
+        <form method="get">
+
+            <span class="styled-select">
+                <select asp-items="@Model.FirstOrDefault().CourseList" name="course_select"></select>
+            </span>
+            <span class="btn-course"> <button class="btn-course" type="submit">Select Course</button></span>
+        </form>
+    }
+    else
+    {
+        <span id="course_name" class="no_new_line">@ViewBag.Course</span>
+    }
+</div>
 <div class="container-fluid">
     <section class="row title-row"></section>
     <section id="activity">
@@ -20,7 +35,7 @@
                 </div>
                 <div class="w-100"></div>
                 <div class="col" id="activity_description">
-                    <i class="far fa-calendar-alt"></i> Starts: @Html.DisplayFor(modelItem => item.StartDate) Ends: @Html.DisplayFor(modelItem => item.EndDate.Date)
+                    <i class="far fa-calendar-alt"></i> Starts: @Html.DisplayFor(modelItem => item.StartDate) Ends: @Html.DisplayFor(modelItem => item.EndDate)
                 </div>
                 <div class="w-100"></div>
                 <div class="col" id="activity_header">
@@ -47,10 +62,19 @@
                 <div class="collapse" id="module-@item.Id">
                     <div class="card card-body">
                         <ul>
-                            @foreach (var activity in item.LmsActivities)
+                            @foreach (var activity in item.LmsActivities.Where(n=>n.Name != "No Activity"))
                             {
-                                <li><b><i class="fas fa-bolt"> </i><a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student"  asp-route-id="@activity.StartDate.ToShortDateString()"><img class="nav_button_img" src="~/src/back-icon.png" /></a> Activity type:</b> @Html.DisplayFor(modelItem => activity.LmsActivityTypeId) <b><i class="far fa-calendar-alt"></i> Time span:</b> @Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime) <b><i class="fas fa-pencil-alt"></i> Description: </b> @Html.DisplayFor(modelItem => activity.Description)</li>
-                                 @*<a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" name="d" asp-route-id="@activity.StartDate.ToShortDateString()"></a>*@
+                                @*<li><b><i class="fas fa-bolt"> </i><a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" asp-route-id="@activity.StartDate.ToShortDateString()">go</a> Activity type:</b> @Html.DisplayFor(modelItem => activity.Name) <b><i class="far fa-calendar-alt"></i> Time span:</b> @Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime) <b><i class="fas fa-pencil-alt"></i> Description: </b> @Html.DisplayFor(modelItem => activity.Description)</li>*@
+                                @*<a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" name="d" asp-route-id="@activity.StartDate.ToShortDateString()"></a>*@
+                                <li class="activity_list">
+
+                                    <a class="btn btn-primary btn-sm" asp-action="Student" asp-route-id="@activity.StartDate.ToShortDateString()"></a>
+                                    <b>
+                                        <span>@Html.DisplayFor(modelItem => activity.Name)</span>
+                                    </b>
+                                    <span class="activity_list_date">@Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime)</span>
+
+                                </li>
                             }
                         </ul>
                     </div>
@@ -64,4 +88,4 @@
         <div><hr /></div>
     </section>
 
-  </div> 
+</div>

@@ -20,13 +20,14 @@ namespace MMTP_LMS.Controllers
 {
     public class StudentController : Controller
     {
+        private List<SelectListItem> clist;
         private static int? user_course_id;
         private static int today_module_id;
         private static int selected_activity_id;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         private readonly IHostingEnvironment _hostingEnvironment;
-        
+
 
         private static DateTime NavDate { get; set; } = DateTime.Now;
         public static int Nav_date { get; private set; }
@@ -36,26 +37,26 @@ namespace MMTP_LMS.Controllers
             _context = context;
             _userManager = userManager;
             _hostingEnvironment = hostingEnvironment;
-           
+            clist = GetCourseList();
         }
 
         public IActionResult Student(string Id, int course_select = 0)
         {
-            var dbUtilities = new DbUtilities(); 
-            dbUtilities.AddDatabaseData(_context);           
+            var dbUtilities = new DbUtilities();
+            dbUtilities.AddDatabaseData(_context);
             var userName = User.Identity.Name;
-          
-            if(DateTime.TryParse(Id,out DateTime dateTime))
+
+            if (DateTime.TryParse(Id, out DateTime dateTime))
             {
-                if(NavDate < dateTime.Date)
-                {
-                    Nav_date += 1;
-                    NavDate = NavDate.AddDays(1);
-                }                   
+                if (NavDate < dateTime.Date)
+                {                 
+                    Nav_date += dateTime.Date.Day - NavDate.Day;
+                    NavDate = dateTime.Date;
+                }
                 else if (NavDate > dateTime.Date)
                 {
-                    Nav_date -= 1;
-                    NavDate = NavDate.AddDays(-1);
+                    Nav_date += dateTime.Date.Day - NavDate.Day;
+                    NavDate = dateTime.Date;
                 }
                 else
                     NavDate = dateTime.Date;
@@ -67,7 +68,7 @@ namespace MMTP_LMS.Controllers
                 ViewBag.datum = 0;
                 Nav_date = 0;
             }
-            
+
             if (userName == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -79,15 +80,8 @@ namespace MMTP_LMS.Controllers
             if (today_activities.Count() < 1) today_activities = _context.LmsActivity.Where(m => m.StartDate.Year <= DateTime.Now.AddYears(-1).Year);
 
             selected_activity_id = today_activities.Select(i => i.Id).FirstOrDefault();
-            var clist = _context.Course.Select(a =>
-                                new SelectListItem
-                                {
-                                    Value = a.Id.ToString(),
-                                    Text = a.Name,
-                                    Selected = a.Id == user_course_id
-                                }).ToList();
-
-
+            //  List<SelectListItem> clist = GetCourseList();
+            clist = GetCourseList();
             if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
             else if (Nav_date == -1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
             else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
@@ -104,18 +98,32 @@ namespace MMTP_LMS.Controllers
                 LmsActivityType = x.LmsActivityType,
                 AntalDagar = x.StartDate.Day - x.EndTime.Day,
                 CourseList = clist,
-                               
+
             });
 
             return View(ret);
-        }       
+        }
 
-        public IActionResult Course()
+        private List<SelectListItem> GetCourseList()
         {
+            return _context.Course.Select(a =>
+                                            new SelectListItem
+                                            {
+                                                Value = a.Id.ToString(),
+                                                Text = a.Name,
+                                                Selected = a.Id == user_course_id
+                                            }).ToList();
+        }
+
+        public IActionResult Course(int course_select = 0)
+        {
+            
             NavDate = DateTime.Now.Date;
             ViewBag.datum = 0;
             Nav_date = 0;
-            int? user_course_id = GetCourseId(User.Identity.Name);
+            user_course_id = GetCourseId(User.Identity.Name, course_select);
+            clist = GetCourseList();
+            //int? user_course_id = GetCourseId(User.Identity.Name);
             var mod = _context.Module.Where(m => m.CourseId == user_course_id);
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
             var ret = mod.Select(x => new StudentModuleViewModel()
@@ -123,10 +131,12 @@ namespace MMTP_LMS.Controllers
                 Name = x.Name,
                 Description = x.Description,
                 StartDate = x.StartDate,
+                EndDate = x.EndDate,
                 Id = x.Id,
                 Documents = x.Documents,
-                LmsActivities = x.LmsActivities,               
-                
+                LmsActivities = x.LmsActivities,
+                CourseList = clist,
+
             });
 
             return View(ret);
@@ -159,14 +169,14 @@ namespace MMTP_LMS.Controllers
         public async Task<IActionResult> UploadFile(IFormFile file, string txt)
         {
             var fileUtil = new Utilities.File();
-            await fileUtil.UploadFileAsync(file,txt, _hostingEnvironment);         
+            await fileUtil.UploadFileAsync(file, txt, _hostingEnvironment);
             var doc = new Document
             {
                 Name = file.FileName,
                 Description = txt,
                 TimeStamp = DateTime.Now,
                 UserName = User.Identity.Name,
-                Url = "\\Documents\\"+file.FileName,
+                Url = "\\Documents\\" + file.FileName,
                 CourseId = user_course_id,
                 ModuleId = today_module_id,
                 LmsActivityId = selected_activity_id,
