@@ -24,7 +24,7 @@ namespace MMTP_LMS.Utilities
                     Name = "Default",
                     Description = "Default",
                     StartDate = DateTime.Now.AddYears(-1),
-                    EndDate = DateTime.Now.AddYears(-1),
+                    EndDate = DateTime.Now.AddMonths(+6),
                  
 
                 };
@@ -39,7 +39,7 @@ namespace MMTP_LMS.Utilities
                     Name = "Default",
                     Description = "Default",
                     StartDate = DateTime.Now.AddYears(-1),
-                    EndDate = DateTime.Now.AddYears(-1),
+                    EndDate = DateTime.Now.AddMonths(+3),
                     CourseId = 1
 
                 };
@@ -55,7 +55,7 @@ namespace MMTP_LMS.Utilities
                     Name = "No Activity",
                     Description = "No Activity Today",
                     StartDate = DateTime.Now.AddYears(-1),
-                    EndTime = DateTime.Now.AddYears(-1),
+                    EndTime = DateTime.Now.AddDays(10),
                     ModuleId = 1,
                     
 
