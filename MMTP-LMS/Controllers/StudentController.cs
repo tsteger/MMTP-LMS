@@ -25,6 +25,7 @@ namespace MMTP_LMS.Controllers
         private static int? user_course_id;
         private static int today_module_id;
         private static int selected_activity_id;
+        
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -39,6 +40,7 @@ namespace MMTP_LMS.Controllers
             _userManager = userManager;
             _hostingEnvironment = hostingEnvironment;
             clist = GetCourseList();
+            
         }
 
         public IActionResult Student(string Id, int course_select = 0)
@@ -118,7 +120,10 @@ namespace MMTP_LMS.Controllers
 
         public IActionResult Course(int course_select = 0)
         {
-            
+            if (User.Identity.Name == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             NavDate = DateTime.Now.Date;
             ViewBag.datum = 0;
             Nav_date = 0;
