@@ -5,7 +5,24 @@
 
 @media screen and (min-width: 1200px) {
     #todays_header{
+        font-size: 36px;
+    }
+    .styled-select select {
         font-size: 20px;
+    }
+    .btn-course {
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 1200px) {
+    #todays_header {
+        font-size: 3.1vw;
+    }
+    .styled-select select {
+        font-size: 1.75vw;
+    }
+    .btn-course {
+        font-size: 1.75vw;
     }
 }
 #todays_header {
@@ -13,7 +30,7 @@
     background-color: #ff0000;
     border-radius: 5px;
     margin: 20px;
-    font-size: 3.2vw;
+    /*font-size: 3.2vw;*/
     color:white;
     
 }
@@ -96,7 +113,7 @@
 .styled-select select {
     background: red;
     border: none;
-    font-size: 1.75vw;
+    /*font-size: 1.75vw;*/
     height: 29px;
     /*padding: 1px;*/ /* If you add too much padding here, the options won't show in IE */
     /*width: 150px;*/
@@ -106,7 +123,7 @@
 .btn-course {
     background-color: transparent;
     color: black;
-    font-size: 1.75vw;
+    /*font-size: 1.75vw;*/
     border: 0px;
     color: white;
 }
