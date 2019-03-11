@@ -32,7 +32,8 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CourseId)
+                
+                @ViewBag.Course[(int)item.CourseId-1].Name
             </td>
             <td>
                 <a asp-action="EditUser" asp-route-id="@item.Id">Edit</a>
