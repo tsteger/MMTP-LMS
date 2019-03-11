@@ -14,6 +14,7 @@ namespace MMTP_LMS.Controllers
 {
     public class UsersController : Controller
     {
+
         public List<SelectListItem> clist;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
@@ -21,13 +22,14 @@ namespace MMTP_LMS.Controllers
         {
             _context = context;
             _userManager = userManager;
+            
         }
        
         public IActionResult CreateUser()
         {
             clist = GetCourseList();
             ViewBag.List = clist;
-            ViewBag.Course = _context.Course.ToList();
+            ViewBag.Course =_context.Course.ToList();
             var model = new UserInputViewModel()
             {
                 People = _context.Person.ToList(),
@@ -48,6 +50,7 @@ namespace MMTP_LMS.Controllers
                     LastName = Input.LastName,
                     CourseId = Input.CourseId,
                     Course = Input.Course,
+                    
                     
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
