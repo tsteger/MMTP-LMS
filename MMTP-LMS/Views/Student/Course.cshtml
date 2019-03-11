@@ -64,11 +64,9 @@
                         <ul>
                             @foreach (var activity in item.LmsActivities.Where(n=>n.Name != "No Activity"))
                             {
-                                @*<li><b><i class="fas fa-bolt"> </i><a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" asp-route-id="@activity.StartDate.ToShortDateString()">go</a> Activity type:</b> @Html.DisplayFor(modelItem => activity.Name) <b><i class="far fa-calendar-alt"></i> Time span:</b> @Html.DisplayFor(modelItem => activity.StartDate) - @Html.DisplayFor(modelItem => activity.EndTime) <b><i class="fas fa-pencil-alt"></i> Description: </b> @Html.DisplayFor(modelItem => activity.Description)</li>*@
-                                @*<a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" name="d" asp-route-id="@activity.StartDate.ToShortDateString()"></a>*@
                                 <li class="activity_list">
 
-                                    <a class="btn btn-primary btn-sm" asp-action="Student" asp-route-id="@activity.StartDate.ToShortDateString()"></a>
+                                    <a class="btn btn-success btn-sm" asp-action="Student" asp-route-id="@activity.StartDate.ToShortDateString()"></a>
                                     <b>
                                         <span>@Html.DisplayFor(modelItem => activity.Name)</span>
                                     </b>
