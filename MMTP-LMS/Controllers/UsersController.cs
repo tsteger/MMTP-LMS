@@ -15,7 +15,6 @@ namespace MMTP_LMS.Controllers
     public class UsersController : Controller
     {
         public List<SelectListItem> clist;
-        //public List<SelectListItem> Options { get; set; }
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         public UsersController(ApplicationDbContext context, UserManager<Person> userManager)
@@ -28,10 +27,10 @@ namespace MMTP_LMS.Controllers
         {
             clist = GetCourseList();
             ViewBag.List = clist;
-           
+            ViewBag.Course = _context.Course.ToList();
             var model = new UserInputViewModel()
             {
-                People = _context.Person.ToList()
+                People = _context.Person.ToList(),
             };
             return View(model);
         }
