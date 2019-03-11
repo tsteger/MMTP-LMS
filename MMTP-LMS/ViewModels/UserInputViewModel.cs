@@ -32,8 +32,8 @@ namespace MMTP_LMS.ViewModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+       // public ICollection<Course> Courses { get; set; }
 
-    
         public ICollection<Person> People { get; set; }
     }
 }
