@@ -25,14 +25,14 @@ namespace MMTP_LMS.Controllers
             _userManager = userManager;
         }
 
-        // GET: Module
+        // GET: Modules
         public IActionResult Index()
         {
             var model = new ModuleViewModel()
             {
                 Modules = _context.Module.ToList()
             };
-            return View();
+            return View(model);
         }
 
         // GET: Module/Details/5
@@ -86,28 +86,59 @@ namespace MMTP_LMS.Controllers
             return View(viewModel);
         }
         
-        // GET: Module/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Module/EditModule/
+        public async Task<IActionResult> EditModule(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var module = await _context.Module.FindAsync(id);
+            if (module == null)
+            {
+                return NotFound();
+            }
+            return View(module);
         }
 
-        // POST: Module/Edit/5
+        // POST: Module/EditModule/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> EditModule(int id, [Bind("Id,Name,Description,StartDate,EndDate")] Module module)
         {
-            try
+            if (id != module.Id)
             {
-                // TODO: Add update logic here
+                return NotFound();
+            }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (ModelState.IsValid)
             {
-                return View();
+                try
+                {
+                    _context.Update(module);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ModuleExists(module.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(CreateModule));
             }
+            return View(module);
         }
+        private bool ModuleExists(int id)
+        {
+            return _context.Module.Any(e => e.Id == id);
+        }
+
 
         // GET: Module/Delete/5
         public ActionResult Delete(int id)

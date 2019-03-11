@@ -26,10 +26,10 @@ namespace MMTP_LMS.Controllers
             this.userManager = userManager;
         }
 
-        // GET: People
+        // GET: LmsActivities
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Person.Include(p => p.Course);
+            var applicationDbContext = _context.LmsActivity;
             return View(await applicationDbContext.ToListAsync());
         }
 

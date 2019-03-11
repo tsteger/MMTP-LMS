@@ -9,7 +9,7 @@ namespace MMTP_LMS.ViewModels
 {
     public class ModuleViewModel
     {
-        [Display(Name = "Course Name")]
+        [Display(Name = "Module Name")]
         public string ModuleName { get; set; }
         [Display(Name = "Description")]
         public string ModuleDescription { get; set; }

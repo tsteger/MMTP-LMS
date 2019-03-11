@@ -82,7 +82,7 @@ namespace MMTP_LMS.Controllers
             return View(course);
         }
 
-        // POST: Course/EditCourse/5
+        // POST: Course/EditCourse/5<------Här ligger jag !
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -150,6 +150,5 @@ namespace MMTP_LMS.Controllers
             return _context.Course.Any(e => e.Id == id);
         }
         
-
     }
 }

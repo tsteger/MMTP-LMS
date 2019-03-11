@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<MMTP_LMS.Models.Module>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h2>Modules</h2>
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +26,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -48,12 +47,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CourseId)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            @* <td>
+                    <a asp-action="EditModule" asp-route-id="@item.Id">Edit Module</a>
+                 </td>
+                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>*@
+
+
+
         </tr>
-}
+        }
+        
     </tbody>
 </table>
+<div>
+    <a asp-action="Teacher" asp-controller="Teacher">Back to Teachers Overview</a>
+</div>
