@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -82,10 +83,10 @@ namespace MMTP_LMS.Controllers
             selected_activity_id = today_activities.Select(i => i.Id).FirstOrDefault();
             //  List<SelectListItem> clist = GetCourseList();
             clist = GetCourseList();
-            if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
-            else if (Nav_date == -1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
-            else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
-            else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Aktiviteter";
+            if (Nav_date == 0) ViewBag.TodayHeader = "Todays Activities";
+            else if (Nav_date == -1) ViewBag.TodayHeader = "Yesterdays Activities";
+            else if (Nav_date == 1) ViewBag.TodayHeader = "Tomorrows Activities";
+            else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Activities";
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
 
             var ret = today_activities.Select(x => new StudentViewModel()
@@ -96,7 +97,7 @@ namespace MMTP_LMS.Controllers
                 EndTime = x.EndTime,
                 Documents = x.Documents,
                 LmsActivityType = x.LmsActivityType,
-                AntalDagar = x.StartDate.Day - x.EndTime.Day,
+                AntalDagar =  x.EndTime.Day - x.StartDate.Day,
                 CourseList = clist,
 
             });

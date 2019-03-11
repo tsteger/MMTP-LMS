@@ -2,14 +2,22 @@
     font-size: 14px;
    
 }
+
+@media screen and (min-width: 1200px) {
+    #todays_header{
+        font-size: 20px;
+    }
+}
 #todays_header {
-    padding: 0.4em 1em 0.8em 0.4em;
+    padding: 0.4em 1em 0.2em 0.4em;
     background-color: #ff0000;
     border-radius: 5px;
     margin: 20px;
-    font-size: 3.5vw;
+    font-size: 3.2vw;
     color:white;
+    
 }
+
 #date_header {
     background-color: #ff0000;
     border-radius: 5px;
@@ -122,3 +130,33 @@
     font-size: 80%;
 }
 /*font-family: 'Nunito Sans', sans-serif;*/
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.upload-btn {
+    border: 1px solid transparent;
+    color: white;
+    background-color: #28a745;
+    /* background-color: white;*/
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 12px;
+    /* font-weight: bold; */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    transition-delay: 0s, 0s, 0s, 0s;
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}

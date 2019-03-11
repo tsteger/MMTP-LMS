@@ -55,11 +55,11 @@
                         @Html.DisplayFor(modelItem => item.StartDate)
                         @if (item.AntalDagar != 0)
                         {
-                            <span> Pågår i </span>
+                            <span>. Length: </span>
                             @Html.DisplayFor(modelItem => item.AntalDagar)
-                            <span> Dagar </span>
+                            <span> Days </span>
                         }
-                        <span> Typ av upgift: </span>
+                        <span>. Type of activity: </span>
                         @Html.DisplayFor(modelItem => item.LmsActivityType.Name)
                     }
                     else
@@ -97,23 +97,25 @@
 
     </section>
     <section id="user">
+        
         <div>
             <div class="thestyle">
                 <form asp-controller="Student" asp-action="UploadFile" method="post"
                       enctype="multipart/form-data">
                     <div class="form-group user_box">
-                        <label id="submit_header" for="user_form">Description av document</label>
+                        <label id="submit_header" for="user_form">Description of document</label>
                         <textarea name="txt" class="form-control" id="user_form" rows="2"></textarea>
-                        <label for="user_form">Lämna in filer</label>
+                        <label for="user_form">Files to be uploaded</label>
                         <input type="file" name="file" class="form-control-file" id="user_form" required="required">
                         <br />
                         <button type="submit">Upload File</button>
                         <br />
+                       
                         <div class="col alert-light uploaded_files">
                             <span><u>Uploaded Files:</u></span><br />
                             @foreach (var item in Model)
                             {
-                                @foreach (var doc in item.Documents.Where(u=>u.UserName == User.Identity.Name))
+                                @foreach (var doc in item.Documents.Where(u => u.UserName == User.Identity.Name))
                                 {
                                     <Span>@doc.Name</Span><br />
                                 }
@@ -121,6 +123,10 @@
                             }
 
                         </div>
+
+
+
+
 
                     </div>
                 </form>
