@@ -8,4 +8,9 @@
             this.innerText = "Show Activities"
         }
     });
+    $('#forgot-password').hide()
+   
+    $("p").filter(function () {
+        return $(this).find("a[href^='/Identity/Account/Register']").length > 0;
+    }).hide();
 });
