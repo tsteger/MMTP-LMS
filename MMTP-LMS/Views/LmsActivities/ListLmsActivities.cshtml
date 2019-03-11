@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MMTP_LMS.ViewModels.LmsActivityViewModel>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivityDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivityStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivityEndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivityTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LmsActivityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModuleId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LmsActivityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LmsActivityDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LmsActivityStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LmsActivityEndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LmsActivityTypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LmsActivityId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

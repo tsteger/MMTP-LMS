@@ -56,7 +56,7 @@ namespace MMTP_LMS.Controllers
         // POST: CreateLmsActivity
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateLmsActivity([Bind("Id,LmsActivityName,LmsActivityDescription,LmsActivityStartDate,LmsActivityEndDate,Modules")] LmsActivityViewModel viewModel)
+        public async Task<IActionResult> CreateLmsActivity([Bind("Id,LmsActivityName,LmsActivityDescription,LmsActivityStartDate,LmsActivityEndDate,ModuleId")] LmsActivityViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace MMTP_LMS.Controllers
                     EndTime = viewModel.LmsActivityEndTime,
                     Description = viewModel.LmsActivityDescription,
                     LmsActivityType = viewModel.LmsActivityType,
-                    ModuleId = viewModel.ModuleId
+                    ModuleId = viewModel.LmsActivityId
 
                 };
                 _context.LmsActivity.Add(lmsactivity);
@@ -76,6 +76,62 @@ namespace MMTP_LMS.Controllers
             }
             return View(viewModel);
         }
+        // GET: EditLmsActivity
+        public async Task<IActionResult> EditLmsactivity(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var lmsActivity = await _context.LmsActivity.FindAsync(id);
+            if (lmsActivity == null)
+            {
+                return NotFound();
+            }
+            return View(lmsActivity);
+        }
+
+        // POST: EditLmsActivity
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditLmsAvctivity(int id, [Bind("Id,Name,Description,StartDate,EndDate")] LmsActivity lmsActivity)
+        {
+            if (id != lmsActivity.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(lmsActivity);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!LmsActivityExists(lmsActivity.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(CreateLmsActivity));
+            }
+            return View(lmsActivity);
+
+
+        }
+
+        private bool LmsActivityExists(int id)
+        {
+            return _context.LmsActivity.Any(e => e.Id == id);
+        }
     }
 }
