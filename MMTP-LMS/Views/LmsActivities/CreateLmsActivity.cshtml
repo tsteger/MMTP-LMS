@@ -1,0 +1,56 @@
+﻿@model MMTP_LMS.ViewModels.LmsActivityViewModel
+
+@{
+    ViewData["Title"] = "CreateLmsActivity";
+}
+
+<h1>CreateLmsActivity</h1>
+
+<h4>LmsActivity</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateLmsActivity">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="LmsActivityName" class="control-label"></label>
+                <input asp-for="LmsActivityName" class="form-control" />
+                <span asp-validation-for="LmsActivityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LmsActivityDescription" class="control-label"></label>
+                <input asp-for="LmsActivityDescription" class="form-control" />
+                <span asp-validation-for="LmsActivityDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LmsActivityStartDate" class="control-label"></label>
+                <input asp-for="LmsActivityStartDate" class="form-control" />
+                <span asp-validation-for="LmsActivityStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LmsActivityEndTime" class="control-label"></label>
+                <input asp-for="LmsActivityEndTime" class="form-control" />
+                <span asp-validation-for="LmsActivityEndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LmsActivityTypeId" class="control-label"></label>
+                <input asp-for="LmsActivityTypeId" class="form-control" />
+                <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModuleId" class="control-label"></label>
+                <input asp-for="ModuleId" class="form-control" />
+                <span asp-validation-for="ModuleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
