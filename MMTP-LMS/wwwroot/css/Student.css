@@ -2,14 +2,22 @@
     font-size: 14px;
    
 }
+
+@media screen and (min-width: 1200px) {
+    #todays_header{
+        font-size: 20px;
+    }
+}
 #todays_header {
-    padding: 0.4em 1em 0.8em 0.4em;
+    padding: 0.4em 1em 0.2em 0.4em;
     background-color: #ff0000;
     border-radius: 5px;
     margin: 20px;
-    font-size: 3.5vw;
+    font-size: 3.2vw;
     color:white;
+    
 }
+
 #date_header {
     background-color: #ff0000;
     border-radius: 5px;
@@ -151,4 +159,7 @@
     left: 0;
     top: 0;
     opacity: 0;
+}
+.red{
+    color:red;
 }

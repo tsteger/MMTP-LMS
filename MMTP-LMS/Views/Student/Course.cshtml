@@ -6,7 +6,7 @@
 
 <div id="todays_header" class="thestyle">
 
-    <span>Modul Lista</span>
+    <span>Module List</span>
     @if (User.IsInRole("Admin") && Model.Count() > 0)
     {
         <form method="get">
@@ -19,9 +19,11 @@
     }
     else
     {
+        <br />
         <span id="course_name" class="no_new_line">@ViewBag.Course</span>
     }
 </div>
+
 <div class="container-fluid">
     <section class="row title-row"></section>
     <section id="activity">

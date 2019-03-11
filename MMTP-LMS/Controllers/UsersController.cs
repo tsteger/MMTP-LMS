@@ -58,7 +58,8 @@ namespace MMTP_LMS.Controllers
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    return RedirectToAction("CreateUser", "Users");
+                   // ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
             return View(Input);
