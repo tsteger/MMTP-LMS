@@ -4,14 +4,16 @@ using MMTP_LMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMTP_LMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190312132616_id_and_bool_id")]
+    partial class id_and_bool_id
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,6 +93,8 @@ namespace MMTP_LMS.Migrations
 
                     b.Property<int?>("LmsActivityTypeId");
 
+                    b.Property<int?>("LmsActivityTypeId1");
+
                     b.Property<int>("ModuleId");
 
                     b.Property<string>("Name");
@@ -99,7 +103,7 @@ namespace MMTP_LMS.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LmsActivityTypeId");
+                    b.HasIndex("LmsActivityTypeId1");
 
                     b.HasIndex("ModuleId");
 
@@ -111,6 +115,8 @@ namespace MMTP_LMS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LmsActivityId");
 
                     b.Property<string>("Name");
 
@@ -346,7 +352,7 @@ namespace MMTP_LMS.Migrations
                 {
                     b.HasOne("MMTP_LMS.Models.LmsActivityType", "LmsActivityType")
                         .WithMany()
-                        .HasForeignKey("LmsActivityTypeId");
+                        .HasForeignKey("LmsActivityTypeId1");
 
                     b.HasOne("MMTP_LMS.Models.Module", "Module")
                         .WithMany("LmsActivities")

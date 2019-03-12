@@ -35,6 +35,8 @@ namespace MMTP_LMS.Controllers
         // GET: CreateLmsActivity
         public async Task<ActionResult> CreateLmsActivity(int? id = null)
         {
+            clist = GetActivityList();
+            ViewBag.List = clist;
             if (id == null) return View();
 
             var module = await _context.Module.Include(l => l.LmsActivities).FirstOrDefaultAsync(m => m.Id == id);
@@ -139,7 +141,7 @@ namespace MMTP_LMS.Controllers
         }
         private List<SelectListItem> GetActivityList()
         {
-            return _context.LmsActivity.Select(a =>
+            return _context.Course.Select(a =>
                                             new SelectListItem
                                             {
                                                 Value = a.Id.ToString(),
