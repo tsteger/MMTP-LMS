@@ -141,7 +141,6 @@ namespace MMTP_LMS.Controllers
         }
         private List<SelectListItem> GetActivityList()
         {
-           // var a = _context.LmsActivity.Select(a => a.LmsActivityTypeId).FirstOrDefault();
             return _context.LmsActivity.Select(a =>
                                             new SelectListItem
                                             {
