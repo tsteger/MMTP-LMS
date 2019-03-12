@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MMTP_LMS.Data;
 using MMTP_LMS.Models;
@@ -15,7 +16,7 @@ namespace MMTP_LMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
-
+        public List<SelectListItem> clist;
         public LmsActivitiesController(ApplicationDbContext context, UserManager<Person> userManager)
         {
             _context = context;
@@ -66,8 +67,9 @@ namespace MMTP_LMS.Controllers
                     StartDate = viewModel.LmsActivityStartDate,
                     EndTime = viewModel.LmsActivityEndTime,
                     Description = viewModel.LmsActivityDescription,
-                    LmsActivityType = viewModel.LmsActivityType,
-                    ModuleId = viewModel.LmsActivityId
+                   // LmsActivityType = viewModel.LmsActivityType,
+                   // LmsActivityTypeId = viewModel.LmsActivityTypeId, // BUG-FIXA
+                    ModuleId = viewModel.ModuleId
 
                 };
                 _context.LmsActivity.Add(lmsactivity);
@@ -79,6 +81,8 @@ namespace MMTP_LMS.Controllers
         // GET: EditLmsActivity
         public async Task<IActionResult> EditLmsactivity(int? id)
         {
+            clist = GetActivityList();
+            ViewBag.List = clist;
             if (id == null)
             {
                 return NotFound();
@@ -132,6 +136,16 @@ namespace MMTP_LMS.Controllers
         private bool LmsActivityExists(int id)
         {
             return _context.LmsActivity.Any(e => e.Id == id);
+        }
+        private List<SelectListItem> GetActivityList()
+        {
+            return _context.Course.Select(a =>
+                                            new SelectListItem
+                                            {
+                                                Value = a.Id.ToString(),
+                                                Text = a.Name,
+
+                                            }).ToList();
         }
     }
 }
