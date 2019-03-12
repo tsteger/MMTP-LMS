@@ -67,8 +67,8 @@ namespace MMTP_LMS.Controllers
                     StartDate = viewModel.LmsActivityStartDate,
                     EndTime = viewModel.LmsActivityEndTime,
                     Description = viewModel.LmsActivityDescription,
-                   // LmsActivityType = viewModel.LmsActivityType,
-                   // LmsActivityTypeId = viewModel.LmsActivityTypeId, // BUG-FIXA
+                    // LmsActivityType = viewModel.LmsActivityType,
+                    LmsActivityTypeId = _context.LmsActivity.Select(f=>f.LmsActivityTypeId).LastOrDefault(),
                     ModuleId = viewModel.ModuleId
 
                 };

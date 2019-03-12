@@ -146,7 +146,7 @@ namespace MMTP_LMS.Controllers
         }
         private List<SelectListItem> GetCourseList()
         {
-            return _context.LmsActivity.Select(a =>
+            return _context.Course.Select(a =>
                                             new SelectListItem
                                             {
                                                 Value = a.Id.ToString(),
