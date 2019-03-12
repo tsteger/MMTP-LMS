@@ -19,7 +19,7 @@ namespace MMTP_LMS.ViewModels
         [DataType(DataType.Date)]
         public DateTime LmsActivityEndTime { get; set; } = DateTime.Now.AddYears(1);
         [Display(Name = "Activity Type")]
-        public ICollection<LmsActivityType> LmsActivityType { get; set; }
+        public LmsActivityType LmsActivityType { get; set; }
         public int LmsActivityTypeId { get; set; }
         public int LmsActivityId { get; set; }
         public int ModuleId { get; set; }
