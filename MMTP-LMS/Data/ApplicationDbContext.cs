@@ -21,6 +21,7 @@ namespace MMTP_LMS.Data
         public DbSet<MMTP_LMS.Models.LmsActivity> LmsActivity { get; set; }
         public DbSet<MMTP_LMS.Models.Course> Course { get; set; }
         public DbSet<MMTP_LMS.Models.Module> Module { get; set; }
+        public DbSet<MMTP_LMS.Models.LmsActivityType> LmsActivityType { get; set; }
 
     }
 }
