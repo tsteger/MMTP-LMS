@@ -57,7 +57,7 @@ namespace MMTP_LMS.Controllers
         // POST: CreateLmsActivity
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateLmsActivity([Bind("Id,LmsActivityName,LmsActivityDescription,LmsActivityStartDate,LmsActivityEndDate,ModuleId")] LmsActivityViewModel viewModel)
+        public async Task<IActionResult> CreateLmsActivity([Bind("Id,LmsActivityName,LmsActivityDescription,LmsActivityStartDate,LmsActivityEndDate,ModuleId,LmsActivityType")] LmsActivityViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace MMTP_LMS.Controllers
                     StartDate = viewModel.LmsActivityStartDate,
                     EndTime = viewModel.LmsActivityEndTime,
                     Description = viewModel.LmsActivityDescription,
-                    // LmsActivityType = viewModel.LmsActivityType,
+                    //LmsActivityTypeId = viewModel.LmsActivityTypeId,
                     LmsActivityTypeId = _context.LmsActivity.Select(f=>f.LmsActivityTypeId).LastOrDefault(),
                     ModuleId = viewModel.ModuleId
 

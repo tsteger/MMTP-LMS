@@ -34,11 +34,15 @@
                 <span asp-validation-for="LmsActivityEndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LmsActivityType" class="control-label"></label>
-                <input asp-for="LmsActivityType" class="form-control" />
-                <span asp-validation-for="LmsActivityType" class="text-danger"></span>
+                <label asp-for="LmsActivityTypeId" class="control-label"></label>
+                <select asp-for="LmsActivityTypeId" class="form-control" asp-items="ViewBag.LmsActivityTypeId"></select>
             </div>
-            @*<div class="form-group col">
+            @*  <div class="form-group">
+                <label asp-for="LmsActivityTypeId" class="control-label"></label>
+                <input asp-for="LmsActivityTypeId" class="form-control" />
+                <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group col">
             <label asp-for="LmsActivityType"></label><br />
             <span class="styled-select-user">
                 <select asp-for="LmsActivityType" asp-items="ViewBag.List"></select>
