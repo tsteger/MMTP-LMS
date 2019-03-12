@@ -105,7 +105,7 @@ namespace MMTP_LMS.Controllers
         // POST: Module/EditModule/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditModule(int id, [Bind("Id,Name,Description,StartDate,EndDate")] Module module)
+        public async Task<IActionResult> EditModule(int id, [Bind("Id,ModuleName,ModuleDescription,ModuleStartDate,ModuleEndDate,CourseId")] Module module)
         {
             if (id != module.Id)
             {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MMTP_LMS.Migrations
 {
-    public partial class init1 : Migration
+    public partial class ny_start : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -225,8 +225,9 @@ namespace MMTP_LMS.Migrations
                     Description = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
-                    LmsActivityTypeId = table.Column<int>(nullable: false),
-                    ModuleId = table.Column<int>(nullable: false)
+                    LmsActivityTypeId = table.Column<int>(nullable: true),
+                    ModuleId = table.Column<int>(nullable: false),
+                    IsSubmission = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -236,7 +237,7 @@ namespace MMTP_LMS.Migrations
                         column: x => x.LmsActivityTypeId,
                         principalTable: "LmsActivityType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_LmsActivity_Module_ModuleId",
                         column: x => x.ModuleId,
@@ -258,8 +259,9 @@ namespace MMTP_LMS.Migrations
                     PersonId = table.Column<string>(nullable: true),
                     UserName = table.Column<string>(nullable: true),
                     CourseId = table.Column<int>(nullable: true),
+                    ModuleId = table.Column<int>(nullable: true),
                     LmsActivityId = table.Column<int>(nullable: true),
-                    ModuleId = table.Column<int>(nullable: true)
+                    IsAdmin = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

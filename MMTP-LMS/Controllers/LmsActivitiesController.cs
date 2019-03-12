@@ -59,7 +59,7 @@ namespace MMTP_LMS.Controllers
         // POST: CreateLmsActivity
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateLmsActivity( LmsActivityViewModel viewModel)
+        public async Task<IActionResult> CreateLmsActivity([Bind("Id,Name,LmsActivityName,LmsActivityStartDate,LmsActivityEndTime,LmsActivityDescription,LmsActivityTypeId,LmsActivityType,ModuleId")] LmsActivityViewModel viewModel)
         {
           //  var myid = clist.Select(h => h.Value).FirstOrDefault();
             if (ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace MMTP_LMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditLmsAvctivity(int id, [Bind("Id,Name,Description,StartDate,EndDate")] LmsActivity lmsActivity)
+        public async Task<IActionResult> EditLmsAvctivity(int id, [Bind("Id,Name,LmsActivityName,LmsActivityStartDate,LmsActivityEndTime,LmsActivityDescription,LmsActivityTypeId,LmsActivityType,ModuleId")] LmsActivity lmsActivity)
         {
             if (id != lmsActivity.Id)
             {
