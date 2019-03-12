@@ -10,7 +10,7 @@ namespace MMTP_LMS.Utilities
     {
         public DateTime GetModuleStartDate(ApplicationDbContext _context,int? id)
         {
-            if(id==null)
+            if(_context.Module.Where(c => c.CourseId == id).Count() < 1)
                 return DateTime.Now;
             var mod = _context.Module.Where(c => c.CourseId == id).LastOrDefault().EndDate;
             if (mod != null)
