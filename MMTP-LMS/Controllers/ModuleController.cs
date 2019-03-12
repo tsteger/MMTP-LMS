@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MMTP_LMS.Data;
 using MMTP_LMS.Models;
+using MMTP_LMS.Utilities;
 using MMTP_LMS.ViewModels;
 
 namespace MMTP_LMS.Controllers
@@ -18,11 +19,12 @@ namespace MMTP_LMS.Controllers
         
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
-
+        private DateUtilities dateUtilities;
         public ModuleController(ApplicationDbContext context, UserManager<Person> userManager)
         {
             _context = context;
             _userManager = userManager;
+            dateUtilities = new DateUtilities();
         }
 
         // GET: Modules
@@ -47,15 +49,16 @@ namespace MMTP_LMS.Controllers
             if (id == null) return View();
 
             var course = await _context.Course.Include(m => m.Modules).FirstOrDefaultAsync(c => c.Id == id);
-           
 
+            
             if (course == null) return NotFound();
             
             var model = new ModuleViewModel()
             {
                 CourseId = (int)id,
-               
-                
+              ModuleStartDate = dateUtilities.GetModuleStartDate(_context,id)
+
+
             };
             if (course.Modules.Count() > 0) model.Modules = course.Modules;
             else model.Modules = new List<Module>();
