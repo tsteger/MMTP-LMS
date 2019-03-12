@@ -59,8 +59,9 @@ namespace MMTP_LMS.Controllers
         // POST: CreateLmsActivity
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateLmsActivity([Bind("Id,LmsActivityName,LmsActivityDescription,LmsActivityStartDate,LmsActivityEndDate,ModuleId,LmsActivityType")] LmsActivityViewModel viewModel)
+        public async Task<IActionResult> CreateLmsActivity( LmsActivityViewModel viewModel)
         {
+          //  var myid = clist.Select(h => h.Value).FirstOrDefault();
             if (ModelState.IsValid)
             {
                 var lmsactivity = new LmsActivity()
@@ -69,8 +70,8 @@ namespace MMTP_LMS.Controllers
                     StartDate = viewModel.LmsActivityStartDate,
                     EndTime = viewModel.LmsActivityEndTime,
                     Description = viewModel.LmsActivityDescription,
-                    //LmsActivityTypeId = viewModel.LmsActivityTypeId,
-                    LmsActivityTypeId = _context.LmsActivity.Select(f=>f.LmsActivityTypeId).LastOrDefault(),
+                    LmsActivityTypeId = viewModel.LmsActivityTypeId,
+                    LmsActivityType = viewModel.LmsActivityType,
                     ModuleId = viewModel.ModuleId
 
                 };
@@ -141,7 +142,7 @@ namespace MMTP_LMS.Controllers
         }
         private List<SelectListItem> GetActivityList()
         {
-            return _context.Course.Select(a =>
+            return _context.LmsActivityType.Select(a =>
                                             new SelectListItem
                                             {
                                                 Value = a.Id.ToString(),
