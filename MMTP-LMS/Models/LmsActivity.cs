@@ -29,6 +29,7 @@ namespace MMTP_LMS.Models
         [Display(Name = "Documents")]
         public ICollection<Document> Documents { get; set; }
 
-
+        
+        public bool IsSubmission { get; set; } = false;
     }
 }

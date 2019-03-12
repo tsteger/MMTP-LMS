@@ -70,7 +70,7 @@ namespace MMTP_LMS.Controllers
                     EndTime = viewModel.LmsActivityEndTime,
                     Description = viewModel.LmsActivityDescription,
                     // LmsActivityType = viewModel.LmsActivityType,
-                    LmsActivityTypeId = _context.LmsActivity.Select(f=>f.LmsActivityTypeId).LastOrDefault(),
+                    LmsActivityTypeId = _context.LmsActivity.FirstOrDefault().LmsActivityTypeId, // _context.LmsActivity.Select(f=>f.LmsActivityTypeId).LastOrDefault(),
                     ModuleId = viewModel.ModuleId
 
                 };
@@ -141,7 +141,7 @@ namespace MMTP_LMS.Controllers
         }
         private List<SelectListItem> GetActivityList()
         {
-            return _context.LmsActivity.Select(a =>
+            return _context.Course.Select(a =>
                                             new SelectListItem
                                             {
                                                 Value = a.Id.ToString(),
