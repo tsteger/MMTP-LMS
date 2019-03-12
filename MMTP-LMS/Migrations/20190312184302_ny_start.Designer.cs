@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MMTP_LMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190312133001_nullebale")]
-    partial class nullebale
+    [Migration("20190312184302_ny_start")]
+    partial class ny_start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,8 +93,6 @@ namespace MMTP_LMS.Migrations
 
                     b.Property<int?>("LmsActivityTypeId");
 
-                    b.Property<int?>("LmsActivityTypeId1");
-
                     b.Property<int>("ModuleId");
 
                     b.Property<string>("Name");
@@ -103,7 +101,7 @@ namespace MMTP_LMS.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LmsActivityTypeId1");
+                    b.HasIndex("LmsActivityTypeId");
 
                     b.HasIndex("ModuleId");
 
@@ -115,8 +113,6 @@ namespace MMTP_LMS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("LmsActivityId");
 
                     b.Property<string>("Name");
 
@@ -352,7 +348,7 @@ namespace MMTP_LMS.Migrations
                 {
                     b.HasOne("MMTP_LMS.Models.LmsActivityType", "LmsActivityType")
                         .WithMany()
-                        .HasForeignKey("LmsActivityTypeId1");
+                        .HasForeignKey("LmsActivityTypeId");
 
                     b.HasOne("MMTP_LMS.Models.Module", "Module")
                         .WithMany("LmsActivities")

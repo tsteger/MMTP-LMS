@@ -1,4 +1,5 @@
-﻿using MMTP_LMS.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MMTP_LMS.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,17 +19,22 @@ namespace MMTP_LMS.ViewModels
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
         public DateTime LmsActivityEndTime { get; set; } = DateTime.Now.AddYears(1);
-        [Display(Name = "Activity Type")]
+
+        public string[] LmsActivityTypeName { get; set; }
+        public int? LmsActivityTypeId { get; set; }
+        //[Display(Name = "Activity Type")]
         public LmsActivityType LmsActivityType { get; set; }
-        public int LmsActivityTypeId { get; set; }
-        public int LmsActivityId { get; set; }
-        public int ModuleId { get; set; }
-        [Display(Name = "Module Name")]
-        public Module Module { get; set; }
+        //public int LmsActivityTypeId { get; set; }
+        //public int LmsActivityId { get; set; }
+         public int ModuleId { get; set; }
+        //[Display(Name = "Module Name")]
+        //public Module Module { get; set; }
        
-        [Display(Name = "Documents")]
-        public ICollection<Document> Documents { get; set; }
-        public ICollection<Module> Modules { get; set; }
-        public ICollection<LmsActivity> LmsActivities { get; set; }
+        //[Display(Name = "Documents")]
+        //public ICollection<Document> Documents { get; set; }
+         public ICollection<Module> Modules { get; set; }
+         public ICollection<LmsActivity> LmsActivities { get; set; }
+
+       // public List<SelectListItem> CourseList { get; set; }
     }
 }

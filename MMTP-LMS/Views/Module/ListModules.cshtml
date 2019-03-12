@@ -43,9 +43,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Course.Name)
             </td>
-            @*<td>
-            <a asp-controller="Module" asp-action="EditModule" asp-route-id="@item.Id">Edit Module</a>
-        </td>*@
+            <td>
+                <a asp-controller="Module" asp-action="EditModule" asp-route-id="@item.Id">Edit Module</a>
+            </td>
             <td>
                 <a asp-controller="LmsActivities" asp-action="CreateLmsActivity" asp-route-id="@item.Id">Add Activities</a>
             </td>
