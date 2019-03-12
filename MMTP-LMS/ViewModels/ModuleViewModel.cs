@@ -19,6 +19,7 @@ namespace MMTP_LMS.ViewModels
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
         public DateTime ModuleEndDate { get; set; } = DateTime.Now.AddYears(1);
+        [Display(Name = "Course")]
         public int CourseId { get; set; }
 
         public ICollection<Module> Modules { get; set; }
