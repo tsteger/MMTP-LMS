@@ -56,7 +56,8 @@ namespace MMTP_LMS.Controllers
             var model = new ModuleViewModel()
             {
                 CourseId = (int)id,
-              ModuleStartDate = dateUtilities.GetModuleStartDate(_context,id)
+                ModuleStartDate = dateUtilities.GetModuleStartDate(_context,id),
+                ModuleEndDate = dateUtilities.GetModuleEndDate(_context, id)
 
 
             };
@@ -108,7 +109,7 @@ namespace MMTP_LMS.Controllers
         // POST: Module/EditModule/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditModule(int id, [Bind("Id,ModuleName,ModuleDescription,ModuleStartDate,ModuleEndDate,CourseId")] Module module)
+        public async Task<IActionResult> EditModule(int id, [Bind("Id,Name,Description,StartDate,EndDate")] Module module)
         {
             if (id != module.Id)
             {
