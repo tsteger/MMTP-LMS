@@ -35,6 +35,8 @@ namespace MMTP_LMS.ViewModels
          public ICollection<Module> Modules { get; set; }
          public ICollection<LmsActivity> LmsActivities { get; set; }
 
-       // public List<SelectListItem> CourseList { get; set; }
+        // public List<SelectListItem> CourseList { get; set; }
+
+        public bool IsSubmission { get; set; } = false;
     }
 }

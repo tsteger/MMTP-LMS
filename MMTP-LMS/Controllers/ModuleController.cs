@@ -20,6 +20,7 @@ namespace MMTP_LMS.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         private DateUtilities dateUtilities;
+        private static int retViewId;
         public ModuleController(ApplicationDbContext context, UserManager<Person> userManager)
         {
             _context = context;
@@ -47,10 +48,10 @@ namespace MMTP_LMS.Controllers
         public async Task<ActionResult> CreateModule(int? id = null)
         {
             //ToDo: Fix 
-            if (id == null) return View();
-
+            if (id == null) return NotFound();
+            
             var course = await _context.Course.Include(m => m.Modules).FirstOrDefaultAsync(c => c.Id == id);
-
+            retViewId = course.Id;
             
             if (course == null) return NotFound();
             
@@ -122,7 +123,7 @@ namespace MMTP_LMS.Controllers
                 try
                 {
                     var m = new Module();
-                    m.CourseId = module.Id;
+                    m.Id = module.Id;
                     _context.Attach(m);
                     m.Name = module.Name;
                     m.Description = module.Description;
@@ -143,7 +144,7 @@ namespace MMTP_LMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(CreateModule), new { Id = module.CourseId } );
+                return RedirectToAction(nameof(CreateModule), new { Id = retViewId } );
             }
             return View(module);
         }

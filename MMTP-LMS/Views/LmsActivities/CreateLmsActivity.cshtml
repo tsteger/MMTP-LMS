@@ -33,15 +33,20 @@
                 <input asp-for="LmsActivityEndTime" class="form-control" />
                 <span asp-validation-for="LmsActivityEndTime" class="text-danger"></span>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsSubmission" /> @Html.DisplayNameFor(model => model.IsSubmission)
+                </label>
+            </div>
             @*<div class="form-group">
-                <label asp-for="LmsActivityTypeId" class="control-label"></label>
-                <select asp-for="LmsActivityTypeId" class="form-control" asp-items="LmsActivityTypeId"></select>
-                </div>*@
+        <label asp-for="LmsActivityTypeId" class="control-label"></label>
+        <select asp-for="LmsActivityTypeId" class="form-control" asp-items="LmsActivityTypeId"></select>
+        </div>*@
             @*<div class="form-group">
-                    <label asp-for="LmsActivityTypeId" class="control-label"></label>
-                    <input asp-for="LmsActivityTypeId" class="form-control" />
-                    <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
-                </div>*@
+            <label asp-for="LmsActivityTypeId" class="control-label"></label>
+            <input asp-for="LmsActivityTypeId" class="form-control" />
+            <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
+        </div>*@
             <div class="form-group col">
                 <label asp-for="LmsActivityTypeId"></label><br />
                 <span class="styled-select-user">
@@ -50,11 +55,11 @@
                 <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="ModuleId" class="control-label"></label>
                 <input asp-for="ModuleId" class="form-control" />
                 <span asp-validation-for="ModuleId" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

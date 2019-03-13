@@ -19,6 +19,7 @@ namespace MMTP_LMS.Controllers
         private readonly UserManager<Person> _userManager;
         public List<SelectListItem> clist;
         private DateUtilities dateUtilities;
+        private static int retViewId;
         public LmsActivitiesController(ApplicationDbContext context, UserManager<Person> userManager)
         {
             _context = context;
@@ -33,6 +34,7 @@ namespace MMTP_LMS.Controllers
             {
                 LmsActivities = _context.LmsActivity.ToList()
             };
+            
             return View(model);
         }
         // GET: CreateLmsActivity
@@ -40,13 +42,13 @@ namespace MMTP_LMS.Controllers
         {
             clist = GetActivityList();
             ViewBag.List = clist;
-            if (id == null) return View();
-
+            if (id == null) return NotFound();
+            
             var module = await _context.Module.Include(l => l.LmsActivities).FirstOrDefaultAsync(m => m.Id == id);
 
-
+            
             if (module == null) return NotFound();
-
+            retViewId = module.Id;
             var model = new LmsActivityViewModel()
             {
                 ModuleId = (int)id,          
@@ -64,7 +66,7 @@ namespace MMTP_LMS.Controllers
         // POST: CreateLmsActivity
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateLmsActivity([Bind("Id,Name,LmsActivityName,LmsActivityStartDate,LmsActivityEndTime,LmsActivityDescription,LmsActivityTypeId,LmsActivityType,ModuleId")] LmsActivityViewModel viewModel)
+        public async Task<IActionResult> CreateLmsActivity( LmsActivityViewModel viewModel)
         {
           //  var myid = clist.Select(h => h.Value).FirstOrDefault();
             if (ModelState.IsValid)
@@ -77,7 +79,8 @@ namespace MMTP_LMS.Controllers
                     Description = viewModel.LmsActivityDescription,
                     LmsActivityTypeId = viewModel.LmsActivityTypeId,
                     LmsActivityType = viewModel.LmsActivityType,
-                    ModuleId = viewModel.ModuleId
+                    ModuleId = viewModel.ModuleId,
+                    IsSubmission = viewModel.IsSubmission
 
                 };
                 _context.LmsActivity.Add(lmsactivity);
@@ -115,12 +118,12 @@ namespace MMTP_LMS.Controllers
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var activity = new LmsActivity() ;
+                    var activity = new LmsActivity();
                     activity.Id = lmsActivity.Id;
                      _context.Attach(activity);
                     activity.Name = lmsActivity.Name;
@@ -128,8 +131,9 @@ namespace MMTP_LMS.Controllers
                     activity.StartDate = lmsActivity.StartDate;
                     activity.EndTime = lmsActivity.EndTime;
                     activity.ModuleId = lmsActivity.ModuleId;
-                   // activity.LmsActivityTypeId = lmsActivity.LmsActivityTypeId;
-                   
+                    activity.IsSubmission = lmsActivity.IsSubmission;
+                    // activity.LmsActivityTypeId = lmsActivity.LmsActivityTypeId;
+
                     // _context.Update(lmsActivity);
                     await _context.SaveChangesAsync();
                 }
@@ -144,7 +148,7 @@ namespace MMTP_LMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(CreateLmsActivity), new { Id = lmsActivity.ModuleId });
+                return RedirectToAction(nameof(CreateLmsActivity), new { Id = retViewId });
             }
             return View(lmsActivity);
 
