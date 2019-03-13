@@ -120,14 +120,17 @@ namespace MMTP_LMS.Controllers
             {
                 try
                 {
-                    var activity = await _context.LmsActivity.FindAsync(lmsActivity.Id);
+                    var activity = new LmsActivity() ;
+                    activity.Id = lmsActivity.Id;
+                     _context.Attach(activity);
                     activity.Name = lmsActivity.Name;
                     activity.Description = lmsActivity.Description;
                     activity.StartDate = lmsActivity.StartDate;
                     activity.EndTime = lmsActivity.EndTime;
                     activity.ModuleId = lmsActivity.ModuleId;
-                    activity.LmsActivityTypeId = lmsActivity.LmsActivityTypeId;
-                     _context.Update(lmsActivity);
+                   // activity.LmsActivityTypeId = lmsActivity.LmsActivityTypeId;
+                   
+                    // _context.Update(lmsActivity);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -141,7 +144,7 @@ namespace MMTP_LMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(CreateLmsActivity));
+                return RedirectToAction(nameof(CreateLmsActivity), new { Id = lmsActivity.ModuleId });
             }
             return View(lmsActivity);
 
