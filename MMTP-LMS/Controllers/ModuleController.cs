@@ -46,6 +46,7 @@ namespace MMTP_LMS.Controllers
         // GET: CreateModule
         public async Task<ActionResult> CreateModule(int? id = null)
         {
+            //ToDo: Fix 
             if (id == null) return View();
 
             var course = await _context.Course.Include(m => m.Modules).FirstOrDefaultAsync(c => c.Id == id);
@@ -120,7 +121,15 @@ namespace MMTP_LMS.Controllers
             {
                 try
                 {
-                    _context.Update(module);
+                    var m = new Module();
+                    m.CourseId = module.Id;
+                    _context.Attach(m);
+                    m.Name = module.Name;
+                    m.Description = module.Description;
+                    m.StartDate = module.StartDate;
+                    m.EndDate = module.EndDate;
+
+                  //  _context.Update(module);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -134,7 +143,7 @@ namespace MMTP_LMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(CreateModule));
+                return RedirectToAction(nameof(CreateModule), new { Id = module.CourseId } );
             }
             return View(module);
         }
