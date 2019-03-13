@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MMTP_LMS.Data;
 using MMTP_LMS.Models;
+using MMTP_LMS.Utilities;
 using MMTP_LMS.ViewModels;
 
 namespace MMTP_LMS.Controllers
@@ -17,10 +18,12 @@ namespace MMTP_LMS.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         public List<SelectListItem> clist;
+        private DateUtilities dateUtilities;
         public LmsActivitiesController(ApplicationDbContext context, UserManager<Person> userManager)
         {
             _context = context;
             _userManager = userManager;
+            dateUtilities = new DateUtilities();
         }
 
         // GET: LmsActivity/LmsActivities
@@ -46,7 +49,9 @@ namespace MMTP_LMS.Controllers
 
             var model = new LmsActivityViewModel()
             {
-                ModuleId = (int)id,
+                ModuleId = (int)id,          
+                LmsActivityStartDate = dateUtilities.GetActivityStartDate(_context, id),
+                LmsActivityEndTime = dateUtilities.GetActivityEndDate(_context, id)
 
 
             };
