@@ -109,7 +109,7 @@ namespace MMTP_LMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditLmsAvctivity(int id, [Bind("Id,Name,LmsActivityName,LmsActivityStartDate,LmsActivityEndTime,LmsActivityDescription,LmsActivityTypeId,LmsActivityType,ModuleId")] LmsActivity lmsActivity)
+        public async Task<IActionResult> EditLmsactivity(int id,LmsActivity lmsActivity)
         {
             if (id != lmsActivity.Id)
             {
@@ -120,7 +120,14 @@ namespace MMTP_LMS.Controllers
             {
                 try
                 {
-                    _context.Update(lmsActivity);
+                    var activity = await _context.LmsActivity.FindAsync(lmsActivity.Id);
+                    activity.Name = lmsActivity.Name;
+                    activity.Description = lmsActivity.Description;
+                    activity.StartDate = lmsActivity.StartDate;
+                    activity.EndTime = lmsActivity.EndTime;
+                    activity.ModuleId = lmsActivity.ModuleId;
+                    activity.LmsActivityTypeId = lmsActivity.LmsActivityTypeId;
+                     _context.Update(lmsActivity);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
