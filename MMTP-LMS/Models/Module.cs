@@ -9,7 +9,7 @@ namespace MMTP_LMS.Models
     public class Module
     {
         public int Id { get; set; }
-        [Display(Name = "Mudule Name")]
+        [Display(Name = "Module Name")]
         public string Name { get; set; }
         public string Description { get; set; }
         [Display(Name="Start Date")]

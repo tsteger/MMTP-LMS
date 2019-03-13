@@ -4,47 +4,60 @@
     ViewData["Title"] = "EditModule";
 }
 
-<h1>Edit Module</h1>
+@*<h1>Edit Module</h1>
 
 <h4>Module</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditModule">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CourseId" class="control-label"></label>
-                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
-                <span asp-validation-for="CourseId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<hr />*@
+
+<div id="todays_header" class="thestyle">
+    <span>Edit module</span>
+
+    <div class="col-2">
+        <div class="col-sm-12">
+            @*<a asp-area="Identity" asp-page="/Account/Register">Register New User</a>*@
+        </div>
     </div>
 </div>
 
+<div class="container-fluid">
+    <div id="createcourse_group" class="thestyle">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="EditModule">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CourseId" class="control-label"></label>
+                        <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                        <span asp-validation-for="CourseId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div></div>
 
-<div><a asp-action="Teacher" asp-controller="Teacher">Back to Teachers Overview</a></div>
+    <div><a asp-action="Teacher" asp-controller="Teacher">Back to Teachers Overview</a></div>
 
