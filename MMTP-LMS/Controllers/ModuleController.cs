@@ -56,7 +56,8 @@ namespace MMTP_LMS.Controllers
             var model = new ModuleViewModel()
             {
                 CourseId = (int)id,
-              ModuleStartDate = dateUtilities.GetModuleStartDate(_context,id)
+                ModuleStartDate = dateUtilities.GetModuleStartDate(_context,id),
+                ModuleEndDate = dateUtilities.GetModuleEndDate(_context, id)
 
 
             };
