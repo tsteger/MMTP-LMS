@@ -15,7 +15,7 @@
             this.innerText = "Hide Course form";
         }
         else {
-            this.innerText = "Show Course fform"
+            this.innerText = "Show Course form"
         }
     });
     $('#forgot-password').hide()
