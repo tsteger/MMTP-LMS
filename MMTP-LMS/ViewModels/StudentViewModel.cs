@@ -27,7 +27,8 @@ namespace MMTP_LMS.ViewModels
 
         public List<SelectListItem> CourseList { get; set; }
 
-       
+        public bool IsSubmission { get; set; }
+        public int Id { get; set; }
 
     }
 }
