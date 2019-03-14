@@ -18,6 +18,15 @@
             this.innerText = "Show Course form"
         }
     });
+    $('.crtactivity_btn').click(function () {
+
+        if (this.innerText === "Show Activity form") {
+            this.innerText = "Hide Activity form";
+        }
+        else {
+            this.innerText = "Show Activity form"
+        }
+    });
 
     $('.crtstudent_btn').click(function () {
 
