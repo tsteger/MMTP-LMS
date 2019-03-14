@@ -1,0 +1,28 @@
+ protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Person>()
+              .HasData(
+                  new Person { FirstName="Jon", LastName="Silver", Email="Jon@Silver.se", PasswordHash="Lexicon!0", CourseId =1 },
+                  new Person { FirstName = "Surre", LastName = "Swift", Email = "Surre@Swift.se", PasswordHash = "Lexicon!0", CourseId = 1 }
+              );
+            modelBuilder.Entity<Course>()
+               .HasData(
+                   new Course { Name = "c# Course", Description = "C# Fundementals", StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(4) },
+                   new Course { Name = "Java", Description = "Java Fundementals", StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(4) }
+               );
+            modelBuilder.Entity<Module>()
+              .HasData(
+                  new Module { Name = "c# Course", Description = "C# Fundementals", StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(1), CourseId = 1 },
+                  new Module { Name = "Java", Description = "Java Fundementals", StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(1), CourseId = 1 }
+              );
+            modelBuilder.Entity<LmsActivityType>()
+             .HasData(
+                 new LmsActivity { Name = "E-lerning" },
+                 new LmsActivity { Name = "Testing" }
+             );
+            modelBuilder.Entity<LmsActivity>()
+              .HasData(
+                  new LmsActivity { Name = "Lern jquery Fundementals", StartDate = DateTime.Now, EndTime = DateTime.Now, LmsActivityTypeId = 1, ModuleId = 1 },
+                  new LmsActivity { Name = "Java jquery Fundementals", StartDate = DateTime.Now, EndTime = DateTime.Now, LmsActivityTypeId = 1, ModuleId = 1 }
+              );
+        }

@@ -50,7 +50,7 @@
         {
             <div id="activity_group" class="thestyle">
                 <div class="col" id="date_header">
-                    @if (Model.FirstOrDefault().Name != "No Activity")
+                    @if (item.Name != "No Activity")
                     {
                         @Html.DisplayFor(modelItem => item.StartDate)
                         @if (item.AntalDagar != 0)
