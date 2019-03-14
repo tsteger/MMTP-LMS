@@ -178,7 +178,9 @@ namespace MMTP_LMS.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file, string txt, string activity_id)
         {
-            int id = int.Parse(activity_id);
+        
+            if (!int.TryParse(activity_id, out int id)) return NoContent();
+
             var fileUtil = new Utilities.File();
             await fileUtil.UploadFileAsync(file, txt, _hostingEnvironment);
             var doc = new Document
@@ -197,7 +199,7 @@ namespace MMTP_LMS.Controllers
             _context.Document.Add(doc);
             _context.SaveChanges();
 
-            return RedirectToAction("Student", "Student");
+            return RedirectToAction("Student", "Student", new { Id = _context.LmsActivity.Where(i=>i.Id == id).FirstOrDefault().StartDate.ToShortDateString() });
         }
 
     }
