@@ -36,8 +36,8 @@ namespace MMTP_LMS.Utilities
 
             if (_context.LmsActivity.Where(c => c.ModuleId == id).Count() < 1)
             {
-                return DateTime.Now;
-               // return _context.Module.Where(c => c.Id == id).FirstOrDefault().StartDate;
+                
+               return _context.Module.Where(c => c.Id == id).FirstOrDefault().StartDate;
             }
 
             return _context.LmsActivity.Where(c => c.ModuleId == id).LastOrDefault().EndTime.AddDays(1);
@@ -49,8 +49,8 @@ namespace MMTP_LMS.Utilities
 
             if (_context.LmsActivity.Where(c => c.ModuleId == id).Count() < 1)
             {
-                return DateTime.Now;
-                //return _context.Module.Where(c => c.Id == id).FirstOrDefault().StartDate;
+                
+                return _context.Module.Where(c => c.Id == id).FirstOrDefault().StartDate;
             }
 
             return _context.LmsActivity.Where(c => c.ModuleId == id).LastOrDefault().EndTime.AddDays(1);

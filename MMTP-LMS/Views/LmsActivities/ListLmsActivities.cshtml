@@ -39,9 +39,10 @@
             </td>
             
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                <a asp-controller="LmsActivities" asp-action="EditLmsactivity" asp-route-id="@item.Id">1Edit</a>
+                @*@Html.ActionLink("LmsActivities", "EditLmsactivity", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
             </td>
         </tr>
 }

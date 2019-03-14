@@ -20,6 +20,7 @@ namespace MMTP_LMS.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         private DateUtilities dateUtilities;
+        private static int retViewId;
         public ModuleController(ApplicationDbContext context, UserManager<Person> userManager)
         {
             _context = context;
@@ -46,10 +47,11 @@ namespace MMTP_LMS.Controllers
         // GET: CreateModule
         public async Task<ActionResult> CreateModule(int? id = null)
         {
-            if (id == null) return View();
-
+            //ToDo: Fix 
+            if (id == null) return NotFound();
+            
             var course = await _context.Course.Include(m => m.Modules).FirstOrDefaultAsync(c => c.Id == id);
-
+            retViewId = course.Id;
             
             if (course == null) return NotFound();
             
@@ -109,7 +111,7 @@ namespace MMTP_LMS.Controllers
         // POST: Module/EditModule/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditModule(int id, [Bind("Id,Name,Description,StartDate,EndDate")] Module module)
+        public async Task<IActionResult> EditModule(int id, Module module)
         {
             if (id != module.Id)
             {
@@ -120,7 +122,15 @@ namespace MMTP_LMS.Controllers
             {
                 try
                 {
-                    _context.Update(module);
+                    var m = new Module();
+                    m.Id = module.Id;
+                    _context.Attach(m);
+                    m.Name = module.Name;
+                    m.Description = module.Description;
+                    m.StartDate = module.StartDate;
+                    m.EndDate = module.EndDate;
+
+                  //  _context.Update(module);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -134,7 +144,7 @@ namespace MMTP_LMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(CreateModule));
+                return RedirectToAction(nameof(CreateModule), new { Id = retViewId } );
             }
             return View(module);
         }
