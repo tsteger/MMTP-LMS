@@ -93,6 +93,7 @@ namespace MMTP_LMS.Controllers
 
             var ret = today_activities.Select(x => new StudentViewModel()
             {
+                
                 Name = x.Name,
                 Description = x.Description,
                 StartDate = x.StartDate,
@@ -101,6 +102,8 @@ namespace MMTP_LMS.Controllers
                 LmsActivityType = x.LmsActivityType,
                 AntalDagar =  x.EndTime.Day - x.StartDate.Day,
                 CourseList = clist,
+                IsSubmission = x.IsSubmission,
+                Id =x.Id
 
             });
 
@@ -134,6 +137,7 @@ namespace MMTP_LMS.Controllers
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
             var ret = mod.Select(x => new StudentModuleViewModel()
             {
+                
                 Name = x.Name,
                 Description = x.Description,
                 StartDate = x.StartDate,
@@ -142,7 +146,7 @@ namespace MMTP_LMS.Controllers
                 Documents = x.Documents,
                 LmsActivities = x.LmsActivities,
                 CourseList = clist,
-
+                
             });
 
             return View(ret);
@@ -172,8 +176,9 @@ namespace MMTP_LMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile file, string txt)
+        public async Task<IActionResult> UploadFile(IFormFile file, string txt, string activity_id)
         {
+            int id = int.Parse(activity_id);
             var fileUtil = new Utilities.File();
             await fileUtil.UploadFileAsync(file, txt, _hostingEnvironment);
             var doc = new Document
@@ -185,7 +190,7 @@ namespace MMTP_LMS.Controllers
                 Url = "\\Documents\\" + file.FileName,
                 CourseId = user_course_id,
                 ModuleId = today_module_id,
-                LmsActivityId = selected_activity_id,
+                LmsActivityId =  id,
                 PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
             };
 
