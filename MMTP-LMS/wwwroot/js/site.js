@@ -1,11 +1,11 @@
 ﻿$(document).ready(function () {
     $('.activity_btn').click(function () {
 
-        if (this.innerText === "Show Activities") {
-            this.innerText = "Hide Activities";
+        if (this.innerText === "Show Activity form") {
+            this.innerText = "Hide Activity form";
         }
         else {
-            this.innerText = "Show Activities"
+            this.innerText = "Show Activity form"
         }
     });
 
@@ -21,19 +21,19 @@
 
     $('.crtstudent_btn').click(function () {
 
-        if (this.innerText === "Show Create Student form") {
-            this.innerText = "Hide Create Student form";
+        if (this.innerText === "Show Student form") {
+            this.innerText = "Hide Student form";
         }
         else {
-            this.innerText = "Show Create Student form"
+            this.innerText = "Show Student form"
         }
     });
 
 
     $('.crtmodule_btn').click(function () {
 
-        if (this.innerText === "Show Create Module form") {
-            this.innerText = "Hide Create Module form";
+        if (this.innerText === "Show Module form") {
+            this.innerText = "Hide Module form";
         }
         else {
             this.innerText = "Show Module form"
