@@ -92,7 +92,7 @@
 
     $('.documentsView_btn').click(function () {
 
-        if (this.innerText === "Docucments") {
+        if (this.innerText === "Documents") {
             this.innerText = "Hide Documents";
         }
         else {
