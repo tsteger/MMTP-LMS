@@ -178,8 +178,9 @@ namespace MMTP_LMS.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file, string txt, string activity_id)
         {
-            //TODO:try catch id 
-            int id = int.Parse(activity_id);
+        
+            if (!int.TryParse(activity_id, out int id)) return NoContent();
+
             var fileUtil = new Utilities.File();
             await fileUtil.UploadFileAsync(file, txt, _hostingEnvironment);
             var doc = new Document
