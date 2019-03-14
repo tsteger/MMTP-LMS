@@ -26,71 +26,65 @@
                 <div class="collapse multi-collapse" id="collapseForm">
                     <div class="card card-body">
                         <div class="row">
-                            @*<div class="col-md-4">*@
-
-                            @*<section class="row title-row"></section>
-                                <section id="activity_reg">*@
-                            <div class="col thestyle reg_group">
+                            <div class="col-md-4">
                                 <form asp-action="CreateUser" asp-controller="Users" method="post">
-                                    <h4>Registera en användare för kurs .</h4>
-                                    <hr />
                                     <div asp-validation-summary="All" class="text-danger"></div>
-                                    <div class="row">
-                                        <div class="form-group col">
-                                            <label asp-for="FirstName"></label>
-                                            <input asp-for="FirstName" class="form-control" />
-                                            <span asp-validation-for="FirstName" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group col">
-                                            <label asp-for="LastName"></label>
-                                            <input asp-for="LastName" class="form-control" />
-                                            <span asp-validation-for="LastName" class="text-danger"></span>
-                                        </div>
-                                        <div class="w-100"></div>
-                                        <div class="form-group col">
-                                            <label asp-for="Password"></label>
-                                            <input asp-for="Password" class="form-control" />
-                                            <span asp-validation-for="Password" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group col">
-                                            <label asp-for="ConfirmPassword"></label>
-                                            <input asp-for="ConfirmPassword" class="form-control" />
-                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                        </div>
-                                        <div class="w-100"></div>
-                                        <div class="form-group col">
-                                            <label asp-for="Email"></label>
-                                            <input asp-for="Email" class="form-control" />
-                                            <span asp-validation-for="Email" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group col">
-                                            <label asp-for="CourseId"></label><br />
-                                            <span class="styled-select-user">
-                                                <select asp-for="CourseId" asp-items="ViewBag.List"></select>
-                                            </span>
-                                            <span asp-validation-for="CourseId" class="text-danger"></span>
-                                        </div>
+
+
+                                    <div class="form-group col">
+                                        <label asp-for="FirstName"></label>
+                                        <input asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
                                     </div>
-                                    <button type="submit" class="btn btn-success">Register</button>
+                                    <div class="form-group col">
+                                        <label asp-for="LastName"></label>
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                    <div class="w-100"></div>
+                                    <div class="form-group col">
+                                        <label asp-for="Password"></label>
+                                        <input asp-for="Password" class="form-control" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label asp-for="ConfirmPassword"></label>
+                                        <input asp-for="ConfirmPassword" class="form-control" />
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                    <div class="w-100"></div>
+                                    <div class="form-group col">
+                                        <label asp-for="Email"></label>
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label asp-for="CourseId"></label><br />
+                                        <span class="styled-select-user">
+                                            <select asp-for="CourseId" asp-items="ViewBag.List"></select>
+                                        </span>
+                                        <span asp-validation-for="CourseId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col">
+                                        <button type="submit" class="btn btn-success">Register</button>
+                                    </div>
                                 </form>
                             </div>
-                            </section>
                         </div>
                     </div>
-
-                    </div>
-
-
                 </div>
             </div>
         </div>
     </div>
-    @*<section class="user_box reg_group thestyle">*@
-    <div>
-        <partial name="ListUsers" model="Model.People" />
-    </div>
-    @*</section>*@
+</div>
 
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+
+@*<section class="user_box reg_group thestyle">*@
+<div>
+    <partial name="ListUsers" model="Model.People" />
+</div>
+@*</section>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
