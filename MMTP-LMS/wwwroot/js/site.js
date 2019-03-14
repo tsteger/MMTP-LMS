@@ -19,6 +19,16 @@
         }
     });
 
+    $('.crtactivity_btn').click(function () {
+
+        if (this.innerText === "Show Activity form") {
+            this.innerText = "Hide Activity form";
+        }
+        else {
+            this.innerText = "Show Activity form"
+        }
+    });
+
     $('.crtstudent_btn').click(function () {
 
         if (this.innerText === "Show Student form") {
@@ -49,6 +59,58 @@
             this.innerText = "Show User form"
         }
     });
+
+    $('.courseView_btn').click(function () {
+
+        if (this.innerText === "Courses") {
+            this.innerText = "Hide Courses";
+        }
+        else {
+            this.innerText = "Courses"
+        }
+    });
+
+    $('.moduleView_btn').click(function () {
+
+        if (this.innerText === "Modules") {
+            this.innerText = "Hide Modules";
+        }
+        else {
+            this.innerText = "Modules"
+        }
+    });
+
+    $('.activitiesView_btn').click(function () {
+
+        if (this.innerText === "Activities") {
+            this.innerText = "Hide Activities";
+        }
+        else {
+            this.innerText = "Activities"
+        }
+    });
+
+    $('.documentsView_btn').click(function () {
+
+        if (this.innerText === "Documents") {
+            this.innerText = "Hide Documents";
+        }
+        else {
+            this.innerText = "Documents"
+        }
+    });
+
+    $('.studentsView_btn').click(function () {
+
+        if (this.innerText === "Students") {
+            this.innerText = "Hide Students";
+        }
+        else {
+            this.innerText = "Students"
+        }
+    });
+
+
 
     $('#forgot-password').hide()
    
