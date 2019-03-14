@@ -35,6 +35,15 @@
     
 }
 
+#admin_header {
+    padding: 0.4em 1em 0.2em 0.4em;
+    background-color: #ff0000;
+    border-radius: 5px;
+    margin: 10px;
+    /*font-size: 3.2vw;*/
+    color: white;
+}
+
 #date_header {
     background-color: #ff0000;
     border-radius: 5px;
