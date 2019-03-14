@@ -48,46 +48,80 @@
 
         @foreach (var item in Model)
         {
-            <div id="activity_group" class="thestyle">
-                <div class="col" id="date_header">
-                    @if (Model.FirstOrDefault().Name != "No Activity")
+        <div id="activity_group" class="thestyle">
+            <div class="col" id="date_header">
+                @if (item.Name != "No Activity")
+                {
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                    @if (item.AntalDagar != 0)
                     {
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                        @if (item.AntalDagar != 0)
-                        {
-                            <span>. Length: </span>
-                            @Html.DisplayFor(modelItem => item.AntalDagar)
-                            <span> Days </span>
-                        }
-                        <span>. Type of activity: </span>
-                        @Html.DisplayFor(modelItem => item.LmsActivityType.Name)
+                        <span>. Length: </span>
+                        @Html.DisplayFor(modelItem => item.AntalDagar)
+                        <span> Days </span>
                     }
-                    else
-                    {
-                        <span> No Activity </span>
-                    }
+                    <span>. Type of activity: </span>
+                    @Html.DisplayFor(modelItem => item.LmsActivityType.Name)
+                }
+                else
+                {
+                    <span> No Activity </span>
+                }
 
-                </div>
-                <div class="w-100"></div>
-                <div class="col" id="activity_header">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </div>
-                <div class="w-100"></div>
-                <div class="col" id="activity_description">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </div>
-                <div class="w-100"></div>
-                <div><hr /></div>
-                <div class="col">
-                    @foreach (var doc in item.Documents.Where(a=>a.IsAdmin))
-                    {
-
-                        <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
-
-                        <span> | </span>
-                    }
-                </div>
             </div>
+            <div class="w-100"></div>
+            <div class="col" id="activity_header">
+                @Html.DisplayFor(modelItem => item.Name)
+            </div>
+            <div class="w-100"></div>
+            <div class="col" id="activity_description">
+                @Html.DisplayFor(modelItem => item.Description)
+            </div>
+            <div class="w-100"></div>
+            <div><hr /></div>
+            <div class="col">
+                @foreach (var doc in item.Documents.Where(a => a.IsAdmin))
+                {
+
+                    <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
+
+                    <span> | </span>
+                }
+            </div>
+            <br />
+            <div><hr /></div>
+            @if (item.IsSubmission)
+            {
+                <form asp-controller="Student" asp-action="UploadFile" method="post"
+                      enctype="multipart/form-data">
+                    <div class="form-group user_box">
+                        <label id="submit_header" for="user_form">Required - Upload your answers:</label>
+                        <textarea name="txt" class="form-control" id="user_form" rows="1"></textarea>
+                        <input value="@item.Id" type="hidden" name="activity_id" class="form-control" id="user_form">
+                        <label for="user_form">Files to be uploaded</label>
+                        <input type="file" name="file" class="form-control-file" id="user_form" required="required">
+                        <br />
+                        <button type="submit">Upload File</button>
+                        <br />
+
+                        <div class="col alert-light uploaded_files">
+                            <span><u>Uploaded Files:</u></span><br />
+
+                            @foreach (var doc in item.Documents.Where(u => u.UserName == User.Identity.Name))
+                            {
+                                <Span>@doc.Name</Span><br />
+                            }
+
+                        </div>
+
+                    </div>
+                </form>
+            }
+
+        </div>
+            <span>Here2</span>
+            
+               
+           
         }
         <div><hr /></div>
 
@@ -105,6 +139,7 @@
                     <div class="form-group user_box">
                         <label id="submit_header" for="user_form">Description of document</label>
                         <textarea name="txt" class="form-control" id="user_form" rows="2"></textarea>
+                        <input value ="TUR" type="hidden" name="activity_id" class="form-control" id="user_form"></>
                         <label for="user_form">Files to be uploaded</label>
                         <input type="file" name="file" class="form-control-file" id="user_form" required="required">
                         <br />
@@ -123,10 +158,6 @@
                             }
 
                         </div>
-
-
-
-
 
                     </div>
                 </form>
