@@ -14,10 +14,10 @@
 </div>
 <div class="container-fluid">
     <div id="createcourse_group" class="thestyle">
-        <button type="button" class="btn btn-success" onclick="window.location.href = '/Teacher/Teacher';">Courses</button>
-        <button type="button" class="btn btn-success" onclick="window.location.href = '/Module/CreateModule/1';">Modules</button>
+        @*<button type="button" class="btn btn-success" onclick="window.location.href = '/Teacher/Teacher';">Courses</button>
+        <button type="button" class="btn btn-success" onclick="window.location.href = '/Module/CreateModule/1';">Modules</button>*@
         <a class="btn btn-success crtactivity_btn" data-toggle="collapse" href="#collapseForm" role="button" aria-expanded="true" aria-controls="collapseForm">Show Activity form</a>
-        <button type="button" class="btn btn-success" onclick="window.location.href = '/Users/CreateUser';">Students</button>
+        @*<button type="button" class="btn btn-success" onclick="window.location.href = '/Users/CreateUser';">Students</button>*@
 
 
         <div class="row">
@@ -72,11 +72,11 @@
                                         <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
                                     </div>
 
-                                    @*<div class="form-group">
+                                    <div class="form-group">
                                         <label asp-for="ModuleId" class="control-label"></label>
                                         <input asp-for="ModuleId" class="form-control" />
                                         <span asp-validation-for="ModuleId" class="text-danger"></span>
-                                    </div>*@
+                                    </div>
                                     <div class="form-group">
                                         <input type="submit" value="Create" class="btn btn-success" />
                                     </div>
