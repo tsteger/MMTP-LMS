@@ -250,7 +250,7 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach (var item in Model.Students)
+                                    @foreach (var item in Model.Students.Where(u => u.UserName.ToLower() != "admin@admin.com"))
                                     {
                                         <tr>
                                             <td class="table-active">
