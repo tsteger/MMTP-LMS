@@ -24,12 +24,10 @@ namespace MMTP_LMS.Controllers
         private List<SelectListItem> clist;
         private static int? user_course_id;
         private static int today_module_id;
-        private static int selected_activity_id;
         
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
         private readonly IHostingEnvironment _hostingEnvironment;
-
 
         private static DateTime NavDate { get; set; } = DateTime.Now;
         public static int Nav_date { get; private set; }
@@ -78,12 +76,10 @@ namespace MMTP_LMS.Controllers
             }
             user_course_id = GetCourseId(userName, course_select);
             today_module_id = GetModuleId(user_course_id);
-            //  var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
+            
             var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Date <= NavDate && m.EndTime.Date >= NavDate);
             if (today_activities.Count() < 1) today_activities = _context.LmsActivity.Where(m => m.StartDate.Year <= DateTime.Now.AddYears(-1).Year);
 
-            selected_activity_id = today_activities.Select(i => i.Id).FirstOrDefault();
-            //  List<SelectListItem> clist = GetCourseList();
             clist = GetCourseList();
             if (Nav_date == 0) ViewBag.TodayHeader = "Todays Activities";
             else if (Nav_date == -1) ViewBag.TodayHeader = "Yesterdays Activities";
