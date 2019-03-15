@@ -6,58 +6,57 @@
 
 <h1>Edit</h1>
 
-<h4>LmsActivity</h4>
+<h4>Activity</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="row col-sm-12">
+                <div class="form-group col-sm-6">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndTime" class="control-label"></label>
-                <input asp-for="EndTime" class="form-control" />
-                <span asp-validation-for="EndTime" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="LmsActivityTypeId" class="control-label"></label>
-                <select asp-for="LmsActivityTypeId" class="form-control" asp-items="ViewBag.LmsActivityTypeId"></select>
-                <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModuleId" class="control-label"></label>
-                <select asp-for="ModuleId" class="form-control" asp-items="ViewBag.ModuleId"></select>
-                <span asp-validation-for="ModuleId" class="text-danger"></span>
-            </div>*@
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsSubmission" /> @Html.DisplayNameFor(model => model.IsSubmission)
-                </label>
-            </div>
-            <div class="form-group">
+            <div class="row col-sm-12">
+                <div class="form-group col-sm-6">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="EndTime" class="control-label"></label>
+                    <input asp-for="EndTime" class="form-control" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+                </div>
+            <div class="row col-sm-12">
+                <div class="form-group col-sm-6">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+                <div class="form-group form-check col-sm-6">
+                    <div class="col-sm-4">
+                        <label class="form-check-label col-sm-4">
+                            <input class="form-check-input" asp-for="IsSubmission" /> @Html.DisplayNameFor(model => model.IsSubmission)
+                        </label>
+                    </div>                
+                </div>
+                
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+    
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
