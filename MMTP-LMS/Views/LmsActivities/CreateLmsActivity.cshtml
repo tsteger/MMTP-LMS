@@ -24,61 +24,61 @@
             <div class="col">
                 <div class="collapse multi-collapse" id="collapseForm">
                     <div class="card card-body">
-
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="flex-xl-grow-1">
                                 <form asp-action="CreateLmsActivity" asp-controller="LmsActivities" method="post">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="row col-sm-12">
+                                        <div class="form-group col-sm-6">
+                                            <label asp-for="LmsActivityName" class="control-label"></label>
+                                            <input asp-for="LmsActivityName" class="form-control" />
+                                            <span asp-validation-for="LmsActivityName" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label asp-for="LmsActivityDescription" class="control-label"></label>
+                                            <input asp-for="LmsActivityDescription" class="form-control" />
+                                            <span asp-validation-for="LmsActivityDescription" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="form-group col-sm-6">
+                                            <label asp-for="LmsActivityStartDate" class="control-label"></label>
+                                            <input asp-for="LmsActivityStartDate" class="form-control" />
+                                            <span asp-validation-for="LmsActivityStartDate" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label asp-for="LmsActivityEndTime" class="control-label"></label>
+                                            <input asp-for="LmsActivityEndTime" class="form-control" />
+                                            <span asp-validation-for="LmsActivityEndTime" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="form-group form-check col-sm-6">
+                                            <div class="col-sm-3">
+                                                <div class="col-sm-1">
+                                                    <label asp-for="IsSubmission" class="control-label">Submission</label>
+                                                    <label class="form-check-label">
 
-                                    <div class="form-group">
-                                        <label asp-for="LmsActivityName" class="control-label"></label>
-                                        <input asp-for="LmsActivityName" class="form-control" />
-                                        <span asp-validation-for="LmsActivityName" class="text-danger"></span>
+                                                        <input class="form-check-input" asp-for="IsSubmission" /> @Html.DisplayNameFor(model => model.IsSubmission)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label asp-for="LmsActivityTypeId"></label>
+                                            <select asp-for="LmsActivityTypeId" class="form-control" asp-items="ViewBag.List"></select>
+                                            <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label asp-for="LmsActivityDescription" class="control-label"></label>
-                                        <input asp-for="LmsActivityDescription" class="form-control" />
-                                        <span asp-validation-for="LmsActivityDescription" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="LmsActivityStartDate" class="control-label"></label>
-                                        <input asp-for="LmsActivityStartDate" class="form-control" />
-                                        <span asp-validation-for="LmsActivityStartDate" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="LmsActivityEndTime" class="control-label"></label>
-                                        <input asp-for="LmsActivityEndTime" class="form-control" />
-                                        <span asp-validation-for="LmsActivityEndTime" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" asp-for="IsSubmission" /> @Html.DisplayNameFor(model => model.IsSubmission)
-                                        </label>
-                                    </div>
-                                    @*<div class="form-group">
-                                    <label asp-for="LmsActivityTypeId" class="control-label"></label>
-                                    <select asp-for="LmsActivityTypeId" class="form-control" asp-items="LmsActivityTypeId"></select>
-                                    </div>*@
-                                    @*<div class="form-group">
-                                        <label asp-for="LmsActivityTypeId" class="control-label"></label>
-                                        <input asp-for="LmsActivityTypeId" class="form-control" />
-                                        <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
-                                    </div>*@
-                                    <div class="form-group col">
-                                        <label asp-for="LmsActivityTypeId"></label><br />
-                                        <span class="styled-select-user">
-                                            <select asp-for="LmsActivityTypeId" asp-items="ViewBag.List"></select>
-                                        </span>
-                                        <span asp-validation-for="LmsActivityTypeId" class="text-danger"></span>
-                                    </div>
-
                                     <div class="form-group d-none">
                                         <label asp-for="ModuleId" class="control-label"></label>
                                         <input asp-for="ModuleId" class="form-control" />
                                         <span asp-validation-for="ModuleId" class="text-danger"></span>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="submit" value="Create" class="btn btn-success" />
+                                    <div class="row col-sm-12">
+                                        <div class="form-group col-sm-6">
+                                            <input type="submit" value="Create" class="btn btn-success" />
+                                        </div>
                                     </div>
                                 </form>
 
