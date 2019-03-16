@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,17 +16,20 @@ using MMTP_LMS.ViewModels;
 
 namespace MMTP_LMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class LmsActivitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
+        private readonly IHostingEnvironment _hostingEnvironment;
         public List<SelectListItem> clist;
         private DateUtilities dateUtilities;
         private static int retViewId;
-        public LmsActivitiesController(ApplicationDbContext context, UserManager<Person> userManager)
+        public LmsActivitiesController(ApplicationDbContext context, UserManager<Person> userManager , IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _hostingEnvironment = hostingEnvironment;
             dateUtilities = new DateUtilities();
         }
 
@@ -169,5 +175,31 @@ namespace MMTP_LMS.Controllers
 
                                             }).ToList();
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(IFormFile file, string txt, string activity_id)
+        {
+
+            if (!int.TryParse(activity_id, out int id)) return NoContent();
+
+            var fileUtil = new Utilities.File();
+            await fileUtil.UploadFileAsync(file, txt, _hostingEnvironment);
+            var doc = new Document
+            {
+                Name = file.FileName,
+                Description = "Activity: "+ _context.LmsActivity.Where(c => c.Id == id).Select(n => n.Name).FirstOrDefault(),
+                TimeStamp = DateTime.Now,
+                UserName = User.Identity.Name,
+                Url = "\\Documents\\" + file.FileName,
+                IsAdmin = true,
+                LmsActivityId = id,
+                PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
+            };
+
+            _context.Document.Add(doc);
+            _context.SaveChanges();
+           
+            return RedirectToAction("CreateLmsActivity", "LmsActivities", new { Id = retViewId });
+        }
+
     }
 }

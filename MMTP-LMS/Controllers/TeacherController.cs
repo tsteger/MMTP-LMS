@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,11 +19,12 @@ namespace MMTP_LMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Person> _userManager;
-
-        public TeacherController(ApplicationDbContext context, UserManager<Person> userManager)
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public TeacherController(ApplicationDbContext context, UserManager<Person> userManager, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _hostingEnvironment = hostingEnvironment;
         }
         public IActionResult Teacher()
         {
@@ -149,6 +152,31 @@ namespace MMTP_LMS.Controllers
         {
             return _context.Course.Any(e => e.Id == id);
         }
-        
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(IFormFile file, string txt, string course_id)
+        {
+
+            if (!int.TryParse(course_id, out int id)) return NoContent();
+
+            var fileUtil = new Utilities.File();
+            await fileUtil.UploadFileAsync(file, txt, _hostingEnvironment);
+            var doc = new Document
+            {
+                Name = file.FileName,
+                Description = "Course: " + _context.Course.Where(c=>c.Id == id).Select(n =>n.Name).FirstOrDefault(),
+                TimeStamp = DateTime.Now,
+                UserName = User.Identity.Name,
+                Url = "\\Documents\\" + file.FileName,
+                IsAdmin = true,
+                CourseId = id,
+                PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
+            };
+
+            _context.Document.Add(doc);
+            _context.SaveChanges();
+
+            return RedirectToAction("Teacher", "Teacher");
+        }
+
     }
 }
