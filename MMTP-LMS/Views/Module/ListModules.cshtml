@@ -30,36 +30,41 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                <tr>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Course.Name)
-                        </td>
-                        <td>
-                            <a asp-controller="Module" asp-action="EditModule" asp-route-id="@item.Id">Edit Module</a>
-                        </td>
-                        <td>
-                            <a asp-controller="LmsActivities" asp-action="CreateLmsActivity" asp-route-id="@item.Id">Add Activities</a>
-                        </td>
-                        @*      @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course.Name)
+                    </td>
+                    <td>
+                        <a class="btn btn-light" asp-controller="Module" asp-action="EditModule" asp-route-id="@item.Id">Edit Module</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-light" asp-controller="LmsActivities" asp-action="CreateLmsActivity" asp-route-id="@item.Id">Add Activities</a>
+                    </td>
+                    <td>
+                        <form asp-controller="Module" asp-action="UploadFile" method="post"
+                              enctype="multipart/form-data">
+                            <input value="@item.Id" type="hidden" name="module_id" class="form-control" id="user_form">
+                            <input type="file" name="file" class="form-control-file super_e" id="file" required="required">
+                            <button type="submit">Upload</button>
+                        </form>
+                    </td>
 
 
 
-                    </tr>
+                </tr>
                 }
 
             </tbody>
