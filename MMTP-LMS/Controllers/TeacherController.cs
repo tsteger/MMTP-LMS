@@ -28,15 +28,7 @@ namespace MMTP_LMS.Controllers
         }
         public IActionResult Teacher()
         {
-            //var courses = _context.Course;
-
-            //var getCourses = courses.Select(x => new TeacherViewModel()
-            //{
-            //    CourseName = x.Name,
-            //    CourseDescription = x.Description,
-            //    CourseStartDate = x.StartDate,
-            //    CourseEndDate = x.EndDate,
-            //});
+            
             ViewBag.DocCount = _context.Document.Where(d =>d.CourseId != null && d.IsAdmin).Count();
             
             var model = new CourseViewModel()
@@ -71,7 +63,7 @@ namespace MMTP_LMS.Controllers
             }
             return View(viewModel);
         }
-        // GET: Course/EditCourse/5
+        // GET: Teacher/EditCourse/
         public async Task<IActionResult> EditCourse(int? id)
         {
             if (id == null)
@@ -87,7 +79,7 @@ namespace MMTP_LMS.Controllers
             return View(course);
         }
 
-        // POST: Course/EditCourse/5<------Här ligger jag !
+        // POST: Teacher/EditCourse/
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -121,7 +113,7 @@ namespace MMTP_LMS.Controllers
             }
             return View(course);
         }
-        // GET: Course/Delete/
+        // GET: Teacher/Delete/Course
         public async Task<IActionResult> DeleteCourse(int? id)
         {
             if (id == null)
@@ -139,7 +131,7 @@ namespace MMTP_LMS.Controllers
             return View(course);
         }
 
-        // POST: Course/Delete/5
+        // POST: Teacher/Delete/Course
         [HttpPost, ActionName("DeleteCourse")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteCourseConfirmed(int id)

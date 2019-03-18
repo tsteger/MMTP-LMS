@@ -41,7 +41,6 @@ namespace MMTP_LMS.Controllers
                 Courses = _context.Course.Where(c => c.Id != 0).ToList(),
                 Modules = _context.Module.Where(m => m.Id != 0).ToList(),
                 Documents = _context.Document.Where(d => d.Id != 0).ToList(),
-                // Users = _context.User.Where(u => u.Id != null).ToList()
                 LmsActivities = _context.LmsActivity.Where(l => l.Id != 0).ToList(),
                 Students = _context.Person.ToList(),
                 LmsActivityTypes = _context.LmsActivityType.Where(lt => lt.Id !=0).ToList()
@@ -125,30 +124,12 @@ namespace MMTP_LMS.Controllers
                 TimeStamp = DateTime.Now,
                 UserName = User.Identity.Name,
                 Url = path,
-                // PersonId = _context.Person.Where(p => p.UserName == User.Identity.Name).Select(i => i.Id).FirstOrDefault()
-
             };
             _context.Document.Add(doc);
             _context.SaveChanges();
 
             return RedirectToAction("Student", "Student");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /// <summary>
         /// Old Admin Index method !
         /// </summary>
@@ -166,7 +147,6 @@ namespace MMTP_LMS.Controllers
                 Courses = _context.Course.Where(c => c.Id != 0).ToList(),
                 Modules = _context.Module.Where(m => m.Id != 0).ToList(),
                 Documents = _context.Document.Where(d => d.Id != 0).ToList(),
-                // Users = _context.User.Where(u => u.Id != null).ToList()
                 LmsActivities = _context.LmsActivity.Where(l => l.Id != 0).ToList(),
                 Students = _context.Person.ToList()
             };
@@ -176,10 +156,17 @@ namespace MMTP_LMS.Controllers
         }
         public IActionResult TeacherListStats()
         {
+            ViewBag.DocCount = _context.Document.Where(d => d.Name != null && d.IsAdmin).Count();
+            ViewBag.CourseCount = _context.Course.Where(c => c.Name != null).Count();
+            ViewBag.StudentCount = _context.Users.Where(s => s.UserName != null ).Count();
+            ViewBag.ModuleCount = _context.Module.Where(m => m.Name != null).Count();
+            ViewBag.LmsActivityCount = _context.LmsActivity.Where(l => l.Name != null).Count();
+            ViewBag.LmsActivityTypeCount = _context.LmsActivityType.Where(lt => lt.Name != null);
+
+
             var student_email = _context.Person.Select(s => s.Email);
             var student_course_id = _context.Person.Select(s => s.Course.Id);
             var courses = _context.Course.Select(c => c.Name);
-
             var users = _context.Person.ToList();
 
             var adminViewModel = new AdminViewModel()
@@ -187,7 +174,6 @@ namespace MMTP_LMS.Controllers
                 Courses = _context.Course.Where(c => c.Id != 0).ToList(),
                 Modules = _context.Module.Where(m => m.Id != 0).ToList(),
                 Documents = _context.Document.Where(d => d.Id != 0).ToList(),
-                // Users = _context.User.Where(u => u.Id != null).ToList()
                 LmsActivities = _context.LmsActivity.Where(l => l.Id != 0).ToList(),
                 Students = _context.Person.ToList()
             };
@@ -195,13 +181,5 @@ namespace MMTP_LMS.Controllers
             return View(adminViewModel);
 
         }
-
-
-        public IActionResult CreateCourse()
-        {
-            return View();
-        }
-        
-
     }
 }
