@@ -14,7 +14,7 @@ namespace MMTP_LMS.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if(User.IsInRole("Admin")) return RedirectToAction("Teacher","Teacher");
+                if(User.IsInRole("Admin")) return RedirectToAction("Index","Admin");
                 else
                 return RedirectToAction("Student", "Student");
             }
