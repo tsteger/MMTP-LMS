@@ -43,7 +43,9 @@ namespace MMTP_LMS.Controllers
                 Documents = _context.Document.Where(d => d.Id != 0).ToList(),
                 // Users = _context.User.Where(u => u.Id != null).ToList()
                 LmsActivities = _context.LmsActivity.Where(l => l.Id != 0).ToList(),
-                Students = _context.Person.ToList()
+                Students = _context.Person.ToList(),
+                LmsActivityTypes = _context.LmsActivityType.Where(lt => lt.Id !=0).ToList()
+
             };
 
             return View(adminViewModel);
