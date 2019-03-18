@@ -117,4 +117,16 @@
     $("p").filter(function () {
         return $(this).find("a[href^='/Identity/Account/Register']").length > 0;
     }).hide();
+
+    $('.upload').click(function () {
+
+      //  $('.doc_counter').html.('My content here :-)');
+
+        var el = $('.doc_counter');
+        el.addClass('glow').delay(500).fadeOut(500, function () {
+            el.removeClass('glow').delay(500).fadeIn(500);
+        });
+       
+   
+    });
 });

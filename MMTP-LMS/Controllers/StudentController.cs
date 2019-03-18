@@ -43,6 +43,7 @@ namespace MMTP_LMS.Controllers
 
         public IActionResult Student(string Id, int course_select = 0)
         {
+            
             var dbUtilities = new DbUtilities();
             dbUtilities.AddDatabaseData(_context);
             var userName = User.Identity.Name;
@@ -118,7 +119,8 @@ namespace MMTP_LMS.Controllers
         }
 
         public IActionResult Course(int course_select = 0)
-        {
+        {         
+            ViewBag.courses = _context.Document.Where(d => d.CourseId != null && d.IsAdmin);            
             if (User.Identity.Name == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -142,6 +144,7 @@ namespace MMTP_LMS.Controllers
                 Documents = x.Documents,
                 LmsActivities = x.LmsActivities,
                 CourseList = clist,
+                
                 
             });
 

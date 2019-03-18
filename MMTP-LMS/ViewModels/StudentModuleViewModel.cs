@@ -29,5 +29,6 @@ namespace MMTP_LMS.ViewModels
         public int CourseId { get; set; }
         public Course Course { get; set; }
         public List<SelectListItem> CourseList { get; set; }
+       
     }
 }
