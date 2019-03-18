@@ -41,19 +41,19 @@
 
                         @if (User.IsInRole("Admin"))
                         {
-                            @* *@
+                            @*
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="LmsActivityTypes" asp-action="Index">Add ActivityTypes</a>
+            </li>*@
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="LmsActivityTypes" asp-action="Index">Add ActivityTypes</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Teacher</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Teacher" asp-action="Teacher">Teacher</a>
-                            </li>
-                            <li class="nav-item">
+                            @*    <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="CreateUser">Users</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
-                            </li>
+                             <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+            </li>*@
                         }
 
                     </ul>
