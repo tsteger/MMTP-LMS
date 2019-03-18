@@ -23,7 +23,11 @@
         <span id="course_name" class="no_new_line">@ViewBag.Course</span>
     }
 </div>
-
+@foreach (var doc in ViewBag.courses)
+{
+    <span>@doc.Name</span><br />
+    <span>@doc.Url</span><br />
+}
 <div class="container-fluid">
     <section class="row title-row"></section>
     <section id="activity">
@@ -64,7 +68,7 @@
                 <div class="collapse" id="module-@item.Id">
                     <div class="card card-body">
                         <ul>
-                            @foreach (var activity in item.LmsActivities.Where(n=>n.Name != "No Activity"))
+                            @foreach (var activity in item.LmsActivities.Where(n => n.Name != "No Activity"))
                             {
                                 <li class="activity_list">
 

@@ -202,6 +202,11 @@
 }
 .red{
     color:red;
+    background-color:aquamarine;
+    
+}
+.green {
+    font-weight:bold;
 }
 /*.inputfile {
     width: 0.1px;

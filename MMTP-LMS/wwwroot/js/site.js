@@ -117,4 +117,14 @@
     $("p").filter(function () {
         return $(this).find("a[href^='/Identity/Account/Register']").length > 0;
     }).hide();
+
+    $('.upload').click(function () {
+
+      //  $('.doc_counter').html.('My content here :-)');
+
+        var el = $('.doc_counter');
+        el.addClass('green');
+       // el.removeClass('theClassThatsThereNow');
+      //  alert("Hi");
+    });
 });
