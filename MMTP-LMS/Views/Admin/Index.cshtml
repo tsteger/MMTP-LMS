@@ -4,7 +4,7 @@
 }
 
 <div id="todays_header" class="thestyle">
-    <span>Admin</span>
+    <span>Teachers Owerview</span>
 
     <div class="col-2">
         <div class="col-sm-12">
@@ -20,9 +20,8 @@
         <a class="btn btn-success activitiesView_btn" data-toggle="collapse" href="#activitiesView" role="button" aria-expanded="true" aria-controls="activitiesView">Activities</a>
         <a class="btn btn-success documentsView_btn" data-toggle="collapse" href="#documentsView" role="button" aria-expanded="true" aria-controls="documentsView">Documents</a>
         <a class="btn btn-success studentsView_btn" data-toggle="collapse" href="#studentsView" role="button" aria-expanded="true" aria-controls="studentsView">Students</a>
-        @*<a class="btn btn-success activityTypesView_btn" data-toggle="collapse" href="#lmsActivityTypesView" role="button" aria-expanded="true" aria-controls="lmsActivityTypesView">Activity Types</a>
-        *@
-
+        @*<a class="btn btn-success activityTypesView_btn" data-toggle="collapse" href="#lmsActivityTypesView" role="button" aria-expanded="true" aria-controls="lmsActivityTypesView">Activity Types</a>*@
+        <a class="btn btn-danger" asp-controller="Teacher" asp-action="Teacher" >Teachers Wizard !</a>
         <div class="row">
             <div class="col">
                 <div class="collapse multi-collapse" id="courseView">
@@ -101,20 +100,20 @@
                         <tbody>
                             @foreach (var item in Model.Modules)
                             {
-                                <tr>
-                                    <td class="table-active">
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td class="table-active">
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td class="table-active">
-                                        @Html.DisplayFor(modelItem => item.StartDate)
-                                    </td>
-                                    <td class="table-active">
-                                        @Html.DisplayFor(modelItem => item.EndDate)
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="table-active">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td class="table-active">
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td class="table-active">
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                </td>
+                                <td class="table-active">
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
