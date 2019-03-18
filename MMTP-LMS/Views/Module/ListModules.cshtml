@@ -12,9 +12,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
-                    <th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.Description)
-                    </th>
+                    </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.StartDate)
                     </th>
@@ -35,9 +35,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.Description)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.StartDate)
                     </td>
@@ -58,7 +58,7 @@
                               enctype="multipart/form-data">
                             <input value="@item.Id" type="hidden" name="module_id" class="form-control" id="user_form">
                             <input type="file" name="file" class="form-control-file super_e" id="file" required="required">
-                            <button type="submit">Upload</button>
+                            <button class="upload" type="submit">Upload</button>
                         </form>
                     </td>
 

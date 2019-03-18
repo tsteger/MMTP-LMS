@@ -17,9 +17,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.EndDate)
                     </th>
-                    <th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.Description)
-                    </th>
+                    </th>*@
                     <th></th>
                 </tr>
             </thead>
@@ -36,9 +36,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.EndDate)
                     </td>
-                    <td>                      
+                    @*<td>                      
                         @Html.DisplayFor(modelItem => item.Description)
-                    </td>
+                    </td>*@
                     <td>
                         <a class="btn btn-light" asp-action="EditCourse" asp-route-id="@item.Id">Edit Course</a>
                     </td>

@@ -123,8 +123,10 @@
       //  $('.doc_counter').html.('My content here :-)');
 
         var el = $('.doc_counter');
-        el.addClass('green');
-       // el.removeClass('theClassThatsThereNow');
-      //  alert("Hi");
+        el.addClass('glow').delay(500).fadeOut(500, function () {
+            el.removeClass('glow').delay(500).fadeIn(500);
+        });
+       
+   
     });
 });
