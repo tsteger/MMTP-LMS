@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="../../wwwroot/css/Student.css" rel="stylesheet" />
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="container">
+
+        <div id="todays_header" class="thestyle">
+            <span> Teachers overview</span>
+        </div>
+        <div id="createcourse_group" class="thestyle">
+            <a class="btn btn-success crtstudent_btn" data-toggle="collapse" href="#collapseForm" role="button" aria-expanded="true" aria-controls="collapseForm">Show Student form</a>
+            <div class="row">
+                <div class="collapse multi-collapse" id="collapseForm">
+                    <div class="card card-body">
+                        
+                            <form asp-action="CreateUser" asp-controller="Users" method="post">
+                                <div class="row">
+
+                                    <div class="form-group col-6">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <label asp-for="FirstName">First name</label>
+                                        <input asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label asp-for="LastName">Last name</label>
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label asp-for="Password">Password</label>
+                                        <input asp-for="Password" class="form-control" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label asp-for="ConfirmPassword">Confirm password</label>
+                                        <input asp-for="ConfirmPassword" class="form-control" />
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label asp-for="CourseId"></label><br />
+                                        <span class="styled-select-user">
+                                            <select asp-for="CourseId" asp-items="ViewBag.List"></select>
+                                        </span>
+                                        <span asp-validation-for="CourseId" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-6">
+
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <button type="submit" class="btn btn-success">Register</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+</body>
+</html>
