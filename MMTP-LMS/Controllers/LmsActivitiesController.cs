@@ -36,6 +36,7 @@ namespace MMTP_LMS.Controllers
         // GET: LmsActivity/LmsActivities
         public IActionResult Index()
         {
+            
             var model = new LmsActivityViewModel()
             {
                 LmsActivities = _context.LmsActivity.ToList()
@@ -46,6 +47,7 @@ namespace MMTP_LMS.Controllers
         // GET: CreateLmsActivity
         public async Task<ActionResult> CreateLmsActivity(int? id = null)
         {
+            ViewBag.DocCount = _context.Document.Where(d => d.LmsActivityId != null && d.IsAdmin).Count();
             clist = GetActivityList();
             ViewBag.List = clist;
             if (id == null) return NotFound();

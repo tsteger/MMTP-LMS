@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MMTP_LMS.Models.Course>
 
     <div id="todays_header" class="thestyle">
-        <span>Courses</span>
+        <span>Courses </span><span class="doc_counter">Number of docummets : @ViewBag.DocCount</span>
     </div>
     
     <div class="col" id="activity_description">
@@ -36,7 +36,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.EndDate)
                     </td>
-                    <td>
+                    <td>                      
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
@@ -55,6 +55,7 @@
                             <input type="file" name="file" class="form-control-file super_e" id="file" required="required">
                             <button type="submit">Upload</button>
                         </form>
+                        
                     </td>
                 </tr>
                 }

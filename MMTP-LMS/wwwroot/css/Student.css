@@ -213,4 +213,14 @@
 }*/
 .super_e {
     width: 200px;
-} 
+}
+.doc_counter {
+    /*padding: 1.4em 1em 0.2em 0.4em;*/
+    /*background-color: #c3b8ac;
+    border-radius: 5px;*/
+    text-align: right;
+    margin-left: 20px;
+    font-size: 1.2vw;
+    color: white;
+    display: inline-block;
+}
