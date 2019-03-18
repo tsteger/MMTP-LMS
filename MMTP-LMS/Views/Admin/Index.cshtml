@@ -273,8 +273,8 @@
         </div>
     </div>
 </div>
-@*
-    <div class="row">
+
+    @*<div class="row">
         <div class="col">
             <div class="collapse multi-collapse" id="lmsActivityTypesView">
                 <div class="card card-body">
@@ -292,11 +292,11 @@
                         </thead>
 
                         <tbody>
-                            @foreach (var item in Model.LmsActivityTypes.Select(i => i.Name))
+                            @foreach (var item in Model.LmsActivities)
                             {
                                 <tr>
                                     <td class="table-active">
-                                        @Html.DisplayFor(modelItem => item)
+                                        @Html.DisplayFor(modelItem => item.Name)
                                     </td>
                                 </tr>
                             }
@@ -306,5 +306,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    *@
+    </div>*@
+    

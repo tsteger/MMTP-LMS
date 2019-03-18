@@ -37,6 +37,8 @@ namespace MMTP_LMS.Controllers
             //    CourseStartDate = x.StartDate,
             //    CourseEndDate = x.EndDate,
             //});
+            ViewBag.DocCount = _context.Document.Where(d =>d.CourseId != null && d.IsAdmin).Count();
+            
             var model = new CourseViewModel()
             {
                 Courses = _context.Course.ToList()

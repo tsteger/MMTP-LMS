@@ -35,6 +35,7 @@ namespace MMTP_LMS.Controllers
         // GET: Modules
         public IActionResult Index()
         {
+            
             var model = new ModuleViewModel()
             {
                 Modules = _context.Module.ToList()
@@ -51,6 +52,7 @@ namespace MMTP_LMS.Controllers
         // GET: CreateModule
         public async Task<ActionResult> CreateModule(int? id = null)
         {
+            ViewBag.DocCount = _context.Document.Where(d => d.ModuleId != null && d.IsAdmin).Count();
             //ToDo: Fix 
             if (id == null) return NotFound();
             
