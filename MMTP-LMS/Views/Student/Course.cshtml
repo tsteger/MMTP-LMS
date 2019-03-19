@@ -30,12 +30,12 @@
             <b>Course documentation:</b><br />
             @foreach (var doc in ViewBag.courses)
             {
-                <i class="far fa-file-alt"></i><a href="@doc.Url"> @doc.Name </a><br />
+                <i class="far fa-file-alt"></i><a href="@doc.Url" target="_blank"> @doc.Name </a><br />@*Har lagt till  target="_blank"*@
             }
 
         </div>
     </div>
-    </div>
+</div>
 
 
     <div class="container-fluid">
