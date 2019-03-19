@@ -3,15 +3,24 @@
     ViewData["Title"] = "Index";
 }
 <div id="todays_header" class="thestyle">
-    <h1>System stats !</h1>
+    <div class="col-sm-6"><h1>System stats !</h1></div>
     <div class="container-fluid">
-        <div class="stat">
-            <div class="col"><span>Number of courses : @ViewBag.CourseCount</span></div>
-            <div class="col"><span>Number of modules : @ViewBag.ModuleCount</span></div>
-            <div class="w-100"></div>
-            <div class="col"><span>Number of activities : @ViewBag.LmsActivityCount</span></div>
-            <div class="col"><span>Number of docummets : @ViewBag.DocCount</span></div>
-            <div class="col"><span>Number of students : @ViewBag.StudentCount</span></div>
+        <div class="stat row col-sm-12">
+            <div class="col-sm-6">
+                <span>Number of courses : @ViewBag.CourseCount</span>
+            </div>
+            <div class="col-sm-6">
+                <span>Number of modules : @ViewBag.ModuleCount</span>
+            </div>
+            <div class="col-sm-6">
+                <span>Number of activities : @ViewBag.LmsActivityCount</span>
+            </div>
+            <div class="col-sm-6">
+                <span>Number of docummets : @ViewBag.DocCount</span>
+            </div>
+            <div class="col-sm-6">
+                <span>Number of students : @ViewBag.StudentCount</span>
+            </div>
         </div>
     </div>
 </div>
