@@ -136,12 +136,14 @@ namespace MMTP_LMS.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            GetStats();
+
             var student_email = _context.Person.Select(s => s.Email);
             var student_course_id = _context.Person.Select(s => s.Course.Id);
             var courses = _context.Course.Select(c => c.Name);
 
             var users = _context.Person.ToList();
-            
+
             var adminViewModel = new AdminViewModel()
             {
                 Courses = _context.Course.Where(c => c.Id != 0).ToList(),
@@ -154,14 +156,20 @@ namespace MMTP_LMS.Controllers
             return View(adminViewModel);
 
         }
-        public IActionResult TeacherListStats()
+
+        private void GetStats()
         {
             ViewBag.DocCount = _context.Document.Where(d => d.Name != null && d.IsAdmin).Count();
             ViewBag.CourseCount = _context.Course.Where(c => c.Name != null).Count();
-            ViewBag.StudentCount = _context.Users.Where(s => s.UserName != null ).Count();
+            ViewBag.StudentCount = _context.Users.Where(s => s.UserName != null).Count();
             ViewBag.ModuleCount = _context.Module.Where(m => m.Name != null).Count();
             ViewBag.LmsActivityCount = _context.LmsActivity.Where(l => l.Name != null).Count();
             ViewBag.LmsActivityTypeCount = _context.LmsActivityType.Where(lt => lt.Name != null);
+        }
+
+        public IActionResult TeacherListStats()
+        {
+            
 
 
             var student_email = _context.Person.Select(s => s.Email);
