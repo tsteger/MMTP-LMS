@@ -53,87 +53,7 @@ namespace MMTP_LMS.Controllers
         {
             return View();
         }
-        public IActionResult Student(double id = 0)
-        {
-            if (id == 0) Nav_date = 0d;
-            Nav_date += id;
-            var userName = User.Identity.Name;
-            if (userName == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            var user_doc = _context.Document.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
-               .Select(p => p.Name)
-               .ToArray();
-
-            var user_course_id = _context.Person.Where(p => p.UserName.ToLower().Trim() == userName.ToLower().Trim())
-                .Select(p => p.CourseId)
-                .FirstOrDefault();
-
-            var today_module_id = _context.Module.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now && d.CourseId == user_course_id)
-                .Select(m => m.Id)
-                .FirstOrDefault();
-
-            var today_activities = _context.LmsActivity.Where(m => m.ModuleId == today_module_id && m.StartDate.Day <= DateTime.Now.AddDays(Nav_date).Day && m.EndTime.Day >= DateTime.Now.AddDays(Nav_date).Day);
-
-
-
-            if (Nav_date == 0) ViewBag.TodayHeader = "Dagens Aktiviteter";
-            else if (Nav_date == -1) ViewBag.TodayHeader = "Gårdagens Aktiviteter";
-            else if (Nav_date == 1) ViewBag.TodayHeader = "Morgondagens Aktiviteter";
-            else ViewBag.TodayHeader = $"{DateTime.Now.AddDays(Nav_date).ToString("dd MMMM")} Aktiviteter";
-
-            ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
-
-            var ret = today_activities.Select(x => new StudentViewModel()
-            {
-                Name = x.Name,
-                Description = x.Description,
-                StartDate = x.StartDate,
-                EndTime = x.EndTime,
-                Documents = x.Documents,
-                LmsActivityType = x.LmsActivityType,
-                AntalDagar = x.StartDate.Day - x.EndTime.Day,              
-
-            });
-            return View(ret);
-        }
-        [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile file, string txt)
-        {
-            if (file == null || file.Length == 0)
-            {
-                return Content("file not selected");
-            }
-
-
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            string contentRootPath = _hostingEnvironment.ContentRootPath;
-            var path = Path.Combine(
-                        webRootPath, "Documents",
-                        file.FileName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-            var doc = new Document
-            {
-                Name = file.FileName,
-                Description = txt,
-                TimeStamp = DateTime.Now,
-                UserName = User.Identity.Name,
-                Url = path,
-            };
-            _context.Document.Add(doc);
-            _context.SaveChanges();
-
-            return RedirectToAction("Student", "Student");
-        }
-        /// <summary>
-        /// Old Admin Index method !
-        /// </summary>
-        /// <returns></returns>
+       
         public IActionResult Index()
         {
             GetStats();
@@ -167,27 +87,6 @@ namespace MMTP_LMS.Controllers
             ViewBag.LmsActivityTypeCount = _context.LmsActivityType.Where(lt => lt.Name != null);
         }
 
-        public IActionResult TeacherListStats()
-        {
-            
-
-
-            var student_email = _context.Person.Select(s => s.Email);
-            var student_course_id = _context.Person.Select(s => s.Course.Id);
-            var courses = _context.Course.Select(c => c.Name);
-            var users = _context.Person.ToList();
-
-            var adminViewModel = new AdminViewModel()
-            {
-                Courses = _context.Course.Where(c => c.Id != 0).ToList(),
-                Modules = _context.Module.Where(m => m.Id != 0).ToList(),
-                Documents = _context.Document.Where(d => d.Id != 0).ToList(),
-                LmsActivities = _context.LmsActivity.Where(l => l.Id != 0).ToList(),
-                Students = _context.Person.ToList()
-            };
-
-            return View(adminViewModel);
-
-        }
+       
     }
 }

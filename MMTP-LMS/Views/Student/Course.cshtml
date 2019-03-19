@@ -25,15 +25,17 @@
 </div>
 
 <div class="container-fluid">
-    <div class="col">
-    Course documentation:
-        @foreach (var doc in ViewBag.courses)
+    <div id="activity_group" class="thestyle">
+        <div class="col">
+            <b>Course documentation:</b><br />
+            @foreach (var doc in ViewBag.courses)
             {
-        <i class="far fa-file-alt"></i><a href="@doc.Url"> @doc.Name </a>
-           }
+                <i class="far fa-file-alt"></i><a href="@doc.Url"> @doc.Name </a><br />
+            }
 
+        </div>
     </div>
-</div>
+    </div>
 
 
     <div class="container-fluid">
