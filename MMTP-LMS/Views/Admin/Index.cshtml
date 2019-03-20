@@ -219,7 +219,9 @@
                         {
                             <tr>
                                 <td class="table-active">
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    <a  href="@Html.DisplayFor(modelItem => item.Url)">@Html.DisplayFor(modelItem => item.Name)</a>
+                                    
+                                   @* @Html.DisplayFor(modelItem => item.Name)*@
                                 </td>
                                 <td class="table-active">
                                     @Html.DisplayFor(modelItem => item.Description)
