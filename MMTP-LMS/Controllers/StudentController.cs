@@ -130,7 +130,6 @@ namespace MMTP_LMS.Controllers
             Nav_date = 0;
             user_course_id = GetCourseId(User.Identity.Name, course_select);
             clist = GetCourseList();
-            //int? user_course_id = GetCourseId(User.Identity.Name);
             var mod = _context.Module.Where(m => m.CourseId == user_course_id);
             ViewBag.Course = _context.Course.Where(i => i.Id == user_course_id).Select(n => n.Name).FirstOrDefault();
             var ret = mod.Select(x => new StudentModuleViewModel()
