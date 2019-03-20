@@ -7,6 +7,10 @@
     <RootNamespace>MMTP_LMS</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants />
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Include="DEVTools\DevTools.cs" />
   </ItemGroup>
