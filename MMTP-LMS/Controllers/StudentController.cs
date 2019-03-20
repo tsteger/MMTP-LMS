@@ -147,7 +147,7 @@ namespace MMTP_LMS.Controllers
                 
             });
 
-            return View(ret);
+            return View(ret.OrderBy(d=>d.StartDate));
 
         }
         public IActionResult Users()
