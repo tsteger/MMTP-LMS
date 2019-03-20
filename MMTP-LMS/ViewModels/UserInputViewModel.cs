@@ -25,14 +25,14 @@ namespace MMTP_LMS.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         [RegularExpression(@"(?=.*\d)(?=.*[\W_]).{6,}", ErrorMessage = "Characters are not allowed.")]
-        public string Password { get; set; }
+        public string Password { get; set; } 
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; } 
 
-       // public ICollection<Course> Courses { get; set; }
+        // public ICollection<Course> Courses { get; set; }
 
         public ICollection<Person> People { get; set; }
     }

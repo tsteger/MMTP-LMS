@@ -5,7 +5,7 @@
 }
 
 <div id="todays_header" class="thestyle">
-    <span>Teachers Wizard !</span>
+    <span>Quick Start !</span>
         
 </div>
 
@@ -14,9 +14,10 @@
     <div id="createcourse_group" class="thestyle">
         @*<button type="button" class="btn btn-success" onclick="window.location.href = '/Teacher/Teacher';">Teacher</button>*@
         <a class="btn btn-success crtmodule_btn" data-toggle="collapse" href="#collapseForm" role="button" aria-expanded="true" aria-controls="collapseForm">Show Module form</a>
-        @*<button type="button" class="btn btn-success" onclick="window.location.href = '/LmsActivities/CreateLmsActivity';">Activities</button>
-        <button type="button" class="btn btn-success" onclick="window.location.href = '/Users/CreateUser';">Students</button>*@
-        <a class="btn btn-danger" asp-controller="Teacher" asp-action="Teacher">Back to Teachers Wizard</a>    
+        @*<button type="button" class="btn btn-success" onclick="window.location.href = '/LmsActivities/CreateLmsActivity';">Activities</button>*@
+        <button type="button" class="btn btn-success" onclick="window.location.href = '/LmsActivityTypes/Index';">Activitytypes</button>
+        <button type="button" class="btn btn-success" onclick="window.location.href = '/Users/CreateUser';">Students</button>
+        <a class="btn btn-danger" asp-controller="Teacher" asp-action="Teacher">Back to Teachers Wizard</a>
         <div class="row">
             <div class="col">
                 <div class="collapse multi-collapse" id="collapseForm">
@@ -48,17 +49,17 @@
                                             <input asp-for="ModuleEndDate" class="form-control" />
                                             <span asp-validation-for="ModuleEndDate" class="text-danger"></span>
                                         </div>
-                                    </div>                                     
-                                        <div class="form-group d-none">
-                                            <label asp-for="CourseId" class="control-label">Course Name</label>
-                                            <input asp-for="CourseId" class="form-control" />
-                                            <span asp-validation-for="CourseId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group d-none">
+                                        <label asp-for="CourseId" class="control-label">Course Name</label>
+                                        <input asp-for="CourseId" class="form-control" />
+                                        <span asp-validation-for="CourseId" class="text-danger"></span>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="form-group col-sm-6">
+                                            <input type="submit" value="Create" class="btn btn-success" />
                                         </div>
-                                        <div class="row col-sm-12">
-                                            <div class="form-group col-sm-6">
-                                                <input type="submit" value="Create" class="btn btn-success" />
-                                            </div>
-                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -66,7 +67,7 @@
                 </div>
             </div>
         </div>
-        </div></div>
+    </div></div>
                         <partial name="ListModules" model="Model.Modules" />
                         @*<div>
                         <a asp-action="Index">Back to List</a>
