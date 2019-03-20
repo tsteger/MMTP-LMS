@@ -150,6 +150,22 @@ namespace MMTP_LMS.Controllers
             return View(ret);
 
         }
+        public IActionResult Users()
+        {
+            if (User.Identity.Name == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var mod = _context.Person.Where(c => c.CourseId == user_course_id);
+            var ret = mod.Select(p => new UsersViewModel()
+            {
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Email =p.Email
+
+            });
+            return View(ret);
+        }
 
         private int GetModuleId(int? user_course_id)
         {

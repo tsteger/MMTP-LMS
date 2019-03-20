@@ -82,7 +82,7 @@
                                 {
                                     <li class="activity_list">
 
-                                        <a class="btn btn-success btn-sm" asp-action="Student" asp-route-id="@activity.StartDate.ToShortDateString()"></a>
+                                        <a class="btn btn-success btn-sm" asp-action="Student" asp-route-id="@activity.StartDate.ToString("yyyy-MM-dd")"></a>
                                         <b>
                                             <span>@Html.DisplayFor(modelItem => activity.Name)</span>
                                         </b>

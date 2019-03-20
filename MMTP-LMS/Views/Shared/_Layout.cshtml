@@ -38,22 +38,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Course">Course</a>
                         </li>
-
+                        @if (!User.IsInRole("Admin"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Users">Classmates</a>
+                        </li>
+                        }
+                            
                         @if (User.IsInRole("Admin"))
                         {
-                            @*
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="LmsActivityTypes" asp-action="Index">Add ActivityTypes</a>
-            </li>*@
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Teacher</a>
                             </li>
-                            @*    <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="CreateUser">Users</a>
-                            </li>
-                             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
-            </li>*@
+
                         }
 
                     </ul>

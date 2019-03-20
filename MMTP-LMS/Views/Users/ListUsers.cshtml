@@ -24,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Where(u => u.UserName != "admin@admin.com"))
+                    @foreach (var item in Model.Where(u => u.UserName.ToLower() != "admin@admin.com"))
                     {
                         <tr>
                             <td>
