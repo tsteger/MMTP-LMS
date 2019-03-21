@@ -5,7 +5,7 @@
 
 @media screen and (min-width: 1200px) {
     #todays_header{
-        font-size: 36px;
+        font-size: 30px;
     }
     .styled-select select {
         font-size: 20px;
@@ -16,7 +16,7 @@
 }
 @media screen and (max-width: 1200px) {
     #todays_header {
-        font-size: 3.1vw;
+        font-size: 2.8vw;
     }
     .styled-select select {
         font-size: 1.75vw;
@@ -254,4 +254,36 @@
     font-size: 1.2vw;
     color: #f4f0ec;
     /*display: inline-block;*/
+}
+.login_main {
+    background-color:darkgray;
+    border:2px solid black;
+    border-radius:10px;
+    padding:200px;
+}
+.login_h1 {
+    text-align: center;
+}
+/* unvisited link */
+.change_color_from_blue a:link {
+    color: white;
+    text-decoration: none;
+}
+
+/* visited link */
+.change_color_from_blue a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+/* mouse over link */
+.change_color_from_blue a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* selected link */
+.change_color_from_blue a:active {
+    color: blue;
+    text-decoration: none;
 }

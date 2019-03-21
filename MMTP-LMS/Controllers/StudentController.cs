@@ -119,12 +119,12 @@ namespace MMTP_LMS.Controllers
         }
 
         public IActionResult Course(int course_select = 0)
-        {         
-            ViewBag.courses = _context.Document.Where(d => d.CourseId != null && d.IsAdmin);            
+        {                               
             if (User.Identity.Name == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+            ViewBag.courses = _context.Document.Where(d => d.CourseId != null && d.IsAdmin);
             NavDate = DateTime.Now.Date;
             ViewBag.datum = 0;
             Nav_date = 0;
