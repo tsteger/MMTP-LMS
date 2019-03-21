@@ -255,3 +255,12 @@
     color: #f4f0ec;
     /*display: inline-block;*/
 }
+.login_main {
+    background-color:darkgray;
+    border:2px solid black;
+    border-radius:10px;
+    padding:200px;
+}
+.login_h1 {
+    text-align: center;
+}
