@@ -5,7 +5,7 @@
 
 @media screen and (min-width: 1200px) {
     #todays_header{
-        font-size: 36px;
+        font-size: 30px;
     }
     .styled-select select {
         font-size: 20px;
@@ -16,7 +16,7 @@
 }
 @media screen and (max-width: 1200px) {
     #todays_header {
-        font-size: 3.1vw;
+        font-size: 2.8vw;
     }
     .styled-select select {
         font-size: 1.75vw;
