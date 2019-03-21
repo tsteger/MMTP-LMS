@@ -29,11 +29,13 @@ namespace MMTP_LMS.Controllers
         {
             clist = GetCourseList();
             ViewBag.List = clist;
-          //  ViewBag.Course =_context.Course.ToArray();
+            ViewBag.Course =_context.Course.ToArray();
             var model = new UserInputViewModel()
             {
                 People = _context.Person.ToList(),
+                               
             };
+            
             return View(model);
         }
         [HttpPost]

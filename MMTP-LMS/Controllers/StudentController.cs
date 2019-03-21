@@ -159,9 +159,14 @@ namespace MMTP_LMS.Controllers
             var mod = _context.Person.Where(c => c.CourseId == user_course_id);
             var ret = mod.Select(p => new UsersViewModel()
             {
+                Id =p.Id,
                 FirstName = p.FirstName,
                 LastName = p.LastName,
-                Email =p.Email
+                Email =p.Email,
+                Course = p.Course,
+                myCourse = p.Course.Name,
+                UserName = p.UserName
+                
 
             });
             return View(ret);
