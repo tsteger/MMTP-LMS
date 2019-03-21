@@ -61,6 +61,7 @@ namespace MMTP_LMS.Controllers
             
             if (course == null) return NotFound();
             ViewBag.CourseName = course.Name;
+           
             ViewBag.DocCount = _context.Document.Where(d => d.ModuleId != null && d.IsAdmin).Count();
             var model = new ModuleViewModel()
             {
