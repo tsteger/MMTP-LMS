@@ -83,7 +83,7 @@
                     @foreach (var doc in item.Documents.Where(a => a.IsAdmin))
                     {
 
-                        <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
+                        <a href="@Html.DisplayFor(modelItem => doc.Url)" target="_blank">@Html.DisplayFor(modelItem => doc.Name)</a>
 
                         <span> | </span>
                     }
