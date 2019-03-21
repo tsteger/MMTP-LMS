@@ -264,3 +264,26 @@
 .login_h1 {
     text-align: center;
 }
+/* unvisited link */
+.change_color_from_blue a:link {
+    color: white;
+    text-decoration: none;
+}
+
+/* visited link */
+.change_color_from_blue a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+/* mouse over link */
+.change_color_from_blue a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* selected link */
+.change_color_from_blue a:active {
+    color: blue;
+    text-decoration: none;
+}

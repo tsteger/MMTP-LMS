@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MMTP_LMS.Models.Module>
 
     <div id="todays_header" class="thestyle">
-        <span><a href="javascript:history.back()">@ViewBag.CourseName</a></span>
+        <span class="change_color_from_blue"><a asp-controller="Teacher" asp-action="Teacher">@ViewBag.CourseName</a></span>
         <span> -> Modules</span>
         <span class="doc_counter">Number of docummets : @ViewBag.DocCount</span>
     </div>
