@@ -46,7 +46,7 @@
             {
                 <div id="activity_group" class="thestyle">
                     <div class="col" id="date_header">
-                        Module @Html.DisplayFor(modelItem => item.Name)
+                        Module @Html.DisplayFor(modelItem => item.Id) - @Html.DisplayFor(modelItem => item.Name)
 
                     </div>
                     <div class="w-100"></div>
@@ -65,7 +65,7 @@
                         {
                             <ul>
 
-                                <li><i class="far fa-file-alt"> </i><a href="@Html.DisplayFor(modelItem => doc.Url)" target="_blank"> @Html.DisplayFor(modelItem => doc.Name)</a></li>
+                                <li><i class="far fa-file-alt"> </i><a href="@Html.DisplayFor(modelItem => doc.Url)"> @Html.DisplayFor(modelItem => doc.Name)</a></li>
                             </ul>
                         }
                     </div>
@@ -82,7 +82,7 @@
                                 {
                                     <li class="activity_list">
 
-                                        <a class="btn btn-success btn-sm" asp-action="Student" asp-route-id="@activity.StartDate.ToString("yyyy-MM-dd")"></a>
+                                        <a class="btn btn-success btn-sm" asp-action="Student" asp-route-id="@activity.StartDate.ToShortDateString()"></a>
                                         <b>
                                             <span>@Html.DisplayFor(modelItem => activity.Name)</span>
                                         </b>
@@ -98,4 +98,8 @@
                 <div><hr /></div>
             }
         </section>
+        <section>
+            <div><hr /></div>
+        </section>
+
     </div>

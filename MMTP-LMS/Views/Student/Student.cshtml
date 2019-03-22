@@ -12,10 +12,10 @@
     <span>@ViewBag.TodayHeader</span>
 
     <span class="no_new_line">
-        <a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" asp-route-id="@DateTime.Now.AddDays(d+1).ToString("yyyy-MM-dd")">
+        <a class="btn btn-outline-secondary float-right nav_button btn-sm " asp-action="Student" asp-route-id="@DateTime.Now.AddDays(d+1).ToShortDateString()">
             <img class="nav_button_img" src="~/src/forward-icon.png" />
         </a>
-        <a class="btn btn-outline-secondary float-right nav_button btn-sm" asp-action="Student" asp-route-id="@DateTime.Now.AddDays(d-1).ToString("yyyy-MM-dd")">
+        <a class="btn btn-outline-secondary float-right nav_button btn-sm" asp-action="Student" asp-route-id="@DateTime.Now.AddDays(d-1).ToShortDateString()">
             <img class="nav_button_img" src="~/src/back-icon.png" />
         </a>
     </span>
@@ -83,7 +83,7 @@
                     @foreach (var doc in item.Documents.Where(a => a.IsAdmin))
                     {
 
-                        <a href="@Html.DisplayFor(modelItem => doc.Url)" target="_blank">@Html.DisplayFor(modelItem => doc.Name)</a>
+                        <a href="@Html.DisplayFor(modelItem => doc.Url)">@Html.DisplayFor(modelItem => doc.Name)</a>
 
                         <span> | </span>
                     }

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MMTP_LMS.Models.Course>
 
     <div id="todays_header" class="thestyle">
-        <span>Courses </span><span class="doc_counter">Number of documents : @ViewBag.DocCount</span>
+        <span>Courses </span><span class="doc_counter">Number of docummets : @ViewBag.DocCount</span>
     </div>
     
     <div class="col" id="activity_description">
@@ -40,13 +40,13 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>*@
                     <td>
-                        <a class="btn btn-success" asp-action="EditCourse" asp-route-id="@item.Id">Edit Course</a>
+                        <a class="btn btn-light" asp-action="EditCourse" asp-route-id="@item.Id">Edit Course</a>
                     </td>
                     @*<td>
             <a asp-action="DeleteCourse" asp-route-id="@item.Id">Delete Course</a>
         </td>*@
                     <td>
-                        <a class="btn btn-success" asp-controller="Module" asp-action="CreateModule" asp-route-id="@item.Id">Add Modules</a>
+                        <a class="btn btn-light" asp-controller="Module" asp-action="CreateModule" asp-route-id="@item.Id">Add Modules</a>
                     </td>
                     <td>
                         <form asp-controller="Teacher" asp-action="UploadFile" method="post"

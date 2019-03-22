@@ -3,7 +3,7 @@
     <div id="todays_header" class="thestyle">
         <span>Students</span>
     </div>
-      
+    
         <div class="col" id="activity_description">
             <table class="table">
                 <thead>
@@ -24,28 +24,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Where(u => u.UserName.ToLower() != "admin@admin.com" ))
+                    @foreach (var item in Model.Where(u => u.UserName != "admin@admin.com"))
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Course.Name)
-                        </td>                      
-                        <td>
-                            <a asp-action="EditUser" asp-route-id="@item.Id">Edit</a>
-                        </td>
-                        <td>
-                            <a asp-action="DeleteUser" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @if (item.CourseId.HasValue)
+                                {
+                                    <span>@ViewBag.Course[(int)item.CourseId - 1].Name</span>
+                                }
+
+                            </td>
+                            <td>
+                                <a asp-action="EditUser" asp-route-id="@item.Id">Edit</a>
+                            </td>
+                            <td>
+                                <a asp-action="DeleteUser" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
