@@ -3,15 +3,6 @@
 @{
     ViewData["Title"] = "Create";
 }
-
-
-<div class="col-2">
-    <div class="col-sm-12">
-        @*<a asp-area="Identity" asp-page="/Account/Register">Register New User</a>*@
-    </div>
-</div>
-
-
 <h4>LmsActivityTypes</h4>
 <hr />
 <div class="row">
@@ -30,11 +21,6 @@
         </form>
     </div>
 </div>
-
-@*<div>
-        <a asp-action="Index" class="btn btn-success">Back to List</a> |
-        <a asp-action="Teacher" asp-controller="Teacher" class="btn btn-danger">Back to Quick Start !</a>
-    </div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
