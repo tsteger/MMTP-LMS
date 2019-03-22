@@ -52,7 +52,7 @@ namespace MMTP_LMS.Controllers
         // GET: CreateModule
         public async Task<ActionResult> CreateModule(int? id = null)
         {
-            ViewBag.DocCount = _context.Document.Where(d => d.ModuleId != null && d.IsAdmin).Count();
+            
             //ToDo: Fix 
             if (id == null) return NotFound();
             
@@ -60,7 +60,9 @@ namespace MMTP_LMS.Controllers
             retViewId = course.Id;
             
             if (course == null) return NotFound();
-            
+            ViewBag.CourseName = course.Name;
+           
+            ViewBag.DocCount = _context.Document.Where(d => d.ModuleId != null && d.IsAdmin).Count();
             var model = new ModuleViewModel()
             {
                 CourseId = (int)id,

@@ -129,4 +129,16 @@
        
    
     });
+   // $("main").addClass("login_main");
+    if (window.location.href.endsWith('/Identity/Account/Login')) {
+        $('h4').hide();
+        $('p').hide();
+        $('hr').hide();
+        $("main").addClass("login_main");
+        $("main").removeClass("pb-3");
+        $('h1').addClass("login_h1");
+        $("div").removeClass("col-md-4");
+        $("div").addClass("col-md-12");
+        $("div").removeClass("col-md-6 col-md-offset-2");
+    }
 });

@@ -119,12 +119,12 @@ namespace MMTP_LMS.Controllers
         }
 
         public IActionResult Course(int course_select = 0)
-        {         
-            ViewBag.courses = _context.Document.Where(d => d.CourseId != null && d.IsAdmin);            
+        {                               
             if (User.Identity.Name == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+            ViewBag.courses = _context.Document.Where(d => d.CourseId != null && d.IsAdmin);
             NavDate = DateTime.Now.Date;
             ViewBag.datum = 0;
             Nav_date = 0;
@@ -147,8 +147,29 @@ namespace MMTP_LMS.Controllers
                 
             });
 
-            return View(ret);
+            return View(ret.OrderBy(d=>d.StartDate));
 
+        }
+        public IActionResult Users()
+        {
+            if (User.Identity.Name == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var mod = _context.Person.Where(c => c.CourseId == user_course_id);
+            var ret = mod.Select(p => new UsersViewModel()
+            {
+                Id =p.Id,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Email =p.Email,
+                Course = p.Course,
+                myCourse = p.Course.Name,
+                UserName = p.UserName
+                
+
+            });
+            return View(ret);
         }
 
         private int GetModuleId(int? user_course_id)

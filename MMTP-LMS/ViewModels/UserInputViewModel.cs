@@ -13,7 +13,7 @@ namespace MMTP_LMS.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Course Course { get; set; }
-        public string[] CourseName { get; set; }
+     
         public int? CourseId { get; set; }
         [Required]
         [EmailAddress]
@@ -32,8 +32,9 @@ namespace MMTP_LMS.ViewModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } 
 
-        // public ICollection<Course> Courses { get; set; }
+      
 
         public ICollection<Person> People { get; set; }
+      //  public ICollection<Course> Courses { get; set; }
     }
 }
